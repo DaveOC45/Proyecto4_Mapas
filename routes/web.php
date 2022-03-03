@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UbicacionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/mapa', function () {
+    return view('mapa_filtros/mapa_filtros');
+});
+
+Route::get('/mapa_filtros_todo', [UbicacionController::class, 'mapa_filtro_todo']);
