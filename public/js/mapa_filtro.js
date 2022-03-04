@@ -17,7 +17,6 @@ function objetoAjax() {
 
 function todas_ubicaciones() {
 
-    var tabla = document.getElementById("tabla");
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
 
@@ -28,9 +27,9 @@ function todas_ubicaciones() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             console.log(respuesta)
-            var recarga = '';
+            return respuesta;
+            /*var recarga = '';
             recarga += '<tr><th>ID</th><th>Direccion</th><th>Longitud</th><th>Latitud</th></tr>';
-            /* Leerá la respuesta que es devuelta por el controlador: */
             for (let i = 0; i < respuesta.length; i++) {
 
                 recarga += '<tr>';
@@ -39,13 +38,14 @@ function todas_ubicaciones() {
                 recarga += '</tr>';
             }
             tabla.innerHTML = recarga;
+            */
         }
     }
     ajax.send(formData);
+    cargaContenido("mapa_filtros_todo", "get", positionDirection)
 }
 
 function getLocation() {
-    alert("hi")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -55,7 +55,6 @@ function getLocation() {
 
 function showPosition(position) {
     myPosition = position;
-
     var geocoder = L.esri.Geocoding.geocodeService();
     map = L.map('map').setView([41.3496909, 2.1076248], 25);
     var popup = L.popup();
@@ -70,5 +69,41 @@ function showPosition(position) {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
     }).addTo(map);
-    cargaContenido("process/posiciones.php", "GET", positionDirection)
+    cargaContenido("mapa_filtros_todo", "get", positionDirection)
+
+}
+
+
+
+function positionDirection(e) {
+    if (peticion_http.readyState == READY_STATE_COMPLETE) {
+        if (peticion_http.status == 200) {
+            var datos = JSON.parse(peticion_http.responseText);
+            var geocoder = L.esri.Geocoding.geocodeService();
+            markerPosition = [];
+            removeRouting = false;
+            for (let i = 0; i < datos.length; i++) {
+                geocoder.geocode().text(datos[i].direccion).run(function(error, response) {
+                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(map));
+                });
+            }
+        }
+    }
+}
+
+function getPositionDirection(e) {
+    if (removeRouting != false) {
+        map.removeControl(routingControl);
+    } else {
+        removeRouting = true;
+    }
+    routingControl = L.Routing.control({
+        waypoints: [
+            L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
+            L.latLng(e.latlng.lat, e.latlng.lng)
+        ],
+        routeWhileDragging: false,
+        draggableWaypoints: false,
+        fitSelectedRoutes: false
+    }).addTo(map);
 }

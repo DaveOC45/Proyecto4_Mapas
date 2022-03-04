@@ -19,13 +19,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     <script src="../js/mapa_filtro.js"></script>
+    <script src="../js/llamada_ajax.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
     <title>Agenda Churrerías</title>
 </head>
-<body onload="todas_ubicaciones();">
+<body onload="getLocation();">
     <br><br><br>
-
+    <button onclick="showPosition();">Mostrar todo</button>
     <p id="demo"></p>
-    <div id="map" style="width: 100%;height:1000px;"></div>
+    <div id="map" style="width: 414px;height:896px;"></div>
 
 </body>
 </html>
