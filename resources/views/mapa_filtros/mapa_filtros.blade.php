@@ -25,7 +25,7 @@
 </head>
 <body onload="getLocation();">
     <br><br><br>
-    <button onclick="showPosition();">Mostrar todo</button>
+    <button onclick="todas_ubicaciones();">Mostrar todo</button>
     <p id="demo"></p>
     <div id="map" style="width: 414px;height:896px;"></div>
 

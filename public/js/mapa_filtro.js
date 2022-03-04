@@ -22,7 +22,7 @@ function todas_ubicaciones() {
 
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    ajax.open("POST", "mapa_filtros_todo", true);
+    ajax.open("get", "mapa_filtros_todo", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
@@ -47,20 +47,16 @@ function todas_ubicaciones() {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(iniciarPosition);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
-function showPosition(position) {
+function iniciarPosition(position) {
     myPosition = position;
-    var geocoder = L.esri.Geocoding.geocodeService();
-    map = L.map('map').setView([41.3496909, 2.1076248], 25);
-    var popup = L.popup();
+    map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false }).addTo(map);
-    /*x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;*/
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -69,8 +65,6 @@ function showPosition(position) {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
     }).addTo(map);
-    cargaContenido("mapa_filtros_todo", "get", positionDirection)
-
 }
 
 
