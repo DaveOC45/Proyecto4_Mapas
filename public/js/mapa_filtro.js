@@ -81,11 +81,13 @@ function positionDirection(e) {
 
 /* Creador de Rutas hasta los markers seleccionados  */
 function getPositionDirection(e) {
+    /*
     if (removeRouting != false) {
         map.removeControl(routingControl);
     } else {
         removeRouting = true;
     }
+    */
     routingControl = L.Routing.control({
         waypoints: [
 
@@ -96,11 +98,12 @@ function getPositionDirection(e) {
         draggableWaypoints: false,
         fitSelectedRoutes: false
     }).addTo(map);
+
 }
 
 function mostrarUbicacion(tipo) {
 
-    tag = document.getElementById('tag_Gimnasio')
+    tag = document.getElementById('tag_' + tipo)
     tag.className = 'btnclicked';
 
     var formData = new FormData();
@@ -117,5 +120,4 @@ function mostrarUbicacion(tipo) {
     }
     ajax.send(formData);
     cargaContenido("mapa_filtros/" + tipo, "get", positionDirection)
-
 }
