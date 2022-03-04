@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdministracionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal');
 });
+
+//LEER AJAX
+// ruta para leer
+Route::post('leer',[AdministracionController::class, 'leerController']);
+// ruta para insertar/crear
+Route::post('crear',[AdministracionController::class, 'crearController']);
+
+Route::post('leertipo',[AdministracionController::class, 'lecturatipoubicacion']);
