@@ -4,14 +4,18 @@ function obtenerTagsBBDD() {
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
 
-    /* Inicializar un objeto AJAX */
+    var div_tags = document.getElementById('tags');
+
     var ajax = objetoAjax();
     ajax.open("get", "mostrar_tags_ubicaciones", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
-            return respuesta;
+            for (let i = 0; i < respuesta.length; i++) {
+
+                div_tags.innerHTML += '<div class="btn" id="tag_' + respuesta[i]['nombre_tipo'] + '" onclick="mostrarUbicacion(\'' + respuesta[i]['nombre_tipo'] + '\');"> ' + respuesta[i]['nombre_tipo'] + '</div>';
+                console.log(respuesta[i]['nombre_tipo']);
+            }
         }
     }
     ajax.send(formData);

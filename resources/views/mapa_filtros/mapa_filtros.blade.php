@@ -36,16 +36,21 @@
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     
     <!-- JS PROPIOS -->
+    <script src="../js/tags_mapas.js"></script>
     <script src="../js/mapa_filtro.js"></script>
     <script src="../js/llamada_ajax.js"></script>
-    <script src="../js/tags_mapas.js"></script>
+    
+
+    <link rel="stylesheet" href="../css/style.css">
     <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
     <title>Agenda Churrerías</title>
+
 </head>
 <body onload="getLocation(); obtenerTagsBBDD();">
-    <br><br><br>
+    
     <button onclick="todas_ubicaciones();">Mostrar todo</button>
-    <p id="demo"></p>
+    <div id="tags"></div>
+
     <div id="map" style="width: 414px;height:896px;"></div>
 
 </body>

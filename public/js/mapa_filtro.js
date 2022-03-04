@@ -97,3 +97,25 @@ function getPositionDirection(e) {
         fitSelectedRoutes: false
     }).addTo(map);
 }
+
+function mostrarUbicacion(tipo) {
+
+    tag = document.getElementById('tag_Gimnasio')
+    tag.className = 'btnclicked';
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+
+    var ajax = objetoAjax();
+    ajax.open("get", "mapa_filtros/" + tipo, true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            console.log(respuesta)
+            return respuesta;
+        }
+    }
+    ajax.send(formData);
+    cargaContenido("mapa_filtros/" + tipo, "get", positionDirection)
+
+}
