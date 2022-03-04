@@ -1,3 +1,4 @@
+/* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
     try {
@@ -15,6 +16,8 @@ function objetoAjax() {
     return xmlhttp;
 }
 
+
+/* Obtenemos todas las posiciones en BBDD */
 function todas_ubicaciones() {
 
     var formData = new FormData();
@@ -28,23 +31,13 @@ function todas_ubicaciones() {
             var respuesta = JSON.parse(this.responseText);
             console.log(respuesta)
             return respuesta;
-            /*var recarga = '';
-            recarga += '<tr><th>ID</th><th>Direccion</th><th>Longitud</th><th>Latitud</th></tr>';
-            for (let i = 0; i < respuesta.length; i++) {
-
-                recarga += '<tr>';
-                recarga += '<td>' + respuesta[i].id + '</td>'
-                recarga += '<td>' + respuesta[i].direccion + '</td>'
-                recarga += '</tr>';
-            }
-            tabla.innerHTML = recarga;
-            */
         }
     }
     ajax.send(formData);
     cargaContenido("mapa_filtros_todo", "get", positionDirection)
 }
 
+/* Obtener posicion en coordeandas delsuaurio mediante navegador*/
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(iniciarPosition);
@@ -53,6 +46,7 @@ function getLocation() {
     }
 }
 
+/* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
     map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
@@ -68,7 +62,7 @@ function iniciarPosition(position) {
 }
 
 
-
+/* Geolocalizar posiciones mediante direcciones */
 function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
@@ -85,6 +79,7 @@ function positionDirection(e) {
     }
 }
 
+/* Creador de Rutas hasta los markers seleccionados  */
 function getPositionDirection(e) {
     if (removeRouting != false) {
         map.removeControl(routingControl);
@@ -93,6 +88,7 @@ function getPositionDirection(e) {
     }
     routingControl = L.Routing.control({
         waypoints: [
+
             L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
             L.latLng(e.latlng.lat, e.latlng.lng)
         ],
