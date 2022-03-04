@@ -15,9 +15,12 @@ class UbicacionController extends Controller
      */
     public function mapa_filtro_todo()
     {
-        $lista_ubicaciones = DB::table('tbl_churreria')->select('*')->get();
+        $lista_ubicaciones = DB::table('tbl_ubicacion')->select('*')->get();
         return $lista_ubicaciones;
-        view('mapa_filtros');
+    }
+    public function mostrar_tags_ubicaciones(){
+        $lista_tags=DB::table('tbl_tipo')->select('nombre_tipo')->groupBy('nombre_tipo')->get();
+        return $lista_tags;
     }
 
 }

@@ -23,3 +23,4 @@ Route::get('/mapa', function () {
 });
 
 Route::get('/mapa_filtros_todo', [UbicacionController::class, 'mapa_filtro_todo']);
+Route::get('/mostrar_tags_ubicaciones', [UbicacionController::class, 'mostrar_tags_ubicaciones']);

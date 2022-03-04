@@ -71,7 +71,7 @@ function positionDirection(e) {
             markerPosition = [];
             removeRouting = false;
             for (let i = 0; i < datos.length; i++) {
-                geocoder.geocode().text(datos[i].direccion).run(function(error, response) {
+                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
                     markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(map));
                 });
             }
