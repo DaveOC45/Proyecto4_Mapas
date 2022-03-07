@@ -76,7 +76,7 @@ function leerJS() {
                 recarga += '<td>' + respuesta[i].direccion_ubicacion + '</td>'
                 recarga += '<td><img src="storage/' + respuesta[i].foto_ubicacion + '" style="width:15px;"></td>'
                 recarga += '<td>' + respuesta[i].nombre_tipo + '</td>'
-                    // recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id + ')">Eliminar</button></td>'
+                recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_ubicacion + ')">Eliminar</button></td>'
                     // recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id + ',\'' + respuesta[i].nombre + '\',\'' + respuesta[i].peso + '\',\'' + respuesta[i].num_serie + '\');return false;">Modificar</button></td>'
                 recarga += '</tr>';
 
@@ -125,7 +125,7 @@ function insertarJS() {
 }
 
 //BORRAR
-function eliminarJS(id_usu) {
+function eliminarJS(id) {
     /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
     /* Usar el objeto FormData para guardar los parámetros que se enviarán:
        formData.append('clave', valor);
@@ -136,7 +136,7 @@ function eliminarJS(id_usu) {
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "eliminar/" + id_usu, true);
+    ajax.open("POST", "eliminar/" + id, true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);

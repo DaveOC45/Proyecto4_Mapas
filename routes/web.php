@@ -19,9 +19,11 @@ Route::get('/', function () {
 });
 
 //LEER AJAX
-// ruta para leer
+// ruta para leer ubicación.
 Route::post('leer',[AdministracionController::class, 'leerController']);
-// ruta para insertar/crear
+// ruta para insertar/crear ubicación.
 Route::post('crear',[AdministracionController::class, 'crearController']);
-
+//Esto de aquí lo hicimos para poder hacer el select de tipo de ubicación.
 Route::post('leertipo',[AdministracionController::class, 'lecturatipoubicacion']);
+// ruta para eliminar ubicación.
+Route::delete('eliminar/{id}', [AdministracionController::class, 'eliminarController']);

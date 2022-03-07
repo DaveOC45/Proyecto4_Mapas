@@ -43,8 +43,8 @@ class AdministracionController extends Controller
     }   
     public function eliminarController($id){
         try {
-            $id = DB::table('tbl_chip')->where('id','=',$id)->delete();
-            $id = DB::table('tbl_animales')->where('id','=',$id)->delete();
+            $id = DB::table('tbl_ubicacion')->where('id_ubicacion','=',$id)->delete();
+            $id = DB::table('tbl_tipo')->where('id_tipo','=',$id)->delete();
             return response()->json(array('resultado'=> 'OK')); 
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));

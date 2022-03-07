@@ -156,7 +156,7 @@ function insertarJS() {
 }
 
 //BORRAR
-function eliminarJS(id_usu) {
+function eliminarJS(id) {
     /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
     /* Usar el objeto FormData para guardar los parámetros que se enviarán:
        formData.append('clave', valor);
@@ -167,7 +167,7 @@ function eliminarJS(id_usu) {
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "eliminar/" + id_usu, true);
+    ajax.open("POST", "eliminar/" + id, true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
