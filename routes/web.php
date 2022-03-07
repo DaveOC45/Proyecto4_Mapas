@@ -25,5 +25,7 @@ Route::post('leer',[AdministracionController::class, 'leerController']);
 Route::post('crear',[AdministracionController::class, 'crearController']);
 //Esto de aquí lo hicimos para poder hacer el select de tipo de ubicación.
 Route::post('leertipo',[AdministracionController::class, 'lecturatipoubicacion']);
+// ruta para modificar
+Route::put('modificar',[AdministracionController::class, 'modificarController']);
 // ruta para eliminar ubicación.
 Route::delete('eliminar/{id}', [AdministracionController::class, 'eliminarController']);
