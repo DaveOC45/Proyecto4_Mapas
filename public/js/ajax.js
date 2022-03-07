@@ -25,12 +25,13 @@ window.onload = function() {
     }
 }
 
-function abrirModal(id_ubicacion, nombre_ubicacion, descripcion_ubicacion, direccion_ubicacion) {
+function abrirModal(id_ubicacion, nombre_ubicacion, descripcion_ubicacion, direccion_ubicacion, foto_ubicacion) {
     modal.style.display = "block";
     document.getElementById('idModificar').value = id_ubicacion;
     document.getElementById('modnombre').value = nombre_ubicacion;
     document.getElementById('moddescripcion').value = descripcion_ubicacion;
     document.getElementById('moddireccion').value = direccion_ubicacion;
+    document.getElementById('modfoto').value = foto_ubicacion;
 }
 
 function objetoAjax() {
@@ -80,7 +81,7 @@ function leerJS() {
                 recarga += '<td><img src="storage/' + respuesta[i].foto_ubicacion + '" style="width:15px;"></td>'
                 recarga += '<td>' + respuesta[i].nombre_tipo + '</td>'
                 recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_ubicacion + ')">Eliminar</button></td>'
-                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_ubicacion + ',\'' + respuesta[i].nombre_ubicacion + '\',\'' + respuesta[i].descripcion_ubicacion + '\',\'' + respuesta[i].direccion_ubicacion + '\');return false;">Modificar</button></td>'
+                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_ubicacion + ',\'' + respuesta[i].nombre_ubicacion + '\',\'' + respuesta[i].descripcion_ubicacion + '\',\'' + respuesta[i].direccion_ubicacion + '\',\'' + respuesta[i].foto_ubicacion + '\');return false;">Modificar</button></td>'
                 recarga += '</tr>';
 
             }
@@ -198,6 +199,7 @@ function editarJS() {
     formData.append('nombre_ubicacion', document.getElementById('modnombre').value);
     formData.append('descripcion_ubicacion', document.getElementById('moddescripcion').value);
     formData.append('direccion_ubicacion', document.getElementById('moddireccion').value);
+    formData.append('foto_ubicacion', document.getElementById('modfoto').files[0]);
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 

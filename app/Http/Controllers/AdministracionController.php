@@ -35,7 +35,7 @@ class AdministracionController extends Controller
     }
     public function modificarController(Request $request){
         try {
-            DB::update('update tbl_ubicacion set nombre_ubicacion = ?, descripcion_ubicacion = ?, direccion_ubicacion = ? where id_ubicacion = ?', [$request->input('nombre_ubicacion'),$request->input('descripcion_ubicacion'),$request->input('direccion_ubicacion'),$request->input('id_ubicacion')]);
+            DB::update('update tbl_ubicacion set nombre_ubicacion = ?, descripcion_ubicacion = ?, direccion_ubicacion = ?, foto_ubicacion = ? where id_ubicacion = ?', [$request->input('nombre_ubicacion'),$request->input('descripcion_ubicacion'),$request->input('direccion_ubicacion'),$request->input('foto_ubicacion'),$request->input('id_ubicacion')]);
             return response()->json(array('resultado'=> 'OK')); 
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));

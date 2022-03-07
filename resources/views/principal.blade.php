@@ -65,6 +65,7 @@
                 <input type="text" name="modnombre" id="modnombre">
                 <input type="text" name="moddescripcion" id="moddescripcion">
                 <input type="text" name="moddireccion" id="moddireccion">
+                <input type="file" name="modfoto" id="modfoto">
                 <input type="hidden" name="id" id="idModificar" value="">
                 <input type="submit" value="modificar">
             </form>
