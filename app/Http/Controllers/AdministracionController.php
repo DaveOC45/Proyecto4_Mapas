@@ -35,7 +35,7 @@ class AdministracionController extends Controller
     }
     public function modificarController(Request $request){
         try {
-            DB::update('update tbl_chip set num_serie = ? where id = ?', [$request->input('num_serie'),$request->input('id')]);
+            DB::update('update tbl_ubicacion set nombre_ubicacion = ?, descripcion_ubicacion = ?, direccion_ubicacion = ? where id_ubicacion = ?', [$request->input('nombre_ubicacion'),$request->input('descripcion_ubicacion'),$request->input('direccion_ubicacion'),$request->input('id_ubicacion')]);
             return response()->json(array('resultado'=> 'OK')); 
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
@@ -44,10 +44,10 @@ class AdministracionController extends Controller
     public function eliminarController($id){
         try {
             $id = DB::table('tbl_ubicacion')->where('id_ubicacion','=',$id)->delete();
-            $id = DB::table('tbl_tipo')->where('id_tipo','=',$id)->delete();
             return response()->json(array('resultado'=> 'OK')); 
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
         } 
     }
+    
 }
