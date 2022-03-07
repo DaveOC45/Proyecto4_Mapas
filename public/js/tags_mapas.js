@@ -1,5 +1,5 @@
 function obtenerTagsBBDD() {
-    console.log("te voy a mostrar las categorias de las ubicaciones de la BBDD")
+    //console.log("te voy a mostrar las categorias de las ubicaciones de la BBDD")
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -14,7 +14,7 @@ function obtenerTagsBBDD() {
             for (let i = 0; i < respuesta.length; i++) {
 
                 div_tags.innerHTML += '<div class="btn" id="tag_' + respuesta[i]['nombre_tipo'] + '" onclick="mostrarUbicacion(\'' + respuesta[i]['nombre_tipo'] + '\');"> ' + respuesta[i]['nombre_tipo'] + '</div>';
-                console.log(respuesta[i]['nombre_tipo']);
+                //console.log(respuesta[i]['nombre_tipo']);
             }
         }
     }

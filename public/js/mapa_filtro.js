@@ -49,6 +49,10 @@ function getLocation() {
 /* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
+    var container = L.DomUtil.get('map');
+    if (container != null) {
+        container._leaflet_id = null;
+    }
     map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false }).addTo(map);
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -61,6 +65,7 @@ function iniciarPosition(position) {
     }).addTo(map);
 }
 
+var markerGroup = new Array();
 
 /* Geolocalizar posiciones mediante direcciones */
 function positionDirection(e) {
@@ -71,8 +76,38 @@ function positionDirection(e) {
             markerPosition = [];
             removeRouting = false;
             for (let i = 0; i < datos.length; i++) {
+
                 geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(map));
+                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup));
+                });
+                var markerGroup = L.layerGroup().addTo(map);
+                console.log(markerGroup)
+            }
+        }
+    }
+    return markerGroup
+}
+
+
+function positionDirectionRemove(e) {
+    if (peticion_http.readyState == READY_STATE_COMPLETE) {
+        if (peticion_http.status == 200) {
+            var datos = JSON.parse(peticion_http.responseText);
+            var geocoder = L.esri.Geocoding.geocodeService();
+            markerPosition = [];
+            console.log(markerGroup)
+                //console.log(markerPosition)
+            removeRouting = false;
+            for (let i = 0; i < datos.length; i++) {
+                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                    //opciones de geolocalización
+                    //console.log(response)
+                    console.log(markerGroup)
+                    map.eachLayer((layer) => {
+                        if (layer['_latlng'] != undefined)
+                            layer.remove();
+                    });
+                    getLocation()
                 });
             }
         }
@@ -105,6 +140,8 @@ function mostrarUbicacion(tipo) {
 
     tag = document.getElementById('tag_' + tipo)
     tag.className = 'btnclicked';
+    tag.setAttribute("onClick", "retirarUbicacion('" + tipo + "');");
+    //console.log(tag)
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -114,10 +151,31 @@ function mostrarUbicacion(tipo) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
+            //console.log(respuesta)
             return respuesta;
         }
     }
     ajax.send(formData);
     cargaContenido("mapa_filtros/" + tipo, "get", positionDirection)
+}
+
+function retirarUbicacion(tipo) {
+    tag = document.getElementById('tag_' + tipo)
+    tag.className = 'btn';
+    tag.setAttribute("onClick", "mostrarUbicacion('" + tipo + "');");
+    //console.log(tag)
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+
+    var ajax = objetoAjax();
+    ajax.open("get", "mapa_filtros/" + tipo, true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            return respuesta;
+        }
+    }
+    ajax.send(formData);
+    cargaContenido("mapa_filtros/" + tipo, "get", positionDirectionRemove)
 }
