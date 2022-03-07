@@ -37,5 +37,9 @@ class UbicacionController extends Controller
         
         
     }
+    public function id_nombre_ubicacion($id_tipo){
+        $lista_tags=DB::table('tbl_tipo')->select('nombre_tipo')->where('id_tipo','=',$id_tipo)->get();
+        return $lista_tags;
+    }
 
 }

@@ -19,5 +19,4 @@ function obtenerTagsBBDD() {
         }
     }
     ajax.send(formData);
-
 }

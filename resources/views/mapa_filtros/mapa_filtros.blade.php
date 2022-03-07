@@ -49,7 +49,9 @@
 <body onload="getLocation(); obtenerTagsBBDD();">
     
     <button onclick="todas_ubicaciones();">Mostrar todo</button>
+    <button onclick="ObtenerArrayTipos(2);">Traduce todo</button>
     <div id="tags"></div>
+    <div id="traduccion" hidden></div>
 
     <div id="map" style="width: 414px;height:896px;"></div>
 
