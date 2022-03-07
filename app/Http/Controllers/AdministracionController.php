@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Administracion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\storage;
 use Illuminate\Http\Request;
 
 class AdministracionController extends Controller
@@ -34,10 +35,20 @@ class AdministracionController extends Controller
         return response()->json($listaTipo);;
     }
     public function modificarController(Request $request){
+        $datos=$request->except('_token','_method');
+        if ($request->hasFile('foto_ubicacion')) {
+            $foto = DB::table('tbl_ubicacion')->select('foto_ubicacion')->where('id_ubicacion','=',$request['id_ubicacion'])->first();
+            if ($foto->foto_ubicacion != null) {
+                Storage::delete('public/'.$foto->foto_ubicacion);
+            }
+            $datos['foto_ubicacion'] = $request->file('foto_ubicacion')->store('uploads','public');
+        }else{
+            $foto = DB::table('tbl_ubicacion')->select('foto_ubicacion')->where('id_ubicacion','=',$request['id_ubicacion'])->first();
+            $datos['foto_ubicacion'] = $foto->foto_ubicacion;
+        }
         try {
             DB::beginTransaction();
             $path=$request->file('foto_ubicacion')->store('uploads','public');
-            DB::select('select foto_ubicacion from tbl_ubicacion where id_ubicacion = ?');
             DB::update('update tbl_ubicacion set nombre_ubicacion = ?, descripcion_ubicacion = ?, direccion_ubicacion = ?, foto_ubicacion = ? where id_ubicacion = ?', [$request->input('nombre_ubicacion'),$request->input('descripcion_ubicacion'),$request->input('direccion_ubicacion'),$path,$request->input('id_ubicacion')]);
             DB::commit();
             return response()->json(array('resultado'=> 'OK')); 
