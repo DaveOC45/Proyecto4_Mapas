@@ -57,7 +57,7 @@ function iniciarPosition(position) {
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false }).addTo(map);
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
+        maxZoom: 15,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
@@ -72,8 +72,10 @@ function positionDirection(e) {
             var datos = JSON.parse(peticion_http.responseText);
             id_tipo = datos[0]['id_tipo']
             ObtenerArrayTipos(id_tipo)
+            nombre_tipo = document.getElementById('traduccion')
             var geocoder = L.esri.Geocoding.geocodeService();
             markerPosition = [];
+            var markerGroup = L.layerGroup()
             removeRouting = false;
             for (let i = 0; i < datos.length; i++) {
 
@@ -83,15 +85,14 @@ function positionDirection(e) {
                 });
 
             }
-
-            nombre_tipo = document.getElementById('traduccion').innerHTML
-            console.log(nombre_tipo)
-            layerName = nombre_tipo
+            layerName = "jose"
                 //var markerGroup = L.layerGroup().addTo(map);
-            var markerGroup = L.layerGroup()
-            var overlayMaps = {};
-            overlayMaps[layerName] = markerGroup;
-            L.control.layers(null, overlayMaps).addTo(map);
+            console.log(markerGroup)
+                //var markerGroup = L.layerGroup()
+            var overlayMaps = { "Cities": markerGroup };
+            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+            //L.control.layers(null, overlayMaps).addTo(map);
 
             //map.removeLayer(group);
         }
@@ -197,4 +198,5 @@ function ObtenerArrayTipos(id_tipo) {
         }
     }
     ajax.send(formData);
+    console.log(formData)
 }
