@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD UBICACIONES</title>
-    <script src="js/ajax.js"></script>
+    <title>CRUD USUARIOS</title>
+    <script src="js/ajaxuser.js"></script>
     <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -51,19 +51,19 @@
           cursor: pointer;
         }
         </style>
-        <form action="{{url('usuarios')}}" method="GET">
-          <div class="form-group">
-              <span><i class="fas fa-utensils"></i></span>
-              <button type="submit" value="Enviar" class="botoncPanel">USUARIOS</button><br><br>
-          </div>
+        <form action="{{url('principal')}}" method="GET">
+            <div class="form-group">
+                <span><i class="fas fa-utensils"></i></span>
+                <button type="submit" value="Enviar" class="botoncPanel">UBICACIONES</button><br><br>
+            </div>
         </form>
         <form action="{{url('/')}}" method="GET">
-          <div class="form-group">
-              <span><i class="fas fa-utensils"></i></span>
-              <button type="submit" value="Enviar" class="botoncPanel">PANEL</button><br><br>
-          </div>
-        </form>
-        <h2>UBICACIONES</h2>
+            <div class="form-group">
+                <span><i class="fas fa-utensils"></i></span>
+                <button type="submit" value="Enviar" class="botoncPanel">PANEL</button><br><br>
+            </div>
+          </form>
+        <h2>USUARIOS</h2>
 
         <!-- Trigger/Open The Modal -->
         
@@ -74,10 +74,10 @@
           <div class="modal-content">
             <span class="close">&times;</span>
             <form action="" id="formulario" onsubmit="editarJS(); return false">
-                <input type="text" name="modnombre" id="modnombre">
-                <input type="text" name="moddescripcion" id="moddescripcion">
-                <input type="text" name="moddireccion" id="moddireccion">
-                <input type="file" name="modfoto" id="modfoto">
+                <input type="text" name="modnombreuser" id="modnombreuser">
+                <input type="text" name="modapellido" id="modapellido">
+                <input type="text" name="modcorreo" id="modcorreo">
+                <input type="text" name="modpassword" id="modpassword">
                 <input type="hidden" name="id" id="idModificar" value="">
                 <input type="submit" value="modificar">
             </form>
@@ -91,15 +91,15 @@
     <hr>
     <form onsubmit="insertarJS(); return false;">
         <p>Nombre</p>
-        <input type="text" id="nombre_ubicacion">
-        <p>Descripción</p>
-        <input type="text" id="descripcion_ubicacion">
-        <p>Dirección</p>
-        <input type="text" id="direccion_ubicacion">
-        <p>foto</p>
-        <input type="file" id="foto_ubicacion">
-        <p>Tipo de ubicación</p>
-        <select  id="nombre_tipo">
+        <input type="text" id="nombre_usuario">
+        <p>Apellido</p>
+        <input type="text" id="apellido_usuario">
+        <p>Correo</p>
+        <input type="text" id="correo_usuario">
+        <p>Contraseña</p>
+        <input type="text" id="password_usuario">
+        <p>Tipo de usuario</p>
+        <select  id="nombre_rol">
         </select>
         <input type="submit">
     </form>

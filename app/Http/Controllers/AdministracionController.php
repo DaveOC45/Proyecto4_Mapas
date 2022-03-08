@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class AdministracionController extends Controller
 {
+    //---------------------------------------------AJAX DE RESTAURANTE--------------------------------------------------------------------------
     public function leerController(Request $request){
         $datos=DB::select('SELECT * FROM `tbl_ubicacion` INNER JOIN `tbl_tipo` ON tbl_ubicacion.id_tipo = tbl_tipo.id_tipo where nombre_ubicacion like ?',['%'.$request->input('filtro').'%']);
         return response()->json($datos);
@@ -64,5 +65,50 @@ class AdministracionController extends Controller
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
         } 
     }
+        //------------------------------------------FIN AJAX DE RESTAURANTE------------------------------------------------------------
+        
+        //------------------------------------------AJAX USUARIOS----------------------------------------------------------------------
+    public function leerControlleruser(Request $request){
+        $datos=DB::select('SELECT * FROM `tbl_usuario` INNER JOIN `tbl_rol` ON tbl_usuario.id_rol = tbl_rol.id_rol where nombre_usuario like ?',['%'.$request->input('filtro').'%']);
+        return response()->json($datos);
+    }
+    public function crearControlleruser(Request $request){
+        $datos = $request->except('_token');
+        
+        try{
+            DB::beginTransaction();
+            $selectid = DB::table('tbl_rol')->select('id_rol')->where('nombre_rol','=',$datos['nombre_rol'])->first();
+            $selectid=$selectid->id_rol;
+            // $id = DB::table('tbl_tipo')->insertGetId(["nombre_tipo"=>$datos['nombre_tipo']]);
+            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"apellido_usuario"=>$datos['apellido_usuario'],"correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>$datos['password_usuario'],"id_rol"=>$selectid]);
+            DB::commit();
+            return response()->json(array('resultado'=> 'OK'));            
+        } catch (\Throwable $th) {
+            return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
+        }
+    }
+    public function lecturatipoubicacionuser(){
+        $listaTipo = DB::table('tbl_rol')->select('nombre_rol')->get();
+        // return view('principal', compact('listaTipo'));
+        return response()->json($listaTipo);;
+    }
+    public function eliminarControlleruser($id){
+        try {
+            $id = DB::table('tbl_usuario')->where('id_usuario','=',$id)->delete();
+            return response()->json(array('resultado'=> 'OK')); 
+        } catch (\Throwable $th) {
+            return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
+        } 
+    }
+    public function modificarControlleruser(Request $request){
+        try {
+            DB::beginTransaction();
+            DB::update('update tbl_usuario set nombre_usuario = ?, apellido_usuario = ?, correo_usuario = ?, password_usuario = ? where id_usuario = ?', [$request->input('nombre_usuario'),$request->input('apellido_usuario'),$request->input('correo_usuario'),$request->input('password_usuario'),$request->input('id_usuario')]);
+            DB::commit();
+            return response()->json(array('resultado'=> 'OK')); 
+        } catch (\Throwable $th) {
+            return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
+        } 
+    }   
     
 }
