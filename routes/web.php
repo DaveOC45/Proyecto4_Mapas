@@ -13,6 +13,11 @@ use App\Http\Controllers\AdministracionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/*REGISTRO DE EQUIPO*/
+//Ruta para el registro de equipos
+Route::get('registroequipo',[AdministracionController::class, 'registroequipo']);
+Route::post('registroPostequipo',[AdministracionController::class, 'registroPostequipo']);
 /*LOGIN Y LOGOUT*/
 Route::post('login', [AdministracionController::class, 'loginP']);
 Route::get('logout', [AdministracionController::class, 'logout']);

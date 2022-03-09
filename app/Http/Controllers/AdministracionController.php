@@ -29,7 +29,33 @@ class AdministracionController extends Controller
         return redirect('');
     }
     /*----------------------------------------FIN LOGIN Y LOGOUT------------------------------------------------------------------------*/
-    
+    /*-----------------------------------------REGISTRO EQUIPO--------------------------------------------------------------------------*/
+    public function registroequipo()
+    {
+        return view('registroequipo');
+    }
+
+    public function registroPostequipo(Request $request){
+        $datos = $request->except('_token');
+        /*validación registro de usuarios*/
+        // $request->validate([
+        //     'correo_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:100',
+        //     'password_usuario'=>'required|string|min:8|max:100',
+        //     'password_usuario_validar'=>'required|same:password'
+        // ]);
+        try{
+            DB::beginTransaction();
+            /*insertar datos en la base de datos*/
+            DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>md5($datos['password_usuario']),"id_rol"=>$datos['id_rol']]);
+            DB::commit();
+            return redirect('login');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+    /*-----------------------------------------FIN REGISTRO EQUIPO--------------------------------------------------------------------------*/
+
     //---------------------------------------------AJAX DE RESTAURANTE--------------------------------------------------------------------------
     public function leerController(Request $request){
         $datos=DB::select('SELECT * FROM `tbl_ubicacion` INNER JOIN `tbl_tipo` ON tbl_ubicacion.id_tipo = tbl_tipo.id_tipo where nombre_ubicacion like ?',['%'.$request->input('filtro').'%']);
