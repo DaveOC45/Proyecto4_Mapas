@@ -8,5 +8,8 @@
 </head>
 <body>
     <h1>Mapa</h1>
+    <button class="boton_login" OnClick="location.href='./indexgimcana'">Jugar a la Gymcana</button>
+    <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
+
 </body>
 </html>
