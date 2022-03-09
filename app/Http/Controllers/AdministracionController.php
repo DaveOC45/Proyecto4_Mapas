@@ -9,6 +9,27 @@ use Illuminate\Http\Request;
 
 class AdministracionController extends Controller
 {
+    /*----------------------------------------LOGIN Y LOGOUT------------------------------------------------------------------------*/
+    public function loginP(Request $request){
+        $datos= $request->except('_token','_method');
+        $user=DB::table("tbl_rol")->join('tbl_usuario', 'tbl_rol.id_rol', '=', 'tbl_usuario.id_rol')->where('correo_usuario','=',$datos['correo_usuario'])->where('password_usuario','=',$datos['password_usuario'])->first();
+        if($user->nombre_rol=='administrador'){
+           $request->session()->put('nombre_admin',$request->correo_usuario);
+           return redirect('cPanelAdmin');
+        }if($user->nombre_rol=='usuario'){
+            $request->session()->put('nombre_user',$request->correo_usuario);
+            return redirect('');
+        }
+        return redirect('');
+    }
+    public function logout(Request $request){
+        $request->session()->forget('nombre_admin');
+        $request->session()->forget('nombre_user');
+        $request->session()->flush();
+        return redirect('');
+    }
+    /*----------------------------------------FIN LOGIN Y LOGOUT------------------------------------------------------------------------*/
+    
     //---------------------------------------------AJAX DE RESTAURANTE--------------------------------------------------------------------------
     public function leerController(Request $request){
         $datos=DB::select('SELECT * FROM `tbl_ubicacion` INNER JOIN `tbl_tipo` ON tbl_ubicacion.id_tipo = tbl_tipo.id_tipo where nombre_ubicacion like ?',['%'.$request->input('filtro').'%']);

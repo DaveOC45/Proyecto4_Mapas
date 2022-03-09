@@ -1,4 +1,10 @@
-    <!DOCTYPE html>
+@if (!Session::get('nombre_admin'))
+    <?php
+        //Si la session no esta definida te redirige al login.
+        return redirect()->to('/')->send();
+    ?>
+@endif
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

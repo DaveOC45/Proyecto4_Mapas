@@ -13,8 +13,16 @@ use App\Http\Controllers\AdministracionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*LOGIN Y LOGOUT*/
+Route::post('login', [AdministracionController::class, 'loginP']);
+Route::get('logout', [AdministracionController::class, 'logout']);
 
+
+//RUTAS PANEL PRINCIPAL
 Route::get('/', function () {
+    return view('login');
+});
+Route::get('cPanelAdmin', function () {
     return view('cPanelAdmin');
 });
 Route::get('principal', function () {

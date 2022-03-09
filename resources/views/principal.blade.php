@@ -1,3 +1,9 @@
+@if (!Session::get('nombre_admin'))
+    <?php
+        //Si la session no esta definida te redirige al login.
+        return redirect()->to('/')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,13 +57,21 @@
           cursor: pointer;
         }
         </style>
+        <div>
+          <form action="{{url('logout')}}" method="GET">
+              <div class="form-group">
+                  <span><i class="fas fa-sign-out-alt"></i></span>
+                  <button type="submit" value="logout" class="botoncPanel">LOGOUT</button><br><br>
+              </div>
+          </form>
+      </div>
         <form action="{{url('usuarios')}}" method="GET">
           <div class="form-group">
               <span><i class="fas fa-utensils"></i></span>
               <button type="submit" value="Enviar" class="botoncPanel">USUARIOS</button><br><br>
           </div>
         </form>
-        <form action="{{url('/')}}" method="GET">
+        <form action="{{url('cPanelAdmin')}}" method="GET">
           <div class="form-group">
               <span><i class="fas fa-utensils"></i></span>
               <button type="submit" value="Enviar" class="botoncPanel">PANEL</button><br><br>
