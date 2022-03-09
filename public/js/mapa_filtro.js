@@ -70,9 +70,6 @@ function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
             var datos = JSON.parse(peticion_http.responseText);
-            id_tipo = datos[0]['id_tipo']
-            ObtenerArrayTipos(id_tipo)
-            nombre_tipo = document.getElementById('traduccion')
             var geocoder = L.esri.Geocoding.geocodeService();
             markerPosition = [];
             var markerGroup = L.layerGroup()
@@ -85,17 +82,28 @@ function positionDirection(e) {
                 });
 
             }
-            layerName = "jose"
-                //var markerGroup = L.layerGroup().addTo(map);
-            console.log(markerGroup)
-                //var markerGroup = L.layerGroup()
-            var overlayMaps = { "Cities": markerGroup };
+            //var markerGroup = L.layerGroup().addTo(map);
+            id_tipo = datos[0]['id_tipo']
+            nombreCapa = ""
+            for (let i = 0; i < tipos.length; i++) {
+                //console.log(tipos[i])
+                if (tipos[i]['id_tipo'] == id_tipo) {
+                    nombreCapa = tipos[i]['nombre_tipo']
+                }
+
+            }
+            var overlayMaps = {};
+            overlayMaps[nombreCapa] = markerGroup;
+            //console.log(markerGroup)
+            //var overlayMaps = { "Cities": markerGroup };
             L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
             //L.control.layers(null, overlayMaps).addTo(map);
 
-            //map.removeLayer(group);
+            markerGroup.clearLayers();
+
         }
+
     }
 }
 
@@ -104,6 +112,7 @@ function positionDirectionRemove(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
             var datos = JSON.parse(peticion_http.responseText);
+            console.log(datos)
             var geocoder = L.esri.Geocoding.geocodeService();
             markerPosition = [];
             //console.log(markerPosition)
@@ -144,7 +153,8 @@ function mostrarUbicacion(tipo) {
 
     tag = document.getElementById('tag_' + tipo)
     tag.className = 'btnclicked';
-    tag.setAttribute("onClick", "retirarUbicacion('" + tipo + "');");
+    //Tocar esto para dejar de añadir layers
+    //tag.setAttribute("onClick", "retirarUbicacion('" + tipo + "');");
     //console.log(tag)
 
     var formData = new FormData();
@@ -155,7 +165,6 @@ function mostrarUbicacion(tipo) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
             return respuesta;
         }
     }
@@ -165,9 +174,9 @@ function mostrarUbicacion(tipo) {
 
 function retirarUbicacion(tipo) {
     tag = document.getElementById('tag_' + tipo)
-    tag.className = 'btn';
-    tag.setAttribute("onClick", "mostrarUbicacion('" + tipo + "');");
-    //console.log(tag)
+        //tag.className = 'btn';
+        //tag.setAttribute("onClick", "mostrarUbicacion('" + tipo + "');");
+        //console.log(tag)
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -182,21 +191,4 @@ function retirarUbicacion(tipo) {
     }
     ajax.send(formData);
     cargaContenido("mapa_filtros/" + tipo, "get", positionDirectionRemove)
-}
-
-function ObtenerArrayTipos(id_tipo) {
-    var formData = new FormData();
-    formData.append('_token', document.getElementById('token').getAttribute("content"));
-
-    var ajax = objetoAjax();
-    ajax.open("get", "id_nombre_ubicacion/" + id_tipo, true);
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            var respuesta = JSON.parse(this.responseText);
-            document.getElementById('traduccion').innerHTML = respuesta[0]['nombre_tipo']
-
-        }
-    }
-    ajax.send(formData);
-    console.log(formData)
 }

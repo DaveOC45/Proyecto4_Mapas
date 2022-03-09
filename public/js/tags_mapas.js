@@ -1,3 +1,5 @@
+var tipos
+
 function obtenerTagsBBDD() {
     //console.log("te voy a mostrar las categorias de las ubicaciones de la BBDD")
 
@@ -12,9 +14,8 @@ function obtenerTagsBBDD() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             for (let i = 0; i < respuesta.length; i++) {
-
+                tipos = respuesta
                 div_tags.innerHTML += '<div class="btn" id="tag_' + respuesta[i]['nombre_tipo'] + '" onclick="mostrarUbicacion(\'' + respuesta[i]['nombre_tipo'] + '\');"> ' + respuesta[i]['nombre_tipo'] + '</div>';
-                //console.log(respuesta[i]['nombre_tipo']);
             }
         }
     }

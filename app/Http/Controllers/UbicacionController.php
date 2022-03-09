@@ -19,7 +19,7 @@ class UbicacionController extends Controller
         return $lista_ubicaciones;
     }
     public function mostrar_tags_ubicaciones(){
-        $lista_tags=DB::table('tbl_tipo')->select('nombre_tipo')->groupBy('nombre_tipo')->get();
+        $lista_tags=DB::table('tbl_tipo')->get();
         return $lista_tags;
     }
     public function mapa_filtro_tag($tipo){
@@ -36,10 +36,6 @@ class UbicacionController extends Controller
         }
         
         
-    }
-    public function id_nombre_ubicacion($id_tipo){
-        $lista_tags=DB::table('tbl_tipo')->select('nombre_tipo')->where('id_tipo','=',$id_tipo)->get();
-        return $lista_tags;
     }
 
 }
