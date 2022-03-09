@@ -178,34 +178,31 @@ function positionDirection(e) {
 }
 /* Geolocalizar posiciones mediante direcciones */
 function positionDirectionFavorita(datos) {
-    if (peticion_http.readyState == READY_STATE_COMPLETE) {
-        if (peticion_http.status == 200) {
-            console.log(datos)
-            var geocoder = L.esri.Geocoding.geocodeService();
 
-            var markerGroup_favorito = L.layerGroup()
+    console.log(datos)
+    var geocoder = L.esri.Geocoding.geocodeService();
 
-            markerPosition = [];
-            var markerGroup_favorito = L.layerGroup()
-            removeRouting = false;
-            for (let i = 0; i < datos.length; i++) {
-                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                    //console.log(response.results[0])
-                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_favorito));
-                });
-            }
-            console.log(markerGroup_favorito)
+    var markerGroup_favorito = L.layerGroup()
 
-            //var markerGroup = L.layerGroup().addTo(map);
-            var overlayMaps = {};
-            //id_tipo = datos[0]['id_tipo']
-            nombreCapa = "Favoritos"
-            overlayMaps[nombreCapa] = markerGroup_favorito
-
-            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
-        }
-
+    markerPosition = [];
+    var markerGroup_favorito = L.layerGroup()
+    removeRouting = false;
+    for (let i = 0; i < datos.length; i++) {
+        geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+            //console.log(response.results[0])
+            markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_favorito));
+        });
     }
+    console.log(markerGroup_favorito)
+
+    //var markerGroup = L.layerGroup().addTo(map);
+    var overlayMaps = {};
+    //id_tipo = datos[0]['id_tipo']
+    nombreCapa = "Favoritos"
+    overlayMaps[nombreCapa] = markerGroup_favorito
+
+    L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
 }
 
 function positionDirectionRemove(e) {
