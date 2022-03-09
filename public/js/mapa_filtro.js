@@ -1,3 +1,4 @@
+//CREAR FUNCION QUE AÑADA CADA LAYER Y TODAS LAS UBICACIONES POR GRUPO, LUEGO VIA CSS SE MODIFICA
 /* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
@@ -18,7 +19,7 @@ function objetoAjax() {
 
 
 /* Obtenemos todas las posiciones en BBDD */
-function todas_ubicaciones() {
+function ponerLayers() {
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -29,7 +30,7 @@ function todas_ubicaciones() {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
+            //console.log(respuesta)
             return respuesta;
         }
     }
@@ -45,7 +46,8 @@ function getLocation() {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-/* Mostrar en el mapa la posición del usuario */
+var map
+    /* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
     var container = L.DomUtil.get('map');
@@ -70,37 +72,84 @@ function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
             var datos = JSON.parse(peticion_http.responseText);
+            console.log(datos)
             var geocoder = L.esri.Geocoding.geocodeService();
+
+            //CRear un grupo por cada tipo
+
+            var markerGroup_1 = L.layerGroup()
+            var markerGroup_2 = L.layerGroup()
+            var markerGroup_3 = L.layerGroup()
+
+
+            /*
+            var array_tipos = []
+
+            for (let i = 0; i < datos.length; i++) {
+                array_tipos.push(datos[i]['id_tipo']);
+            }
+            let array_tipos_unicos = array_tipos.filter((item, i, ar) => ar.indexOf(item) === i);
+            console.log(array_tipos_unicos);
+            */
+
             markerPosition = [];
             var markerGroup = L.layerGroup()
             removeRouting = false;
             for (let i = 0; i < datos.length; i++) {
-
-                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                    //console.log(response.results[0])
-                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup));
-                });
-
-            }
-            //var markerGroup = L.layerGroup().addTo(map);
-            id_tipo = datos[0]['id_tipo']
-            nombreCapa = ""
-            for (let i = 0; i < tipos.length; i++) {
-                //console.log(tipos[i])
-                if (tipos[i]['id_tipo'] == id_tipo) {
-                    nombreCapa = tipos[i]['nombre_tipo']
+                if (datos[i]['id_tipo'] == 1) {
+                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                        //console.log(response.results[0])
+                        markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_1));
+                    });
+                }
+                if (datos[i]['id_tipo'] == 2) {
+                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                        //console.log(response.results[0])
+                        markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_2));
+                    });
+                }
+                if (datos[i]['id_tipo'] == 3) {
+                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                        //console.log(response.results[0])
+                        markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_3));
+                    });
                 }
 
+
             }
+            console.log(markerGroup)
+
+            //var markerGroup = L.layerGroup().addTo(map);
             var overlayMaps = {};
-            overlayMaps[nombreCapa] = markerGroup;
+            //id_tipo = datos[0]['id_tipo']
+            nombreCapa = ""
+            for (let i = 0; i < tipos.length; i++) {
+                console.log(tipos[i])
+                if (tipos[i]['nombre_tipo'] == 'Gimnasio') {
+                    nombreCapa = tipos[i]['nombre_tipo']
+                    overlayMaps[nombreCapa] = markerGroup_1
+                }
+                if (tipos[i]['nombre_tipo'] == 'Restaurante') {
+                    nombreCapa = tipos[i]['nombre_tipo']
+                    overlayMaps[nombreCapa] = markerGroup_2
+                }
+                if (tipos[i]['nombre_tipo'] == 'Pizzeria') {
+                    nombreCapa = tipos[i]['nombre_tipo']
+                    overlayMaps[nombreCapa] = markerGroup_3
+                }
+            }
+            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+
+
+
             //console.log(markerGroup)
             //var overlayMaps = { "Cities": markerGroup };
-            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
 
             //L.control.layers(null, overlayMaps).addTo(map);
 
-            markerGroup.clearLayers();
+            //markerGroup.clearLayers();
 
         }
 

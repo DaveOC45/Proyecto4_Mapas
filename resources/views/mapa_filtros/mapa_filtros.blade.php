@@ -48,8 +48,8 @@
 </head>
 <body onload="getLocation(); obtenerTagsBBDD();">
     
-    <button onclick="todas_ubicaciones();">Mostrar todo</button>
-    <button onclick="ObtenerArrayTipos(2);">Traduce todo</button>
+    <button onclick="ponerLayers();">Mostrar todo</button>
+    <button onclick="mostrarUbicacion('Restaurante');"> Pon rest como layer</button>
     <div id="tags"></div>
     <div id="traduccion"></div>
 
