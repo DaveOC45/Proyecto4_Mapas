@@ -38,6 +38,27 @@ function ponerLayers() {
     cargaContenido("mapa_filtros_todo", "get", positionDirection)
 }
 
+function ponerFavoritos() {
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('user', 1)
+
+    /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "mapa_filtros_favoritos", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            console.log(respuesta)
+            positionDirectionFavorita(respuesta)
+                //return respuesta;
+        }
+    }
+    ajax.send(formData);
+
+}
+
 /* Obtener posicion en coordeandas delsuaurio mediante navegador*/
 function getLocation() {
     if (navigator.geolocation) {
@@ -67,7 +88,7 @@ function iniciarPosition(position) {
     }).addTo(map);
 }
 
-/* Geolocalizar posiciones mediante direcciones */
+/* Geolocalizar posiciones mediante direcciones de layers tags */
 function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
@@ -155,7 +176,37 @@ function positionDirection(e) {
 
     }
 }
+/* Geolocalizar posiciones mediante direcciones */
+function positionDirectionFavorita(datos) {
+    if (peticion_http.readyState == READY_STATE_COMPLETE) {
+        if (peticion_http.status == 200) {
+            console.log(datos)
+            var geocoder = L.esri.Geocoding.geocodeService();
 
+            var markerGroup_favorito = L.layerGroup()
+
+            markerPosition = [];
+            var markerGroup_favorito = L.layerGroup()
+            removeRouting = false;
+            for (let i = 0; i < datos.length; i++) {
+                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                    //console.log(response.results[0])
+                    markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_favorito));
+                });
+            }
+            console.log(markerGroup_favorito)
+
+            //var markerGroup = L.layerGroup().addTo(map);
+            var overlayMaps = {};
+            //id_tipo = datos[0]['id_tipo']
+            nombreCapa = "Favoritos"
+            overlayMaps[nombreCapa] = markerGroup_favorito
+
+            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+        }
+
+    }
+}
 
 function positionDirectionRemove(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {

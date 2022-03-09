@@ -18,10 +18,24 @@ class UbicacionController extends Controller
         $lista_ubicaciones = DB::table('tbl_ubicacion')->select('*')->get();
         return $lista_ubicaciones;
     }
+    public function mapa_filtros_favoritos(Request $request)
+    {
+        $id_usuario=$request['user'];
+        $id_ubicaciones_favoritas=DB::table('tbl_favorito')->select('id_ubicacion')->where('id_usuario','=',$id_usuario)->get();
+        $array_ids=array();
+        for ($i=0; $i < $id_ubicaciones_favoritas->count(); $i++) { 
+            array_push($array_ids, $id_ubicaciones_favoritas[$i]->id_ubicacion);
+        }
+        //$lista_ubicaciones_favoritas = DB::table('tbl_ubicacion')->select('*')->where('id_ubicacion','=',$id_ubicaciones_favoritas[0]->id_ubicacion)->get();
+        $lista_ubicaciones_favoritas = DB::table('tbl_ubicacion')->select('*')->whereIn('id_ubicacion', $array_ids)->get();
+        return $lista_ubicaciones_favoritas;
+    }
+
     public function mostrar_tags_ubicaciones(){
         $lista_tags=DB::table('tbl_tipo')->get();
         return $lista_tags;
     }
+
     public function mapa_filtro_tag($tipo){
         try {
             DB::beginTransaction();

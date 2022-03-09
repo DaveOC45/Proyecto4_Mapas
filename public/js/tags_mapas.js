@@ -15,7 +15,7 @@ function obtenerTagsBBDD() {
             var respuesta = JSON.parse(this.responseText);
             for (let i = 0; i < respuesta.length; i++) {
                 tipos = respuesta
-                div_tags.innerHTML += '<div class="btn" id="tag_' + respuesta[i]['nombre_tipo'] + '" onclick="mostrarUbicacion(\'' + respuesta[i]['nombre_tipo'] + '\');"> ' + respuesta[i]['nombre_tipo'] + '</div>';
+                    //div_tags.innerHTML += '<div class="btn" id="tag_' + respuesta[i]['nombre_tipo'] + '" onclick="mostrarUbicacion(\'' + respuesta[i]['nombre_tipo'] + '\');"> ' + respuesta[i]['nombre_tipo'] + '</div>';
             }
         }
     }

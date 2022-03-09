@@ -48,8 +48,8 @@
 </head>
 <body onload="getLocation(); obtenerTagsBBDD();">
     
-    <button onclick="ponerLayers();">Mostrar todo</button>
-    <button onclick="mostrarUbicacion('Restaurante');"> Pon rest como layer</button>
+    <button onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
+    <button onclick="ponerFavoritos();">Añadir filtro favoritos</button>
     <div id="tags"></div>
     <div id="traduccion"></div>
 

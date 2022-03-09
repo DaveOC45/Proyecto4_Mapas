@@ -23,5 +23,7 @@ Route::get('/mapa', function () {
 });
 
 Route::get('/mapa_filtros_todo', [UbicacionController::class, 'mapa_filtro_todo']);
+Route::post('/mapa_filtros_favoritos', [UbicacionController::class, 'mapa_filtros_favoritos']);
+
 Route::get('/mostrar_tags_ubicaciones', [UbicacionController::class, 'mostrar_tags_ubicaciones']);
 Route::get('/mapa_filtros/{tipo}', [UbicacionController::class, 'mapa_filtro_tag']);
