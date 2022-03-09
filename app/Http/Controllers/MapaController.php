@@ -81,12 +81,78 @@ class MapaController extends Controller
     public function indexgimcana(){
         return view('indexgimcana');
     }
+    public function gimcana(){
+        return view('gimcana');
+    }
+
     public function gimcanaequipos(){
         return view('gimcanaequipos');
     }
 
+    public function crearequipo(){
+        return view('crearequipo');
+    }
 
+    public function crearequipoPOST(Request $request){
+        $datos= $request->except('_token','_method','register');
+        /*validación de login*/
+        $request->validate([
+            'nombreequipo'=>'required|unique:tbl_equipo,nombre_equipo|string|max:100',
+            'codigo'=>'required',
+            'correo1'=>'required',
+            'correo1'=>'required'
+        ]);
+        try {
+            $nombre=$datos['nombreequipo'];
+            DB::beginTransaction();
+            $nombreescogido = DB::table("tbl_equipo")->where('nombre_equipo','=',$nombre)->count();
+            DB::commit();
+            if($nombreescogido == 1){
+                return view('crearequipo');
+            }else{
+                //parte del dave
+            }
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+    public function unirequipo(){
+        return view('unirequipo');
+    }
+    
+    public function unirequipoPOST(Request $request){
+        $datos= $request->except('_token','_method','register');
+        /*validación de login*/
+        $request->validate([
+            'nombreequipo'=>'required|string|max:100',
+            'codigo'=>'required'
+        ]);
+        try {
+            $nombre=$datos['nombreequipo'];
+            DB::beginTransaction();
+            $nombreescogido = DB::table("tbl_equipo")->where('nombre_equipo','=',$nombre)->count();
+            DB::commit();
+            if($nombreescogido == 0){
+               //hay que mandar un @error al index
+            }else{
+               //existe el grupo por lo tanto te unes
+            }
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
 
+    public function jugargimcana(){
+        return view('jugargimcana');
+    }
+
+    public function jugargimcana2(){
+        return view('jugargimcana');
+    }
+
+    
 
 
 

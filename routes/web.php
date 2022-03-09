@@ -31,8 +31,22 @@ Route::get('logout',[MapaController::class,'logout']);
 Route::get('/', [MapaController::class, 'mapa']);
 //Ruta para elegir en que MODO jugar a la gimcana (solo o por equipos)
 Route::get('/indexgimcana', [MapaController::class, 'indexgimcana']);
+//Ruta para jugar a la gimcana
+Route::get('/gimcana', [MapaController::class, 'gimcana']);
 //Ruta para ser anfitrion o unirse a un equipo
 Route::get('/gimcanaequipos', [MapaController::class, 'gimcanaequipos']);
+//Ruta para crear un equipo
+Route::get('/crearequipo', [MapaController::class, 'crearequipo']);
+//Ruta para crear un equipo POST
+Route::post('/crearequipoPOST', [MapaController::class, 'crearequipoPOST']);
+//Ruta para unirme a un equipo
+Route::get('/unirequipo', [MapaController::class, 'unirequipo']);
+//Ruta para unirme a un equipo POST
+Route::post('/unirequipoPOST', [MapaController::class, 'unirequipoPOST']);
+//Jugar a la gimcana desde ser el anifitrion del equipo
+Route::get('/jugargimcana', [MapaController::class, 'jugargimcana']);
+//Jugar a la gimcana desde unirme al equipo
+Route::get('/jugargimcana2', [MapaController::class, 'jugargimcana2']);
 
 // ruta para modificar
 Route::put('modificar',[AdministracionController::class, 'modificarController']);
