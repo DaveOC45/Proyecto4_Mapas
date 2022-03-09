@@ -42,6 +42,7 @@ function ponerLayers() {
     cargaContenido("mapa_filtros_todo", "get", positionDirection)
 }
 
+/* Obtenemos todas las posiciones favoritas en BBDD y llamamos a que nos la ponga*/
 function ponerFavoritos() {
 
     tag = document.getElementById('anadir_favoritos')
@@ -76,7 +77,8 @@ function getLocation() {
     }
 }
 var map
-    /* Mostrar en el mapa la posición del usuario */
+
+/* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
     var container = L.DomUtil.get('map');
@@ -184,7 +186,7 @@ function positionDirection(e) {
 
     }
 }
-/* Geolocalizar posiciones mediante direcciones */
+/* Geolocalizar posiciones favoritas mediante direcciones */
 function positionDirectionFavorita(datos) {
 
     console.log(datos)
@@ -213,47 +215,27 @@ function positionDirectionFavorita(datos) {
 
 }
 
-function positionDirectionRemove(e) {
-    if (peticion_http.readyState == READY_STATE_COMPLETE) {
-        if (peticion_http.status == 200) {
-            var datos = JSON.parse(peticion_http.responseText);
-            console.log(datos)
-            var geocoder = L.esri.Geocoding.geocodeService();
-            markerPosition = [];
-            //console.log(markerPosition)
-            removeRouting = false;
-            for (let i = 0; i < datos.length; i++) {
-                geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                    //opciones de geolocalización
-                    //console.log(response)
-                });
-            }
-        }
-    }
-}
-
 /* Creador de Rutas hasta los markers seleccionados  */
 function getPositionDirection(e) {
-    /*
-    if (removeRouting != false) {
-        map.removeControl(routingControl);
-    } else {
-        removeRouting = true;
-    }
-    */
+
+
+    //routingControl.spliceWaypoints(0, 2); // <-- removes your rout
+
     routingControl = L.Routing.control({
         waypoints: [
 
             L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
             L.latLng(e.latlng.lat, e.latlng.lng)
+
         ],
+        show: false,
+        addWaypoints: false, //Quitamos opciones de desviaciones
         routeWhileDragging: false,
-        draggableWaypoints: false,
+        draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
         fitSelectedRoutes: false
     }).addTo(map);
-
 }
-
+/*
 function mostrarUbicacion(tipo) {
 
     tag = document.getElementById('tag_' + tipo)
@@ -297,3 +279,4 @@ function retirarUbicacion(tipo) {
     ajax.send(formData);
     cargaContenido("mapa_filtros/" + tipo, "get", positionDirectionRemove)
 }
+*/
