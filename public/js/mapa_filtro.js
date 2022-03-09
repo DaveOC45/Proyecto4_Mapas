@@ -21,6 +21,10 @@ function objetoAjax() {
 /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
+    tag = document.getElementById('anadir_filtros')
+    tag.className = 'btnclicked';
+    tag.setAttribute("onClick", "");
+
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
 
@@ -39,6 +43,10 @@ function ponerLayers() {
 }
 
 function ponerFavoritos() {
+
+    tag = document.getElementById('anadir_favoritos')
+    tag.className = 'btnclicked';
+    tag.setAttribute("onClick", "");
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));

@@ -1,6 +1,6 @@
 .btn {
     text-decoration: none;
-    width: 40px;
+    width: 400px;
     justify-content: center;
     border: none;
     padding: 12px 40px;
@@ -19,7 +19,7 @@
 
 .btnclicked {
     text-decoration: none;
-    width: 40px;
+    width: 400px;
     justify-content: center;
     border: none;
     padding: 12px 40px;

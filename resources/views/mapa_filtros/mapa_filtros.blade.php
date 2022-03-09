@@ -48,8 +48,8 @@
 </head>
 <body onload="getLocation(); obtenerTagsBBDD();">
     
-    <button onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
-    <button onclick="ponerFavoritos();">Añadir filtro favoritos</button>
+    <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
+    <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button>
     <div id="tags"></div>
     <div id="traduccion"></div>
 
