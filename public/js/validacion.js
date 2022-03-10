@@ -16,6 +16,20 @@ function validarLogin() {
             icon: "error",
         });
         return false;
+    }else if(email.length > 100){
+        swal.fire({
+            title: "Error",
+            text: "El email no puede ser mas largo de 100 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if(pass.length > 50){
+        swal.fire({
+            title: "Error",
+            text: "La pass no puede ser mas largo de 50 caracteres",
+            icon: "error",
+        });
+        return false;
     } else {
         return true;
     }
