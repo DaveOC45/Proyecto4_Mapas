@@ -14,8 +14,11 @@ use App\Http\Controllers\AdministracionController;
 |
 */
 
+
+/*UNIRSE UN EQUIPO*/
+Route::get('unirseequipo',[AdministracionController::class, 'unirseequipo']);
+Route::post('unirsePostequipo',[AdministracionController::class, 'unirsePostequipo']);
 /*REGISTRO DE EQUIPO*/
-//Ruta para el registro de equipos
 Route::get('registroequipo',[AdministracionController::class, 'registroequipo']);
 Route::post('registroPostequipo',[AdministracionController::class, 'registroPostequipo']);
 /*LOGIN Y LOGOUT*/

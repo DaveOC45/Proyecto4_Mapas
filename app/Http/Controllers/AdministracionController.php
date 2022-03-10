@@ -53,9 +53,6 @@ class AdministracionController extends Controller
             $selectusuario2=$selectusuario2->id_usuario;
             $selectusuario3 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario3'])->first();
             $selectusuario3=$selectusuario3->id_usuario;
-            // $idusuario1=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
-            // $idusuario2=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
-            // $idusuario3=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
             DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario1]);
             DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario2]);
             DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario3]);
@@ -68,6 +65,36 @@ class AdministracionController extends Controller
     }
     /*-----------------------------------------FIN REGISTRO EQUIPO--------------------------------------------------------------------------*/
 
+    /*-----------------------------------------UNIRSE A EQUIPO--------------------------------------------------------------------------------*/
+    public function unirseequipo()
+    {
+        return view('unirseequipo');
+    }
+
+    public function unirsePostequipo(Request $request){
+        $datos = $request->except('_token');
+        /*validación registro de usuarios*/
+        // $request->validate([
+        //     'correo_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:100',
+        //     'password_usuario'=>'required|string|min:8|max:100',
+        //     'password_usuario_validar'=>'required|same:password'
+        // ]);
+        try{
+            DB::beginTransaction();
+            /*insertar datos en la base de datos*/
+            $selectusuario1 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario1'])->first();
+            $selectusuario1=$selectusuario1->id_usuario;
+            $selectnombreequipo = DB::table('tbl_equipo')->select('id_equipo')->where('codigo_equipo','=',$datos['codigo_equipo'])->first();
+            $selectnombreequipo=$selectnombreequipo->id_equipo;
+            DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$selectnombreequipo,"id_usuario"=>$selectusuario1]);
+            DB::commit();
+            return redirect('login');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+    /*-----------------------------------------FIN UNIRSE A  EQUIPO---------------------------------------------------------------------------*/
     //---------------------------------------------AJAX DE RESTAURANTE--------------------------------------------------------------------------
     public function leerController(Request $request){
         $datos=DB::select('SELECT * FROM `tbl_ubicacion` INNER JOIN `tbl_tipo` ON tbl_ubicacion.id_tipo = tbl_tipo.id_tipo where nombre_ubicacion like ?',['%'.$request->input('filtro').'%']);

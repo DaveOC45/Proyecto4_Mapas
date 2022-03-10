@@ -14,20 +14,17 @@
     <script src="{!! asset('js/validacion.js') !!}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
-    <title>Registro de equipo</title>
+    <title>Unirse a un equipo</title>
 </head>
 <body class="login">
     <div class="row flex-cv">
         <div class="cuadro_login">
-            <form action="{{url('registroPostequipo')}}" method="POST">
+            <form action="{{url('unirsePostequipo')}}" method="POST">
                 @csrf
                 {{method_field('POST')}}
             <h1 class="h1_register">REGISTRO DE EQUIPO</h1>
-            <input class="input_login" type="text" id="nombre_equipo" name="nombre_equipo" placeholder="Introduce el nombre del equipo...">
             <input class="input_login" type="text" id="codigo_equipo" name="codigo_equipo" placeholder="Introduce el codigo del equipo...">
             <input class="input_login" type="hidden" id="correo_usuario1" name="correo_usuario1" value={{Session::get('nombre_admin')}}>
-            <input class="input_login" type="text" id="correo_usuario2" name="correo_usuario2" placeholder="Introduce el correo del segundo usuario">
-            <input class="input_login" type="text" id="correo_usuario3" name="correo_usuario3" placeholder="Introduce el correo del tercer usuario">
             <div>
                 {{-- @error('correo_usuario')
                     <input type="hidden" id="error" name="tipo" value="errormio">
