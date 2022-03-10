@@ -16,8 +16,8 @@ class MapaController extends Controller
         $datos= $request->except('_token','_method','register');
         /*validación de login*/
         $request->validate([
-            'email'=>'required',
-            'password'=>'required'
+            'email'=>'required|email',
+            'password'=>'required|string|max:50'
         ]);
         try {
         $email=$datos['email'];
@@ -129,14 +129,20 @@ class MapaController extends Controller
             'codigo'=>'required'
         ]);
         try {
+            $error=0;
+            $errorcodigo=0;
             $nombre=$datos['nombreequipo'];
+            $codigo=$datos['codigo'];
             DB::beginTransaction();
             $nombreescogido = DB::table("tbl_equipo")->where('nombre_equipo','=',$nombre)->count();
+            $codigoescogido = DB::table("tbl_equipo")->select("codigo_equipo")->where('nombre_equipo','=',$nombre)->get();
             DB::commit();
             if($nombreescogido == 0){
-               //hay que mandar un @error al index
+               return view('unirequipo',compact("error"));
+            }else if ($codigoescogido[0]->codigo_equipo != $codigo){
+                return view('unirequipo',compact("errorcodigo"));
             }else{
-               //existe el grupo por lo tanto te unes
+                //codigo david
             }
         }catch(\Exception $e){
             DB::rollBack();

@@ -16,16 +16,32 @@
         <form action="{{url('unirequipoPOST')}}" method="POST" onsubmit="return validarUnirEquipo();">
           @csrf
           {{method_field('POST')}}
-          <input class="input_login" type="text" id="nombreequipo" name="nombreequipo" placeholder="Nombre de equipo">
-          <input class="input_login" type="text" id="codigo" name="codigo" placeholder="Codigo de equipo">
-          @error('nombreequipo')
+          <?php 
+          if ( isset($error) ) {
+            ?>
             <input type="hidden" id="error" name="tipo" value="errormio">
             <script>
                 window.onload = function(){
-                    validarUnirEquipo();
+                  validarUnirEquipo();
                 }
             </script>
-          @enderror
+            <?php
+          }
+        ?>
+        <?php 
+        if (isset($errorcodigo) ) {
+          ?>
+          <input type="hidden" id="errorcodigo" name="tipo" value="errorcodigo">
+          <script>
+              window.onload = function(){
+                validarUnirEquipo();
+              }
+          </script>
+          <?php
+        }
+      ?>
+          <input class="input_login" type="text" id="nombreequipo" name="nombreequipo" placeholder="Nombre de equipo">
+          <input class="input_login" type="text" id="codigo" name="codigo" placeholder="Codigo de equipo">
           <input type="hidden" id="error" name="tipo" value="noerror">
           <button class="boton_registro" OnClick="location.href='./jugargimcana2'">Unirme al equipo</button>
         </form>

@@ -108,8 +108,6 @@ function validarCrearEquipo() {
 function validarUnirEquipo() {
     let nombre = document.getElementById('nombreequipo').value;
     let codigo = document.getElementById('codigo').value;
-    let correo1 = document.getElementById('correo1').value;
-    let correo2 = document.getElementById('correo2').value;
 
     if (document.getElementById("error").value == "errormio") {
         swal.fire({
@@ -119,7 +117,15 @@ function validarUnirEquipo() {
                 'Este equipo ya existe.',
         });
         return false;
-    }else if (nombre == '' || codigo == '' || correo1 == '' || correo2 == '') {
+    }else if(document.getElementById("errorcodigo").value == "errorcodigo"){
+        swal.fire({
+            title: "Error",
+            icon: "error",
+            html:
+                'El codigo es incorrecto.',
+        });
+        return false;
+    }else if (nombre == '' || codigo == '') {
         swal.fire({
             title: "Error",
             text: "Tienes que rellenar todos los datos",
