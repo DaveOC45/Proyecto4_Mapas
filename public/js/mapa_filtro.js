@@ -59,7 +59,7 @@ function ponerFavoritos() {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
+            //console.log(respuesta)
             positionDirectionFavorita(respuesta)
                 //return respuesta;
         }
@@ -186,10 +186,19 @@ function positionDirection(e) {
 
     }
 }
+
+function muestraPopup(objeto_clickado) {
+
+    console.log(objeto_clickado)
+    var id_ubicacion = objeto_clickado['sourceTarget']['_events']['click'][0]['ctx']['id_ubicacion']
+    console.log("Este es mi id, me has clickado " + id_ubicacion)
+
+}
+
 /* Geolocalizar posiciones favoritas mediante direcciones */
 function positionDirectionFavorita(datos) {
 
-    console.log(datos)
+    console.log(datos[0])
     var geocoder = L.esri.Geocoding.geocodeService();
 
     var markerGroup_favorito = L.layerGroup()
@@ -200,10 +209,18 @@ function positionDirectionFavorita(datos) {
     for (let i = 0; i < datos.length; i++) {
         geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
             //console.log(response.results[0])
-            markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_favorito));
+            var markerIcon = L.icon({
+                //Fotos de la carpeta proyecto
+                //iconUrl: 'media/icon/' + respuesta[i].path_ic,
+                iconSize: [20, 20],
+                iconAnchor: [20, 20],
+                popupAnchor: [10, 10]
+            })
+            var markerIconPopup = L.popup().setContent('<h3>' + datos[0]['nombre_ubicacion'] + '</h3>');
+            markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
-    console.log(markerGroup_favorito)
+    //console.log(markerGroup_favorito)
 
     //var markerGroup = L.layerGroup().addTo(map);
     var overlayMaps = {};
@@ -214,6 +231,8 @@ function positionDirectionFavorita(datos) {
     L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
 }
+
+
 
 /* Creador de Rutas hasta los markers seleccionados  */
 function getPositionDirection(e) {
