@@ -20,6 +20,14 @@
         <div class="cuadro">
             <h1>Control Admin Panel</h1>
             <div>
+                <form action="{{url('registroequipo')}}" method="GET">
+                    <div class="form-group">
+                        <span><i class="fas fa-sign-out-alt"></i></span>
+                        <button type="submit" value="logout" class="botoncPanel">REGISTROEQUIPO</button><br><br>
+                    </div>
+                </form>
+            </div>
+            <div>
                 <form action="{{url('logout')}}" method="GET">
                     <div class="form-group">
                         <span><i class="fas fa-sign-out-alt"></i></span>

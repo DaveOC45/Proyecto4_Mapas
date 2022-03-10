@@ -1,3 +1,9 @@
+@if (!Session::get('nombre_admin'))
+    <?php
+        //Si la session no esta definida te redirige al login.
+        return redirect()->to('/')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +23,9 @@
             @csrf
             <h1 class="h1_register">REGISTRO DE EQUIPO</h1>
             <input class="input_login" type="text" id="nombre_equipo" name="nombre_equipo" placeholder="Introduce el nombre del equipo...">
-            <input class="input_login" type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Introduce el primer usuario">
-            <input class="input_login" type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Introduce el segundo usuario">
+            <input class="input_login" type="hidden" id="correo_usuario" name="correo_usuario" placeholder="Introduce el correo del segundo usuario" value={{Session::get('nombre_admin')}}>
+            <input class="input_login" type="text" id="correo_usuario" name="correo_usuario" placeholder="Introduce el correo del segundo usuario">
+            <input class="input_login" type="text" id="correo_usuario" name="correo_usuario" placeholder="Introduce el correo del tercer usuario">
             <div>
                 {{-- @error('correo_usuario')
                     <input type="hidden" id="error" name="tipo" value="errormio">
@@ -33,7 +40,7 @@
                 <input class="input_registro" type="submit" value="Registrarme">
             </div>
             </form>
-            <button class="boton_login" OnClick="location.href='./login'">Volver al inicio de sesión</button>
+            {{-- <button class="boton_login" OnClick="location.href='./login'">Volver al inicio de sesión</button> --}}
         </div>
     </div>
 </body>

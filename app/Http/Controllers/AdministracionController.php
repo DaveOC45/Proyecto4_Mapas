@@ -46,7 +46,11 @@ class AdministracionController extends Controller
         try{
             DB::beginTransaction();
             /*insertar datos en la base de datos*/
-            DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>md5($datos['password_usuario']),"id_rol"=>$datos['id_rol']]);
+            $idequipo=DB::table('tbl_equipo')->insertGetId(["nombre_equipo"=>$datos['nombre_equipo']]);
+            $idusuario1=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            $idusuario2=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            $idusuario3=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            DB::table('tbl_usuario_equipo')->insertGetId(["id_equipo"=>$idequipo,"id_usuario"=>$idusuario1,"id_usuario"=>$idusuario2,"id_usuario"=>$idusuario3]);
             DB::commit();
             return redirect('login');
         }catch(\Exception $e){
