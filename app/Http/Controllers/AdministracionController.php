@@ -47,10 +47,18 @@ class AdministracionController extends Controller
             DB::beginTransaction();
             /*insertar datos en la base de datos*/
             $idequipo=DB::table('tbl_equipo')->insertGetId(["nombre_equipo"=>$datos['nombre_equipo']]);
-            $idusuario1=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
-            $idusuario2=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
-            $idusuario3=DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
-            DB::table('tbl_usuario_equipo')->insertGetId(["id_equipo"=>$idequipo,"id_usuario"=>$idusuario1,"id_usuario"=>$idusuario2,"id_usuario"=>$idusuario3]);
+            $selectusuario1 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario1'])->first();
+            $selectusuario1=$selectusuario1->id_usuario;
+            $selectusuario2 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario2'])->first();
+            $selectusuario2=$selectusuario2->id_usuario;
+            $selectusuario3 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario3'])->first();
+            $selectusuario3=$selectusuario3->id_usuario;
+            // $idusuario1=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            // $idusuario2=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            // $idusuario3=DB::table('tbl_usuario_equipo')->insertGetId(["correo_usuario"=>$datos['correo_usuario']]);
+            DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario1]);
+            DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario2]);
+            DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario3]);
             DB::commit();
             return redirect('login');
         }catch(\Exception $e){
