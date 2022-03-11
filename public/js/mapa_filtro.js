@@ -183,7 +183,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -195,7 +195,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -236,7 +236,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -248,7 +248,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -290,7 +290,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -302,7 +302,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -380,7 +380,8 @@ function positionDirectionFavorita(datos) {
                     iconSize: [20, 20],
                     iconAnchor: [20, 20],
                     popupAnchor: [10, 10],
-                    className: 'redIcon'
+                    className: 'redIcon',
+                    iconUrl: 'storage/pedrito.png'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
             var user = document.getElementById('id_user').value
@@ -462,25 +463,35 @@ function quitarFav(id_user, id_ubicacion) {
     ajax.send(formData);
 }
 
+var routing = '';
+var been_routed = false;
 
 function crearRuta(latitud, longitud) {
-
     var popup = document.getElementById('golito')
     popup.style.display = "none";
 
-    routingControl = L.Routing.control({
-        waypoints: [
+    users_lat_coords = myPosition.coords.latitude;
+    users_lng_coords = myPosition.coords.longitude;
+    x = latitud;
+    y = longitud;
 
-            L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
-            L.latLng(latitud, longitud)
+    if (x !== '') {
+        if (been_routed === true) {
+            routing.spliceWaypoints(0, 1);
+        }
+        routing = L.Routing.control({
+            waypoints: [L.latLng(users_lat_coords, users_lng_coords), L.latLng(x, y)],
+            lineOptions: { addWaypoints: false },
+            show: false,
+            addWaypoints: false, //Quitamos opciones de desviaciones
+            routeWhileDragging: false,
+            draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
+            fitSelectedRoutes: false
 
-        ],
-        show: false,
-        addWaypoints: false, //Quitamos opciones de desviaciones
-        routeWhileDragging: false,
-        draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
-        fitSelectedRoutes: false
-    }).addTo(map);
+        });
+        routing.addTo(map);
+        been_routed = true;
+    }
 }
 /* Creador de Rutas hasta los markers seleccionados  */
 function getPositionDirection(coords) {
