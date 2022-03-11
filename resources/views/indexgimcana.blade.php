@@ -16,7 +16,7 @@
         <h1>Mapping BCN Gymkhana's</h1>
         <button class="boton_registro" OnClick="location.href='./gimcana'">Juego individual</button>
         <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Juego en equipo (3 personas)</button>
-        <button class="boton_registro" OnClick="location.href='./'">Volver atras</button>
+        <button class="boton_registro" OnClick="location.href='./mapa'">Volver atras</button>
     </div>
   </div>
 </body>
