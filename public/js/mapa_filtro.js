@@ -151,6 +151,7 @@ function positionDirection(e) {
             for (let i = 0; i < datos[0].length; i++) {
                 if (datos[0][i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+                        var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                                 //Fotos de la carpeta proyecto
                                 //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -182,7 +183,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -194,7 +195,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -206,6 +207,7 @@ function positionDirection(e) {
                 }
                 if (datos[0][i]['id_tipo'] == 2) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+                        var coordenadas = response['results'][0]['latlng']
 
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
@@ -234,7 +236,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -246,7 +248,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -259,6 +261,7 @@ function positionDirection(e) {
                 }
                 if (datos[0][i]['id_tipo'] == 3) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+                        var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -287,7 +290,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -299,7 +302,7 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<button onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -368,7 +371,9 @@ function positionDirectionFavorita(datos) {
     removeRouting = false;
     for (let i = 0; i < datos.length; i++) {
         geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-            console.log(response.results[0])
+            //console.log(response['results'])
+            var coordenadas = response['results'][0]['latlng']
+            console.log(coordenadas)
             var markerIcon = L.icon({
                     //Fotos de la carpeta proyecto
                     //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -386,7 +391,7 @@ function positionDirectionFavorita(datos) {
                 '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
                 '<button onclick="quitarFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                 //'<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                '<button>' + 'Crear ruta?' + '</button>' +
+                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
                 '<p id="info_insercion"></p>' +
                 '</center>'
 
@@ -458,13 +463,31 @@ function quitarFav(id_user, id_ubicacion) {
 }
 
 
+function crearRuta(latitud, longitud) {
 
+    var popup = document.getElementById('golito')
+    popup.style.display = "none";
+
+    routingControl = L.Routing.control({
+        waypoints: [
+
+            L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
+            L.latLng(latitud, longitud)
+
+        ],
+        show: false,
+        addWaypoints: false, //Quitamos opciones de desviaciones
+        routeWhileDragging: false,
+        draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
+        fitSelectedRoutes: false
+    }).addTo(map);
+}
 /* Creador de Rutas hasta los markers seleccionados  */
-function getPositionDirection(e) {
-
+function getPositionDirection(coords) {
+    console.log(coords)
 
     //routingControl.spliceWaypoints(0, 2); // <-- removes your rout
-
+    /*
     routingControl = L.Routing.control({
         waypoints: [
 
@@ -478,6 +501,7 @@ function getPositionDirection(e) {
         draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
         fitSelectedRoutes: false
     }).addTo(map);
+    */
 }
 /*
 function mostrarUbicacion(tipo) {
