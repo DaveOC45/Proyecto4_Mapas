@@ -29,3 +29,4 @@ Route::get('/mostrar_tags_ubicaciones', [UbicacionController::class, 'mostrar_ta
 Route::get('/mapa_filtros/{tipo}', [UbicacionController::class, 'mapa_filtro_tag']);
 
 Route::post('/anadir_favoritos', [UbicacionController::class, 'anadir_favoritos']);
+Route::post('/quitar_favoritos', [UbicacionController::class, 'quitar_favoritos']);

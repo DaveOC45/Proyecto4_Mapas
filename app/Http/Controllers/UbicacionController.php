@@ -63,24 +63,39 @@ class UbicacionController extends Controller
         $id_ubicacion=$datos['id_ubicacion'];
         try {
             DB::beginTransaction();
-            $esta_en_favs = DB::table('tbl_favorito')->where('id_ubicacion','=',$id_ubicacion)->where('id_usuario','=',$id_user)->count();
-            if ($esta_en_favs==1) {
-                $resultado = array("Resultado"=>"NOK");
-                echo json_encode($resultado);
-            }else{
+
                 DB::table('tbl_favorito')->insert([
                     'id_usuario' => $id_user,
                     'id_ubicacion' => $id_ubicacion
                 ]);
-                $resultado = array("Resultado"=>"OK");
-                echo json_encode($resultado);
-            }
             //return $id_tipo;
             DB::commit();
+            $resultado = array("Resultado"=>"OK");
+            echo json_encode($resultado);
             
         } catch (\Exception $error) {
             DB::rollback();
             return $error -> getMessage();
+        }
+    }
+    public function quitar_favoritos(Request $request){
+        $datos = $request->except('_token');
+        $id_user=$datos['id_user'];
+        $id_ubicacion=$datos['id_ubicacion'];
+        try {
+            DB::beginTransaction();
+
+            DB::table('tbl_favorito')->where('id_ubicacion','=',$id_ubicacion)->where('id_usuario','=',$id_user)->delete();
+            //return $id_tipo;
+            DB::commit();
+            $resultado = array("Resultado"=>"OK");
+            echo json_encode($resultado);
+            
+        } catch (\Exception $error) {
+            DB::rollback();
+            $resultado = array("Resultado"=>"NOK");
+            echo json_encode($resultado);
+            //return $error -> getMessage();
         }
     }
 
