@@ -84,6 +84,29 @@ function iniciarPosition(position) {
     if (container != null) {
         container._leaflet_id = null;
         map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
+
+        //Añadimos un poligono con nuetsra zona de juego
+        var polygon = L.polygon([
+            [41.374980592155794, 2.168069419305712],
+            [41.37870230182673, 2.1630370312774074],
+            [41.385554535803344, 2.1641276580851647],
+            [41.385925684055444, 2.1647233874574145],
+            [41.38557028059483, 2.1697256305596704],
+            [41.38581837319181, 2.170128191724144],
+            [41.388490777066735, 2.172788943197472],
+            [41.3804088341541, 2.1835177788932114],
+            [41.37675392055456, 2.184976900593031],
+            [41.37432256476872, 2.18298133728499],
+            [41.37515986311363, 2.1815222157264222],
+            [41.37749458041587, 2.1831959139847794],
+            [41.37952330119203, 2.1823376071856218],
+            [41.37400052401823, 2.17798170011355],
+            [41.37155296263436, 2.1830027948886213],
+            [41.37039355931067, 2.182037199739569],
+            [41.37363017524818, 2.1753853220460986],
+            [41.374048830224076, 2.1753853220460986],
+            [41.37445138054452, 2.175256576026225]
+        ]).addTo(map);
     }
 
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false }).addTo(map);
@@ -299,14 +322,18 @@ function positionDirection(e) {
                 if (tipos[i]['nombre_tipo'] == 'Gimnasio') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_1
+                        //Añadimos por default al mapa
+                    map.addLayer(markerGroup_1)
                 }
                 if (tipos[i]['nombre_tipo'] == 'Restaurante') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_2
+                    map.addLayer(markerGroup_2)
                 }
                 if (tipos[i]['nombre_tipo'] == 'Pizzeria') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_3
+                    map.addLayer(markerGroup_3)
                 }
             }
             L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
@@ -374,6 +401,7 @@ function positionDirectionFavorita(datos) {
     //id_tipo = datos[0]['id_tipo']
     nombreCapa = "Favoritos"
     overlayMaps[nombreCapa] = markerGroup_favorito
+    map.addLayer(markerGroup_favorito)
 
     L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
