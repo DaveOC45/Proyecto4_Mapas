@@ -15,8 +15,16 @@ class UbicacionController extends Controller
      */
     public function mapa_filtro_todo()
     {
-        $lista_ubicaciones = DB::table('tbl_ubicacion')->select('*')->get();
-        return $lista_ubicaciones;
+        try {
+            DB::beginTransaction();
+            $lista_ubicaciones = DB::table('tbl_ubicacion')->select('*')->get();
+            $lista_favoritos = DB::table('tbl_favorito')->select('*')->get();
+            DB::commit();
+            return array( $lista_ubicaciones, $lista_favoritos );
+        } catch (\Exception $error) {
+            DB::rollback();
+            return $error -> getMessage();
+        }
     }
     public function mapa_filtros_favoritos(Request $request)
     {

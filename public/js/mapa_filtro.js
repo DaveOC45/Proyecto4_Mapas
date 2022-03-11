@@ -1,4 +1,4 @@
-//CREAR FUNCION QUE AÑADA CADA LAYER Y TODAS LAS UBICACIONES POR GRUPO, LUEGO VIA CSS SE MODIFICA
+// Quitar opcion de favoritos, desde filtro por tags
 /* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
@@ -102,7 +102,7 @@ function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
             var datos = JSON.parse(peticion_http.responseText);
-            console.log(datos)
+            //console.log(datos)
             var geocoder = L.esri.Geocoding.geocodeService();
 
             //CRear un grupo por cada tipo
@@ -125,9 +125,9 @@ function positionDirection(e) {
             markerPosition = [];
             var markerGroup = L.layerGroup()
             removeRouting = false;
-            for (let i = 0; i < datos.length; i++) {
-                if (datos[i]['id_tipo'] == 1) {
-                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+            for (let i = 0; i < datos[0].length; i++) {
+                if (datos[0][i]['id_tipo'] == 1) {
+                    geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
                         var markerIcon = L.icon({
                                 //Fotos de la carpeta proyecto
                                 //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -138,22 +138,50 @@ function positionDirection(e) {
                             })
                             //nombre direccion descripcion opiinion opinion_user foto + add favorito
                         var user = document.getElementById('id_user').value
-                        var markerIconPopup = L.popup().setContent(
-                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
-                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
-                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
-                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
-                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                            '<button>' + 'Crear ruta?' + '</button>' +
-                            '<p id="info_insercion"></p>' +
-                            '</center>'
 
-                        );
-                        markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
+                        //VAMOS A INTENTAR RESOLVER SI ESTÁ AÑADIDO A FAVORITO
+                        var favorito = 0
+
+                        for (let j = 0; j < datos[1].length; j++) {
+                            if (datos[1][j]['id_usuario'] == user) {
+                                if (datos[1][j]['id_ubicacion'] == datos[0][i]['id_ubicacion']) {
+                                    //console.log("Favorito encontrado en la ubicacion " + datos[0][i]['nombre_ubicacion'])
+                                    favorito = 1
+                                } else {}
+                            } else {}
+                        }
+
+                        //COMPROBAMOS SI LA UBICACION ESTA EN FAVORITOS, PARA AÑADIR O NO EL BOTON DE FAVS
+                        if (favorito == 1) {
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        } else {
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        }
+
+                        markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
                     });
                 }
-                if (datos[i]['id_tipo'] == 2) {
-                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                if (datos[0][i]['id_tipo'] == 2) {
+                    geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
 
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
@@ -163,24 +191,50 @@ function positionDirection(e) {
                             popupAnchor: [10, 10]
                         })
                         var user = document.getElementById('id_user').value
-                        var markerIconPopup = L.popup().setContent(
-                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
-                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
-                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
-                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
-                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                            '<button>' + 'Crear ruta?' + '</button>' +
-                            '<p id="info_insercion"></p>' +
-                            '</center>'
+                        var favorito = 0
 
-                        );
+                        for (let j = 0; j < datos[1].length; j++) {
+                            if (datos[1][j]['id_usuario'] == user) {
+                                if (datos[1][j]['id_ubicacion'] == datos[0][i]['id_ubicacion']) {
+                                    console.log("Favorito encontrado en la ubicacion " + datos[0][i]['nombre_ubicacion'])
+                                    favorito = 1
+                                } else {}
+                            } else {}
+                        }
+
+                        //COMPROBAMOS SI LA UBICACION ESTA EN FAVORITOS, PARA AÑADIR O NO EL BOTON DE FAVS
+                        if (favorito == 1) {
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        } else {
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button>' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        }
                         markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
                         //markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
 
                     });
                 }
-                if (datos[i]['id_tipo'] == 3) {
-                    geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
+                if (datos[0][i]['id_tipo'] == 3) {
+                    geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -190,11 +244,11 @@ function positionDirection(e) {
                         })
                         var user = document.getElementById('id_user').value
                         var markerIconPopup = L.popup().setContent(
-                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
-                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
-                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
-                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
-                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                            '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                            '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                            '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                            '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                            '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                             '<button>' + 'Crear ruta?' + '</button>' +
                             '<p id="info_insercion"></p>' +
                             '</center>'
@@ -320,6 +374,32 @@ function anadirFav(id_user, id_ubicacion) {
     }
     ajax.send(formData);
 }
+
+//hacer ajax de eliminar de favoritos
+function quitarFav(id_user, id_ubicacion) {
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('id_user', id_user)
+    formData.append('id_ubicacion', id_ubicacion)
+        /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "anadir_favoritos", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta['Resultado'])
+            informacion = document.getElementById('info_insercion')
+            if (respuesta['Resultado'] == 'NOK') {
+                informacion.innerHTML = "Esta ubicacion ya la has añadido a favoritos"
+            } else {
+                informacion.innerHTML = "Ubicación añadida a favoritos"
+            }
+        }
+    }
+    ajax.send(formData);
+}
+
 
 
 /* Creador de Rutas hasta los markers seleccionados  */
