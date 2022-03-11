@@ -1,6 +1,4 @@
-// Se quita el opoup debido a que quitamos el onclick al quitar el añadir ruta
-// Ademas mirar de poner la funcion de crear ruta mediante el bindPopoup
-//EL problema de no volver a mostrar el popup es porque se pone un nuevo marker al routear
+// Cmabiar iconos de mapa, poner un poco mejor los botones, css general y poner iconos de fontsawesome
 /* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
