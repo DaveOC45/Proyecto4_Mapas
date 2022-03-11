@@ -8,47 +8,48 @@ use Illuminate\Support\Facades\DB;
 
 class MapaController extends Controller
 {
-    public function login(){
+    /*public function login(){
         return view ('login');
     }
+    */
+    
+    // public function loginPost(Request $request){
+    //     $datos= $request->except('_token','_method','register');
+    //     /*validación de login*/
+    //     $request->validate([
+    //         'email'=>'required|email',
+    //         'password'=>'required|string|max:50'
+    //     ]);
+    //     try {
+    //     $email=$datos['email'];
+    //     $password=md5($datos['password']);
+    //     DB::beginTransaction();
+    //     $users = DB::table("tbl_usuario")->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->count();
+    //     $user = DB::table("tbl_usuario")->join('tbl_rol', 'tbl_usuario.id_rol', '=', 'tbl_rol.id_rol')->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->first();
+    //     DB::commit();
+    //     if($users == 1){
+    //         //Establecer la sesion
+    //         $request->session()->put('email',$request->email);
+    //         $request->session()->put('id_rol',$user->id_rol);
+    //         return redirect('/');
+    //     }else{
+    //         //Redirigir al login
+    //         return redirect('/login');
+    //     }
+    //         }catch(\Exception $e){
+    //         DB::rollBack();
+    //         return $e->getMessage();
+    //         }
+    // }
 
-    public function loginPost(Request $request){
-        $datos= $request->except('_token','_method','register');
-        /*validación de login*/
-        $request->validate([
-            'email'=>'required',
-            'password'=>'required'
-        ]);
-        try {
-        $email=$datos['email'];
-        $password=md5($datos['password']);
-        DB::beginTransaction();
-        $users = DB::table("tbl_usuario")->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->count();
-        $user = DB::table("tbl_usuario")->join('tbl_rol', 'tbl_usuario.id_rol', '=', 'tbl_rol.id_rol')->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->first();
-        DB::commit();
-        if($users == 1){
-            //Establecer la sesion
-            $request->session()->put('email',$request->email);
-            $request->session()->put('id_rol',$user->id_rol);
-            return redirect('/');
-        }else{
-            //Redirigir al login
-            return redirect('/login');
-        }
-            }catch(\Exception $e){
-            DB::rollBack();
-            return $e->getMessage();
-            }
-    }
-
-    public function logout(Request $request){
+    /*public function logout(Request $request){
         //Olvidar una sesion en especifico
             //$request->session()->forget('email');
         //Eliminar todas las variables de sesion
         $request->session()->flush();
         return redirect('login');
     }
-
+    */
     public function registro()
     {
         return view('register');
@@ -81,12 +82,84 @@ class MapaController extends Controller
     public function indexgimcana(){
         return view('indexgimcana');
     }
+    public function gimcana(){
+        return view('gimcana');
+    }
+
     public function gimcanaequipos(){
         return view('gimcanaequipos');
     }
 
+    public function crearequipo(){
+        return view('crearequipo');
+    }
 
+    public function crearequipoPOST(Request $request){
+        $datos= $request->except('_token','_method','register');
+        /*validación de login*/
+        $request->validate([
+            'nombreequipo'=>'required|unique:tbl_equipo,nombre_equipo|string|max:100',
+            'codigo'=>'required',
+            'correo1'=>'required',
+            'correo1'=>'required'
+        ]);
+        try {
+            $nombre=$datos['nombreequipo'];
+            DB::beginTransaction();
+            $nombreescogido = DB::table("tbl_equipo")->where('nombre_equipo','=',$nombre)->count();
+            DB::commit();
+            if($nombreescogido == 1){
+                return view('crearequipo');
+            }else{
+                //parte del dave
+            }
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+    public function unirequipo(){
+        return view('unirequipo');
+    }
+    
+    public function unirequipoPOST(Request $request){
+        $datos= $request->except('_token','_method','register');
+        /*validación de login*/
+        $request->validate([
+            'nombreequipo'=>'required|string|max:100',
+            'codigo'=>'required'
+        ]);
+        try {
+            $error=0;
+            $errorcodigo=0;
+            $nombre=$datos['nombreequipo'];
+            $codigo=$datos['codigo'];
+            DB::beginTransaction();
+            $nombreescogido = DB::table("tbl_equipo")->where('nombre_equipo','=',$nombre)->count();
+            $codigoescogido = DB::table("tbl_equipo")->select("codigo_equipo")->where('nombre_equipo','=',$nombre)->get();
+            DB::commit();
+            if($nombreescogido == 0){
+               return view('unirequipo',compact("error"));
+            }else if ($codigoescogido[0]->codigo_equipo != $codigo){
+                return view('unirequipo',compact("errorcodigo"));
+            }else{
+                //codigo david
+            }
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
 
+    public function jugargimcana(){
+        return view('jugargimcana');
+    }
+
+    public function jugargimcana2(){
+        return view('jugargimcana');
+    }
+
+    
 
 
 

@@ -16,6 +16,20 @@ function validarLogin() {
             icon: "error",
         });
         return false;
+    }else if(email.length > 100){
+        swal.fire({
+            title: "Error",
+            text: "El email no puede ser mas largo de 100 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if(pass.length > 50){
+        swal.fire({
+            title: "Error",
+            text: "La pass no puede ser mas largo de 50 caracteres",
+            icon: "error",
+        });
+        return false;
     } else {
         return true;
     }
@@ -79,22 +93,60 @@ function validarCorreo() {
         return false;
     }
 }
-function validarCrear() {
-    let nombre = document.getElementById('nombre').value;
-    let precio = document.getElementById('precio').value;
-    let foto = document.getElementById('foto').value;
-    let descripcion = document.getElementById('descripcion').value;
-    let nacionalidad = document.getElementById('nacionalidad').value;
-    let tipo = document.getElementById('tipo').value;
+function validarCrearEquipo() {
+    let nombre = document.getElementById('nombreequipo').value;
+    let codigo = document.getElementById('codigo').value;
+    let correo1 = document.getElementById('correo1').value;
+    let correo2 = document.getElementById('correo2').value;
 
-    if (nombre == '' || precio == '' || foto == '' || descripcion == '' || nacionalidad == '' || tipo == '') {
+    if (document.getElementById("error").value == "errormio") {
+        swal.fire({
+            title: "Error",
+            icon: "error",
+            html:
+                'Este equipo ya existe.',
+        });
+        return false;
+    }else if (nombre == '' || codigo == '' || correo1 == '' || correo2 == '') {
         swal.fire({
             title: "Error",
             text: "Tienes que rellenar todos los datos",
             icon: "error",
         });
         return false;
-    } else {
+    }else {
+        return true;
+    }
+}
+
+function validarUnirEquipo() {
+    let nombre = document.getElementById('nombreequipo').value;
+    let codigo = document.getElementById('codigo').value;
+
+    if (document.getElementById("error").value == "errormio") {
+        swal.fire({
+            title: "Error",
+            icon: "error",
+            html:
+                'Este equipo ya existe.',
+        });
+        return false;
+    }else if(document.getElementById("errorcodigo").value == "errorcodigo"){
+        swal.fire({
+            title: "Error",
+            icon: "error",
+            html:
+                'El codigo es incorrecto.',
+        });
+        return false;
+    }else if (nombre == '' || codigo == '') {
+        swal.fire({
+            title: "Error",
+            text: "Tienes que rellenar todos los datos",
+            icon: "error",
+        });
+        return false;
+    }else {
         return true;
     }
 }

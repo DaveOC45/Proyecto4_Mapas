@@ -1,28 +1,38 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <title>Login</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
-  <script src="{!! asset('js/validacion.js') !!}"></script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
-
 </head>
-<body class="body_login">
+<body class="login">
   <div class="row flex-cv">
     <div class="cuadro_login">
-      <form action="{{url('loginPost')}}" method="POST" onsubmit="return validarLogin();">
-          @csrf
-          {{method_field('POST')}}
-          <h1 class="h1_login">INICIO DE SESIÓN</h1>
-          <input class="input_login" type="text" id="email" type="email" name="email" placeholder="Introduce tu email..." value="{{old('email')}}">
-          <input class="input_login" type="password" id="password" name="password" placeholder="Introduce la contraseña...">
-          <button class="boton_login" type="submit" name="register" value="register">Iniciar Sesión</button>     
-      </form>
-      <p class="msgregistrarse">¿No estás registrado en nuestra web? ¡Regístrate aquí mismo!</p>
-      <button class="boton_registro" OnClick="location.href='./registro'">Registrate</button>
+        <form action="{{url('login')}}" method="POST">
+            @csrf
+            <br>
+            <h1>INICIO DE SESIÓN</h1>
+            <br>
+            <div class="form-group">
+                <p>Correo:</p>
+                <div>
+                    <input class="inputlogin" type="text" name="correo_usuario" placeholder="Introduce tu correo">
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <p>Contraseña:</p>
+                <div>
+                    <input class="inputlogin" type="password" name="password_usuario" placeholder="Introduce tu contraseña">
+                </div>
+            </div>
+            
+            <br><br>
+            <div class="form-group">
+                <button class= "botonlogin" type="submit" value="register">Iniciar Sesión</button>
+            </div>
+        </form>
     </div>
   </div>
 </body>
