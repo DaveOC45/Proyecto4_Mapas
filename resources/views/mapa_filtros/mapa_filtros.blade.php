@@ -46,8 +46,10 @@
     <title>Agenda Churrerías</title>
 
 </head>
+
 <body onload="getLocation(); obtenerTagsBBDD();">
     
+    <input type="number" id="id_user" value=1 hidden>
     <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button>
     <div id="tags"></div>

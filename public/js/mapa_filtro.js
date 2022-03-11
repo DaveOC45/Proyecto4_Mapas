@@ -17,7 +17,6 @@ function objetoAjax() {
     return xmlhttp;
 }
 
-
 /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
@@ -129,30 +128,32 @@ function positionDirection(e) {
             for (let i = 0; i < datos.length; i++) {
                 if (datos[i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                        //console.log(response.results[0])
-                        //markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_1));
-
                         var markerIcon = L.icon({
                                 //Fotos de la carpeta proyecto
                                 //iconUrl: 'media/icon/' + respuesta[i].path_ic,
                                 iconSize: [20, 20],
                                 iconAnchor: [20, 20],
-                                popupAnchor: [10, 10]
+                                popupAnchor: [10, 10],
+                                className: 'redIcon'
                             })
-                            //nombre direccion descripcion opiinion opinion user foto + add favorito
+                            //nombre direccion descripcion opiinion opinion_user foto + add favorito
+                        var user = document.getElementById('id_user').value
                         var markerIconPopup = L.popup().setContent(
-                            '<h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
-                            '<h4>' + datos[i]['direccion_ubicacion'] + '</h4>' +
-                            '<img>'
+                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
+                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
+                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
+                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
+                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                            '<button>' + 'Crear ruta?' + '</button>' +
+                            '<p id="info_insercion"></p>' +
+                            '</center>'
 
                         );
-                        markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
+                        markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
                     });
                 }
                 if (datos[i]['id_tipo'] == 2) {
                     geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                        //console.log(response.results[0])
-                        //markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_2));
 
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
@@ -161,15 +162,25 @@ function positionDirection(e) {
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
                         })
-                        var markerIconPopup = L.popup().setContent('<h3>' + datos[i]['nombre_ubicacion'] + '</h3>');
+                        var user = document.getElementById('id_user').value
+                        var markerIconPopup = L.popup().setContent(
+                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
+                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
+                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
+                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
+                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                            '<button>' + 'Crear ruta?' + '</button>' +
+                            '<p id="info_insercion"></p>' +
+                            '</center>'
+
+                        );
                         markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
+                        //markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
+
                     });
                 }
                 if (datos[i]['id_tipo'] == 3) {
                     geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-                        //console.log(response.results[0])
-                        //markerPosition.push(L.marker(response.results[0].latlng).on("click", getPositionDirection).addTo(markerGroup_3));
-
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -177,7 +188,18 @@ function positionDirection(e) {
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
                         })
-                        var markerIconPopup = L.popup().setContent('<h3>' + datos[i]['nombre_ubicacion'] + '</h3>');
+                        var user = document.getElementById('id_user').value
+                        var markerIconPopup = L.popup().setContent(
+                            '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
+                            '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
+                            '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
+                            '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
+                            '<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                            '<button>' + 'Crear ruta?' + '</button>' +
+                            '<p id="info_insercion"></p>' +
+                            '</center>'
+
+                        );
                         markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_3));
                     });
                 }
@@ -191,7 +213,7 @@ function positionDirection(e) {
             //id_tipo = datos[0]['id_tipo']
             nombreCapa = ""
             for (let i = 0; i < tipos.length; i++) {
-                console.log(tipos[i])
+                //console.log(tipos[i])
                 if (tipos[i]['nombre_tipo'] == 'Gimnasio') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_1
@@ -207,19 +229,12 @@ function positionDirection(e) {
             }
             L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
-
-
-
             //console.log(markerGroup)
             //var overlayMaps = { "Cities": markerGroup };
-
-
             //L.control.layers(null, overlayMaps).addTo(map);
 
             //markerGroup.clearLayers();
-
         }
-
     }
 }
 
@@ -244,7 +259,7 @@ function positionDirectionFavorita(datos) {
     removeRouting = false;
     for (let i = 0; i < datos.length; i++) {
         geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
-            //console.log(response.results[0])
+            console.log(response.results[0])
             var markerIcon = L.icon({
                     //Fotos de la carpeta proyecto
                     //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -254,18 +269,19 @@ function positionDirectionFavorita(datos) {
                     className: 'redIcon'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
-
+            var user = document.getElementById('id_user').value
             var markerIconPopup = L.popup().setContent(
                 '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
                 '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
                 '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
                 '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
-                '<button>' + 'Añadir a favoritos' + '</button>' +
+                //'<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                 '<button>' + 'Crear ruta?' + '</button>' +
+                '<p id="info_insercion"></p>' +
                 '</center>'
 
             );
-            markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
+            markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
     //console.log(markerGroup_favorito)
@@ -280,6 +296,30 @@ function positionDirectionFavorita(datos) {
 
 }
 
+//hacer ajax de unir favoritos
+function anadirFav(id_user, id_ubicacion) {
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('id_user', id_user)
+    formData.append('id_ubicacion', id_ubicacion)
+        /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "anadir_favoritos", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta['Resultado'])
+            informacion = document.getElementById('info_insercion')
+            if (respuesta['Resultado'] == 'NOK') {
+                informacion.innerHTML = "Esta ubicacion ya la has añadido a favoritos"
+            } else {
+                informacion.innerHTML = "Ubicación añadida a favoritos"
+            }
+        }
+    }
+    ajax.send(formData);
+}
 
 
 /* Creador de Rutas hasta los markers seleccionados  */

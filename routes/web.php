@@ -27,3 +27,5 @@ Route::post('/mapa_filtros_favoritos', [UbicacionController::class, 'mapa_filtro
 
 Route::get('/mostrar_tags_ubicaciones', [UbicacionController::class, 'mostrar_tags_ubicaciones']);
 Route::get('/mapa_filtros/{tipo}', [UbicacionController::class, 'mapa_filtro_tag']);
+
+Route::post('/anadir_favoritos', [UbicacionController::class, 'anadir_favoritos']);
