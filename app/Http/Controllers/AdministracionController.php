@@ -57,7 +57,7 @@ class AdministracionController extends Controller
             DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario2]);
             DB::table('tbl_usuario_equipo')->insert(["id_equipo"=>$idequipo,"id_usuario"=>$selectusuario3]);
             DB::commit();
-            return redirect('login');
+            return redirect('registroequipo');
         }catch(\Exception $e){
             DB::rollBack();
             return $e->getMessage();
