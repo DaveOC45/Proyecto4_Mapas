@@ -1,7 +1,7 @@
 window.onload = function() {
     leerJS();
     leertipo();
-    document.getElementById("nombre_ubicacion").focus();
+    document.getElementById("nombre_usuario").focus();
     /*CODIGO MODAL*/
 
     // Get the modal
@@ -25,13 +25,13 @@ window.onload = function() {
     }
 }
 
-function abrirModal(id_ubicacion, nombre_ubicacion, descripcion_ubicacion, direccion_ubicacion, foto_ubicacion) {
+function abrirModal(id_usuario, nombre_usuario, apellido_usuario, correo_usuario, password_usuario) {
     modal.style.display = "block";
-    document.getElementById('idModificar').value = id_ubicacion;
-    document.getElementById('modnombre').value = nombre_ubicacion;
-    document.getElementById('moddescripcion').value = descripcion_ubicacion;
-    document.getElementById('moddireccion').value = direccion_ubicacion;
-    document.getElementById('modfoto').value = foto_ubicacion;
+    document.getElementById('idModificar').value = id_usuario;
+    document.getElementById('modnombreuser').value = nombre_usuario;
+    document.getElementById('modapellido').value = apellido_usuario;
+    document.getElementById('modcorreo').value = correo_usuario;
+    document.getElementById('modpassword').value = password_usuario;
 }
 
 function objetoAjax() {
@@ -65,23 +65,23 @@ function leerJS() {
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "leer", true);
+    ajax.open("POST", "leeruser", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             var recarga = '';
-            recarga += '<tr><td>ID</td><td>NOMBRE</td><td>DESCRIPCION</td><td>DIRECCION</td><td>FOTO</td><td>TIPO</td><td>ELIMINAR</td><td>MODIFICAR</td></tr>';
+            recarga += '<tr><td>ID</td><td>NOMBRE</td><td>APELLIDO</td><td>CORREO</td><td>PASSWORD</td><td>ROL</td><td>ELIMINAR</td><td>MODIFICAR</td></tr>';
             /* Leerá la respuesta que es devuelta por el controlador: */
             for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';
-                recarga += '<td>' + respuesta[i].id_ubicacion + '</td>'
-                recarga += '<td>' + respuesta[i].nombre_ubicacion + '</td>'
-                recarga += '<td>' + respuesta[i].descripcion_ubicacion + '</td>'
-                recarga += '<td>' + respuesta[i].direccion_ubicacion + '</td>'
-                recarga += '<td><img src="storage/' + respuesta[i].foto_ubicacion + '" style="width:15px;"></td>'
-                recarga += '<td>' + respuesta[i].nombre_tipo + '</td>'
-                recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_ubicacion + ')">Eliminar</button></td>'
-                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_ubicacion + ',\'' + respuesta[i].nombre_ubicacion + '\',\'' + respuesta[i].descripcion_ubicacion + '\',\'' + respuesta[i].direccion_ubicacion + '\',\'' + respuesta[i].foto_ubicacion + '\');return false;">Modificar</button></td>'
+                recarga += '<td>' + respuesta[i].id_usuario + '</td>'
+                recarga += '<td>' + respuesta[i].nombre_usuario + '</td>'
+                recarga += '<td>' + respuesta[i].apellido_usuario + '</td>'
+                recarga += '<td>' + respuesta[i].correo_usuario + '</td>'
+                recarga += '<td>' + respuesta[i].password_usuario + '</td>'
+                recarga += '<td>' + respuesta[i].nombre_rol + '</td>'
+                recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_usuario + ')">Eliminar</button></td>'
+                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_usuario + ',\'' + respuesta[i].nombre_usuario + '\',\'' + respuesta[i].apellido_usuario + '\',\'' + respuesta[i].correo_usuario + '\',\'' + respuesta[i].password_usuario + '\');return false;">Modificar</button></td>'
                 recarga += '</tr>';
 
             }
@@ -103,15 +103,15 @@ function leertipo() {
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "leertipo", true);
+    ajax.open("POST", "leertipouser", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             console.log(respuesta)
                 /* Leerá la respuesta que es devuelta por el controlador: */
             for (let i = 0; i < respuesta.length; i++) {
-                console.log(respuesta[i]['nombre_tipo'])
-                document.getElementById('nombre_tipo').innerHTML += "<option value='" + respuesta[i]['nombre_tipo'] + "'>" + respuesta[i]['nombre_tipo'] + "</option>"
+                console.log(respuesta[i]['nombre_rol'])
+                document.getElementById('nombre_rol').innerHTML += "<option value='" + respuesta[i]['nombre_rol'] + "'>" + respuesta[i]['nombre_rol'] + "</option>"
 
             }
         }
@@ -127,16 +127,16 @@ function insertarJS() {
        valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
-    formData.append('nombre_ubicacion', document.getElementById('nombre_ubicacion').value);
-    formData.append('descripcion_ubicacion', document.getElementById('descripcion_ubicacion').value);
-    formData.append('direccion_ubicacion', document.getElementById('direccion_ubicacion').value);
-    formData.append('foto_ubicacion', document.getElementById('foto_ubicacion').files[0]);
-    formData.append('nombre_tipo', document.getElementById('nombre_tipo').value);
+    formData.append('nombre_usuario', document.getElementById('nombre_usuario').value);
+    formData.append('apellido_usuario', document.getElementById('apellido_usuario').value);
+    formData.append('correo_usuario', document.getElementById('correo_usuario').value);
+    formData.append('password_usuario', document.getElementById('password_usuario').value);
+    formData.append('nombre_rol', document.getElementById('nombre_rol').value);
 
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "crear", true);
+    ajax.open("POST", "crearuser", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
@@ -147,12 +147,11 @@ function insertarJS() {
                 document.getElementById('mensaje').innerHTML = "Fallo en la inserción: " + respuesta.resultado;
             }
             leerJS();
-            document.getElementById('nombre_ubicacion').value = '';
-            document.getElementById('nombre_tipo').value = '';
-            document.getElementById('descripcion_ubicacion').value = '';
-            document.getElementById('direccion_ubicacion').value = '';
-            document.getElementById("nombre_ubicacion").focus();
-            document.getElementById('foto_ubicacion').value="";
+            document.getElementById('nombre_usuario').value = '';
+            document.getElementById('apellido_usuario').value = '';
+            document.getElementById('correo_usuario').value = '';
+            document.getElementById('password_usuario').value = '';
+            document.getElementById("nombre_usuario").focus();
         }
     }
 
@@ -168,10 +167,10 @@ function eliminarJS(id) {
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('_method', 'DELETE');
-    formData.append('id_ubicacion', id);
+    formData.append('id_usuario', id);
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    ajax.open("POST", "eliminar/" + id, true);
+    ajax.open("POST", "eliminaruser/" + id, true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
@@ -196,15 +195,15 @@ function editarJS() {
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('_method', "PUT");
-    formData.append('id_ubicacion', document.getElementById('idModificar').value);
-    formData.append('nombre_ubicacion', document.getElementById('modnombre').value);
-    formData.append('descripcion_ubicacion', document.getElementById('moddescripcion').value);
-    formData.append('direccion_ubicacion', document.getElementById('moddireccion').value);
-    formData.append('foto_ubicacion', document.getElementById('modfoto').files[0]);
+    formData.append('id_usuario', document.getElementById('idModificar').value);
+    formData.append('nombre_usuario', document.getElementById('modnombreuser').value);
+    formData.append('apellido_usuario', document.getElementById('modapellido').value);
+    formData.append('correo_usuario', document.getElementById('modcorreo').value);
+    formData.append('password_usuario', document.getElementById('modpassword').value);
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
 
-    ajax.open("POST", "modificar", true);
+    ajax.open("POST", "modificaruser", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);

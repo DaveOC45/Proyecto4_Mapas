@@ -12,15 +12,15 @@ class AdministracionController extends Controller
     /*----------------------------------------LOGIN Y LOGOUT------------------------------------------------------------------------*/
     public function loginP(Request $request){
         $datos= $request->except('_token','_method');
-        $user=DB::table("tbl_rol")->join('tbl_usuario', 'tbl_rol.id_rol', '=', 'tbl_usuario.id_rol')->where('correo_usuario','=',$datos['correo_usuario'])->where('password_usuario','=',$datos['password_usuario'])->first();
+        $user=DB::table("tbl_rol")->join('tbl_usuario', 'tbl_rol.id_rol', '=', 'tbl_usuario.id_rol')->where('correo_usuario','=',$datos['correo_usuario'])->where('password_usuario','=',md5($datos['password_usuario']))->first();
         if($user->nombre_rol=='administrador'){
            $request->session()->put('nombre_admin',$request->correo_usuario);
            return redirect('cPanelAdmin');
         }if($user->nombre_rol=='usuario'){
             $request->session()->put('nombre_user',$request->correo_usuario);
-            return redirect('');
+            return redirect('mapa');
         }
-        return redirect('');
+        return redirect('/');
     }
     public function logout(Request $request){
         $request->session()->forget('nombre_admin');
@@ -166,7 +166,7 @@ class AdministracionController extends Controller
             $selectid = DB::table('tbl_rol')->select('id_rol')->where('nombre_rol','=',$datos['nombre_rol'])->first();
             $selectid=$selectid->id_rol;
             // $id = DB::table('tbl_tipo')->insertGetId(["nombre_tipo"=>$datos['nombre_tipo']]);
-            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"apellido_usuario"=>$datos['apellido_usuario'],"correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>$datos['password_usuario'],"id_rol"=>$selectid]);
+            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"apellido_usuario"=>$datos['apellido_usuario'],"correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>md5($datos['password_usuario']),"id_rol"=>$selectid]);
             DB::commit();
             return response()->json(array('resultado'=> 'OK'));            
         } catch (\Throwable $th) {
@@ -189,7 +189,8 @@ class AdministracionController extends Controller
     public function modificarControlleruser(Request $request){
         try {
             DB::beginTransaction();
-            DB::update('update tbl_usuario set nombre_usuario = ?, apellido_usuario = ?, correo_usuario = ?, password_usuario = ? where id_usuario = ?', [$request->input('nombre_usuario'),$request->input('apellido_usuario'),$request->input('correo_usuario'),$request->input('password_usuario'),$request->input('id_usuario')]);
+            $passwordmd5=md5($request->input('password_usuario'));
+            DB::update('update tbl_usuario set nombre_usuario = ?, apellido_usuario = ?, correo_usuario = ?, password_usuario = ? where id_usuario = ?', [$request->input('nombre_usuario'),$request->input('apellido_usuario'),$request->input('correo_usuario'),$passwordmd5,$request->input('id_usuario')]);
             DB::commit();
             return response()->json(array('resultado'=> 'OK')); 
         } catch (\Throwable $th) {

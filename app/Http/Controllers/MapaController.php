@@ -8,47 +8,48 @@ use Illuminate\Support\Facades\DB;
 
 class MapaController extends Controller
 {
-    public function login(){
+    /*public function login(){
         return view ('login');
     }
+    */
+    
+    // public function loginPost(Request $request){
+    //     $datos= $request->except('_token','_method','register');
+    //     /*validación de login*/
+    //     $request->validate([
+    //         'email'=>'required|email',
+    //         'password'=>'required|string|max:50'
+    //     ]);
+    //     try {
+    //     $email=$datos['email'];
+    //     $password=md5($datos['password']);
+    //     DB::beginTransaction();
+    //     $users = DB::table("tbl_usuario")->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->count();
+    //     $user = DB::table("tbl_usuario")->join('tbl_rol', 'tbl_usuario.id_rol', '=', 'tbl_rol.id_rol')->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->first();
+    //     DB::commit();
+    //     if($users == 1){
+    //         //Establecer la sesion
+    //         $request->session()->put('email',$request->email);
+    //         $request->session()->put('id_rol',$user->id_rol);
+    //         return redirect('/');
+    //     }else{
+    //         //Redirigir al login
+    //         return redirect('/login');
+    //     }
+    //         }catch(\Exception $e){
+    //         DB::rollBack();
+    //         return $e->getMessage();
+    //         }
+    // }
 
-    public function loginPost(Request $request){
-        $datos= $request->except('_token','_method','register');
-        /*validación de login*/
-        $request->validate([
-            'email'=>'required|email',
-            'password'=>'required|string|max:50'
-        ]);
-        try {
-        $email=$datos['email'];
-        $password=md5($datos['password']);
-        DB::beginTransaction();
-        $users = DB::table("tbl_usuario")->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->count();
-        $user = DB::table("tbl_usuario")->join('tbl_rol', 'tbl_usuario.id_rol', '=', 'tbl_rol.id_rol')->where('correo_usuario','=',$email)->where('password_usuario','=',$password)->first();
-        DB::commit();
-        if($users == 1){
-            //Establecer la sesion
-            $request->session()->put('email',$request->email);
-            $request->session()->put('id_rol',$user->id_rol);
-            return redirect('/');
-        }else{
-            //Redirigir al login
-            return redirect('/login');
-        }
-            }catch(\Exception $e){
-            DB::rollBack();
-            return $e->getMessage();
-            }
-    }
-
-    public function logout(Request $request){
+    /*public function logout(Request $request){
         //Olvidar una sesion en especifico
             //$request->session()->forget('email');
         //Eliminar todas las variables de sesion
         $request->session()->flush();
         return redirect('login');
     }
-
+    */
     public function registro()
     {
         return view('register');
