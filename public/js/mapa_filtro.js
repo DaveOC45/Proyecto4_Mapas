@@ -1,4 +1,6 @@
-// Quitar opcion de favoritos, desde filtro por tags
+// Se quita el opoup debido a que quitamos el onclick al quitar el añadir ruta
+// Ademas mirar de poner la funcion de crear ruta mediante el bindPopoup
+//EL problema de no volver a mostrar el popup es porque se pone un nuevo marker al routear
 /* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
@@ -373,7 +375,7 @@ function positionDirectionFavorita(datos) {
         geocoder.geocode().text(datos[i].direccion_ubicacion).run(function(error, response) {
             //console.log(response['results'])
             var coordenadas = response['results'][0]['latlng']
-            console.log(coordenadas)
+                //console.log(coordenadas)
             var markerIcon = L.icon({
                     //Fotos de la carpeta proyecto
                     //iconUrl: 'media/icon/' + respuesta[i].path_ic,
@@ -467,8 +469,9 @@ var routing = '';
 var been_routed = false;
 
 function crearRuta(latitud, longitud) {
-    var popup = document.getElementById('golito')
-    popup.style.display = "none";
+    var boton_ruta = document.getElementById('golito')
+    console.log(boton_ruta)
+    console.log(boton_ruta)
 
     users_lat_coords = myPosition.coords.latitude;
     users_lng_coords = myPosition.coords.longitude;
@@ -486,14 +489,16 @@ function crearRuta(latitud, longitud) {
             addWaypoints: false, //Quitamos opciones de desviaciones
             routeWhileDragging: false,
             draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
-            fitSelectedRoutes: false
+            fitSelectedRoutes: false,
+            createMarker: function() { return null; }
 
         });
         routing.addTo(map);
         been_routed = true;
     }
 }
-/* Creador de Rutas hasta los markers seleccionados  */
+
+/* Creador de Rutas hasta los markers seleccionados  
 function getPositionDirection(coords) {
     console.log(coords)
 
@@ -512,8 +517,9 @@ function getPositionDirection(coords) {
         draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
         fitSelectedRoutes: false
     }).addTo(map);
-    */
+    
 }
+*/
 /*
 function mostrarUbicacion(tipo) {
 
