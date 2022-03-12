@@ -11,7 +11,26 @@ class AdministracionController extends Controller
 {
     /*----------------------------------------LOGIN Y LOGOUT------------------------------------------------------------------------*/
     public function loginP(Request $request){
+        $request->validate([
+            'correo_usuario'=>'required|email',
+            'password_usuario'=>'required|string|min:8|max:100'
+        ]);
+        $error=0;
+        $errorpassword=0;
         $datos= $request->except('_token','_method');
+        $correo=$datos['correo_usuario'];
+        $pass=$datos['password_usuario'];
+        $pass=md5($pass);
+        DB::beginTransaction();
+            $existecorreo = DB::table("tbl_usuario")->where('correo_usuario','=',$correo)->count();
+            $passequivocada= DB::select("SELECT * FROM `tbl_usuario` WHERE `correo_usuario` = '$correo' AND `password_usuario` = '$pass'; ");
+        DB::commit();
+        if($existecorreo == 0){
+            return view('login',compact("error"));
+        }else if($passequivocada == []){
+            return view('login',compact("errorpassword"));
+        }
+
         $user=DB::table("tbl_rol")->join('tbl_usuario', 'tbl_rol.id_rol', '=', 'tbl_usuario.id_rol')->where('correo_usuario','=',$datos['correo_usuario'])->where('password_usuario','=',md5($datos['password_usuario']))->first();
         if($user->nombre_rol=='administrador'){
            $request->session()->put('nombre_admin',$request->correo_usuario);
@@ -36,13 +55,34 @@ class AdministracionController extends Controller
     }
 
     public function registroPostequipo(Request $request){
+        $errormismojugador=0;
+        $errorjugadoresiguales=0;
+        $errorjugador2=0;
+        $errorjugador3=0;
         $datos = $request->except('_token');
-        /*validación registro de usuarios*/
-        // $request->validate([
-        //     'correo_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:100',
-        //     'password_usuario'=>'required|string|min:8|max:100',
-        //     'password_usuario_validar'=>'required|same:password'
-        // ]);
+        $request->validate([
+            'nombre_equipo'=>'required|unique:tbl_equipo,nombre_equipo|string|max:50',
+            'codigo_equipo'=>'required|string|max:50',
+            'correo_usuario1'=>'required|email',
+            'correo_usuario2'=>'required|email',
+            'correo_usuario3'=>'required|email'
+        ]);
+        $selectusuario1 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario1'])->first();
+        $selectusuario2 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario2'])->first();
+        $selectusuario3 = DB::table('tbl_usuario')->select('id_usuario')->where('correo_usuario','=',$datos['correo_usuario3'])->first();
+        //return $selectusuario3;
+
+        if($selectusuario1==$selectusuario2 || $selectusuario1==$selectusuario3){
+            return view('registroequipo',compact("errormismojugador"));
+        }else if($selectusuario2==$selectusuario3){
+            return view('registroequipo',compact("errorjugadoresiguales"));
+        }else if($selectusuario2 = 0){
+            return view('registroequipo',compact("errorjugador2"));
+        }else if($selectusuario3 = 0){
+            return view('registroequipo',compact("errorjugador3"));
+        }
+
+
         try{
             DB::beginTransaction();
             /*insertar datos en la base de datos*/

@@ -15,8 +15,10 @@
         <div class="cuadro_login">
             <form action="{{url('registroPost')}}" method="POST" onsubmit="return validarRegistro()">
             @csrf
-            <h1 class="h1_register">REGISTRO DE USUSARIO</h1>
-            <input class="input_login" type="text" id="correo_usuario" name="correo_usuario" placeholder="Introduce el email..." value="{{old('email')}}">
+            <h1 class="h1_register">REGISTRO DE USUARIO</h1>
+            <input class="input_login" type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Introduce tu nombre...">
+            <input class="input_login" type="text" id="apellido_usuario" name="apellido_usuario" placeholder="Introduce tu primer apellido...">
+            <input class="input_login" type="text" id="correo_usuario" name="correo_usuario" placeholder="Introduce el email...">
             <input class="input_login" type="password" id="password_usuario" name="password_usuario" placeholder="Introduce la contraseña...">
             <input class="input_login" type="password" id="password_usuario_validar" name="password_usuario_validar" placeholder="Vuelve a introducir la contraseña...">
             <div>
@@ -30,11 +32,11 @@
 
                 @enderror
                 <input type="hidden" id="error" name="tipo" value="noerror">
-                <input type="hidden" name="tipo" value="2">
+                <input type="hidden" name="id_rol" id="id_rol" value="2">
                 <input class="input_registro" type="submit" value="Registrarme">
             </div>
             </form>
-            <button class="boton_login" OnClick="location.href='./login'">Volver al incio de sesión</button>
+            <button class="boton_login" OnClick="location.href='./'">Volver al incio de sesión</button>
         </div>
     </div>
 </body>

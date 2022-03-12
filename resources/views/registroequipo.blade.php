@@ -22,22 +22,54 @@
         <form action="{{url('registroPostequipo')}}" method="POST" onsubmit="return validarCrearEquipo();">
             @csrf
             {{method_field('POST')}}
-            <!--
-            <input class="input_login" type="text" id="nombreequipo" name="nombreequipo" placeholder="Nombre de equipo">
-            <input class="input_login" type="text" id="codigo" name="codigo" placeholder="Codigo de equipo">
-            <input class="input_login" type="text" id="correo1" name="correo1" placeholder="Correo jugador 1">
-            <input class="input_login" type="text" id="correo2" name="correo2" placeholder="Correo jugador 2">-->
-            <h1 class="h1_register">REGISTRO DE EQUIPO</h1>
-            <h2>nombre equipo</h2>
+            <?php 
+                if (isset($errormismojugador)) {?>
+                    <input type="hidden" id="errormismojugador" name="tipo" value="errormismojugador">
+                    <script>
+                        window.onload = function(){
+                            validarMismosJugador();
+                        }
+                    </script>
+            <?php
+                }
+            ?><?php 
+                if (isset($errorjugadoresiguales)) {?>
+                    <input type="hidden" id="errorjugadoresiguales" name="tipo" value="errorjugadoresiguales">
+                    <script>
+                        window.onload = function(){
+                            validarMismosJugadores();
+                        }
+                    </script>
+            <?php
+                }
+            ?>
+            <?php 
+                if (isset($errorjugador2)) {?>
+                    <input type="hidden" id="errorjugador2" name="tipo" value="errorjugador2">
+                    <script>
+                        window.onload = function(){
+                          validarJugador2();
+                        }
+                    </script>
+            <?php
+                }
+            ?>
+            <?php 
+                if (isset($errorjugador3)) {?>
+                    <input type="hidden" id="errorjugador3" name="tipo" value="errorjugador3">
+                    <script>
+                        window.onload = function(){
+                          validarJugador3();
+                        }
+                    </script>
+            <?php
+                }
+            ?>
             <input class="input_login" type="text" id="nombre_equipo" name="nombre_equipo" placeholder="Introduce el nombre del equipo...">
-            <h2>codigo equipo</h2>
             <input class="input_login" type="text" id="codigo_equipo" name="codigo_equipo" placeholder="Introduce el codigo del equipo...">
             <input class="input_login" type="hidden" id="correo_usuario1" name="correo_usuario1" value={{Session::get('nombre_user')}}>
-            <h2>2 participante equipo</h2>
             <input class="input_login" type="text" id="correo_usuario2" name="correo_usuario2" placeholder="Introduce el correo del segundo usuario">
-            <h2>3 participante equipo</h2>
             <input class="input_login" type="text" id="correo_usuario3" name="correo_usuario3" placeholder="Introduce el correo del tercer usuario">
-            <div>
             @error('nombreequipo')
               <input type="hidden" id="error" name="tipo" value="errormio">
               <script>
@@ -49,8 +81,8 @@
             <input type="hidden" id="error" name="tipo" value="noerror">
             <button class="boton_login" type="submit" name="register" value="register">Crear equipo</button>    
         </form>
+        <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
     </div>
-    <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
   </div>
 </body>
 </html>

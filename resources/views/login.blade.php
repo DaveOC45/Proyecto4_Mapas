@@ -1,30 +1,48 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <title>Login</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
+    <script src="{!! asset('js/validacion.js') !!}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
 </head>
 <body class="login">
   <div class="row flex-cv">
     <div class="cuadro_login">
-        <form action="{{url('login')}}" method="POST">
+        <form action="{{url('login')}}" method="POST" onsubmit="return validarLogin();">
             @csrf
-            <br>
-            <h1>INICIO DE SESIÓN</h1>
-            <br>
-                <div>
-                    <input class="inputlogin" type="text" name="correo_usuario" placeholder="Introduce tu correo">
-                </div>
-            </div>
-                <div>
-                    <input class="inputlogin" type="password" name="password_usuario" placeholder="Introduce tu contraseña">
-                </div>
-            </div>
-                <button class= "botonlogin" type="submit" value="register">Iniciar Sesión</button>
-            </div>
+            <?php 
+                if (isset($error)) {?>
+                    <input type="hidden" id="error" name="tipo" value="error">
+                    <script>
+                        window.onload = function(){
+                            validarCorreoNoCreado();
+                        }
+                    </script>
+            <?php
+                }
+            ?>
+            <?php 
+                if (isset($errorpassword)) {?>
+                    <input type="hidden" id="errorpassword" name="tipo" value="errorpassword">
+                    <script>
+                        window.onload = function(){
+                            validarCorreoPassword();
+                        }
+                    </script>
+            <?php
+                }
+            ?>
+            <h1 class="h1_login">INICIO DE SESIÓN</h1>
+            <input class="input_login" type="text" name="correo_usuario" id="correo_usuario" placeholder="Introduce tu correo...">
+            <input class="input_login" type="password" name="password_usuario" id="password_usuario" placeholder="Introduce tu contraseña...">
+            <button class="boton_login" type="submit" value="register">Iniciar Sesión</button>
         </form>
+        <p class="msgregistrarse">¿No estás registrado en nuestra web? ¡Regístrate aquí mismo!</p>
+        <button class="boton_registro" OnClick="location.href='./registro'">Registrate</button>
     </div>
   </div>
 </body>
