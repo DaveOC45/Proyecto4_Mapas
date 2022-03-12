@@ -14,22 +14,14 @@
             <br>
             <h1>INICIO DE SESIÓN</h1>
             <br>
-            <div class="form-group">
-                <p>Correo:</p>
                 <div>
                     <input class="inputlogin" type="text" name="correo_usuario" placeholder="Introduce tu correo">
                 </div>
             </div>
-            <br>
-            <div class="form-group">
-                <p>Contraseña:</p>
                 <div>
                     <input class="inputlogin" type="password" name="password_usuario" placeholder="Introduce tu contraseña">
                 </div>
             </div>
-            
-            <br><br>
-            <div class="form-group">
                 <button class= "botonlogin" type="submit" value="register">Iniciar Sesión</button>
             </div>
         </form>
