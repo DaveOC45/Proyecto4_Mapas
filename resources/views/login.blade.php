@@ -39,10 +39,10 @@
             <h1 class="h1_login">INICIO DE SESIÓN</h1>
             <input class="input_login" type="text" name="correo_usuario" id="correo_usuario" placeholder="Introduce tu correo...">
             <input class="input_login" type="password" name="password_usuario" id="password_usuario" placeholder="Introduce tu contraseña...">
-            <button class="boton_login" type="submit" value="register">Iniciar Sesión</button>
+            <button class="boton_login" type="submit" value="register">Iniciar sesión</button>
         </form>
         <p class="msgregistrarse">¿No estás registrado en nuestra web? ¡Regístrate aquí mismo!</p>
-        <button class="boton_registro" OnClick="location.href='./registro'">Registrate</button>
+        <button class="boton_registro" OnClick="location.href='./registro'">Regístrate</button>
     </div>
   </div>
 </body>

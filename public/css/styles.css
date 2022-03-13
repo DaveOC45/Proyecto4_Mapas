@@ -2,14 +2,16 @@
 *{
     font-family: 'Oswald', sans-serif;
 }
+input[type='text'] { 
+    font-size: 18px; 
+}
+input[type='password'] { 
+    font-size: 18px; 
+}
 /*Estilos del login*/
-.body_login {
+.login {
     background-image: url("../../../Proyecto4_Mapas/storage/app/public/uploads/fondoiniciosesion.webp");
     overflow: hidden;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
     background-size: cover;
 }
 .row:after {
@@ -25,9 +27,12 @@
     align-content: center;
     align-items: center;
 }
+
+/*ESTILOS DEL LOGIN*/
 .cuadro_login {
-    width: 30%;
-    margin-top: 7%;
+    width: 50%;
+    margin-top: 6%;
+    padding-bottom:1%;
     background: white;
     border: 5px solid black;
     align-items: center;
@@ -35,28 +40,28 @@
     text-align: center;
 }
 .h1_login {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 3%;
     font-size: 35px;
 }
-
+.msgregistrarse{
+    font-size:20px;
+}
 .input_login {
-    width: 250px;
+    width: 60%;
     height: 45px;
     margin-bottom: 1rem;
-    font-size: 15px;
     border-radius: 7px;
     border-color: black;
     background-color: white;
     outline: none;
 }
 .boton_login {
-    width: 250px;
+    width: 60%;
     height: 45px;
     border-radius: 7px;
-    border-color: black;
+    border-color: cadetblue;
     background-color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     transition: all 0.5s ease;
     position: relative;
@@ -71,12 +76,12 @@
 }
 
 .boton_registro {
-    width: 250px;
+    width: 40%;
     height: 45px;
     border-radius: 7px;
-    border-color: black;
+    border-color: red;
     background-color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     transition: all 0.5s ease;
     position: relative;
@@ -90,13 +95,54 @@
     color: #fff !important;
 }
 
+/* FIN ESTILOS DEL LOGIN*/
+/*ESTILOS DEL REGISTRO DE USUARIOS*/
+.cuadro_registro {
+    width: 50%;
+    margin-top: 2%;
+    padding-bottom:1%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
 .input_registro {
-    width: 250px;
+    width: 50%;
+    height: 40px;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    border-color: black;
+    background-color: white;
+    outline: none;
+}
+.boton_login_registro {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    outline: none;
+}
+
+.boton_login_registro:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+
+.boton_registro_registro {
+    width: 50%;
     height: 45px;
     border-radius: 7px;
     border-color: red;
     background-color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     transition: all 0.5s ease;
     position: relative;
@@ -105,7 +151,295 @@
     outline: none;
 }
 
-.input_registro:hover {
+.boton_registro_registro:hover {
     background: red;
     color: #fff !important;
+}
+/*FIN ESTILOS DEL REGISTRO DE USUARIOS*/
+/*ESTILOS INDEX GIMCANA*/
+.cuadro_index_gimcana {
+    width: 50%;
+    margin-top: 13%;
+    padding-bottom:2%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.boton_jugar_solo {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_jugar_solo:hover {
+    background: cadetblue;
+    color: #fff !important;
+}  
+.boton_jugar_equipo {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: palegreen;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_jugar_equipo:hover {
+    background: palegreen;
+    color: #fff !important;
+} 
+/*FIN ESTILOS INDEX GIMCANA*/
+/*ESTILOS CREAR EQUIPO GIMCANA*/
+.cuadro_crear_equipo {
+    width: 50%;
+    margin-top: 5%;
+    padding-bottom:1%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.input_crear_equipo {
+    width: 60%;
+    height: 40px;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    border-color: black;
+    background-color: white;
+    outline: none;
+}
+.boton_crear_equipo {
+    width: 60%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_crear_equipo:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+
+.boton_volver_equipo {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: red;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    outline: none;
+}
+
+.boton_volver_equipo:hover {
+    background: red;
+    color: #fff !important;
+}
+/*FIN ESTILOS CREAR EQUIPO GIMCANA*/
+@media (max-width: 480px) {
+
+    /*ESTILOS DE LOGIN*/
+    .cuadro_login {
+        width: 100%;
+        margin-top: 50%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_login {
+        width: 80%;
+        height: 45px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_login {
+        width: 83%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN DE ESTILOS DEL LOGIN*/
+    /*ESTILOS DEL REGISTRO DE USUARIOS*/
+    .cuadro_registro {
+        width: 100%;
+        margin-top: 30%;
+        padding-bottom:2%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_registro {
+        width: 90%;
+        height: 40px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_login_registro {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 30px;
+        outline: none;
+    }
+    .boton_registro_registro {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: red;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN ESTILOS DEL REGISTRO DE USUARIOS*/
+    /*ESTILOS INDEX GIMCANA*/
+    .cuadro_index_gimcana {
+        width: 100%;
+        margin-top:65%;
+        padding-bottom:2%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    
+    .boton_jugar_solo {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    .boton_jugar_equipo {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: palegreen;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN ESTILOS INDEX GIMCANA*/
+    /*ESTILOS CREAR EQUIPO GIMCANA*/
+    .cuadro_crear_equipo {
+        width: 100%;
+        margin-top: 40%;
+        padding-bottom:1%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_crear_equipo {
+        width: 90%;
+        height: 40px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_crear_equipo {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    .boton_volver_equipo {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: red;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        outline: none;
+    }
+    /*FIN ESTILOS CREAR EQUIPO GIMCANA*/   
 }

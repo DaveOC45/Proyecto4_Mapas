@@ -12,10 +12,10 @@
 </head>
 <body class="body_login">
   <div class="row flex-cv">
-    <div class="cuadro_login">
-        <h1>Mapping BCN Gymkhana's</h1>
-        <button class="boton_registro" OnClick="location.href='./gimcana'">Juego individual</button>
-        <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Juego en equipo (3 personas)</button>
+    <div class="cuadro_index_gimcana">
+        <h1>¡Bienvenido/a al juego de la Gymkhana!</h1>
+        <button class="boton_jugar_solo" OnClick="location.href='./gimcana'">Juego individual (1 persona)</button>
+        <button class="boton_jugar_equipo" OnClick="location.href='./gimcanaequipos'">Juego en equipo (3 personas)</button>
         <button class="boton_registro" OnClick="location.href='./mapa'">Volver atras</button>
     </div>
   </div>

@@ -17,8 +17,8 @@
 </head>
 <body class="body_login">
   <div class="row flex-cv">
-    <div class="cuadro_login">
-        <h1>Crear equipo Gymkhana</h1>
+    <div class="cuadro_crear_equipo">
+        <h1>¡Crear equipo Gymkhana!</h1>
         <form action="{{url('registroPostequipo')}}" method="POST" onsubmit="return validarCrearEquipo();">
             @csrf
             {{method_field('POST')}}
@@ -65,11 +65,11 @@
             <?php
                 }
             ?>
-            <input class="input_login" type="text" id="nombre_equipo" name="nombre_equipo" placeholder="Introduce el nombre del equipo...">
-            <input class="input_login" type="text" id="codigo_equipo" name="codigo_equipo" placeholder="Introduce el codigo del equipo...">
-            <input class="input_login" type="hidden" id="correo_usuario1" name="correo_usuario1" value={{Session::get('nombre_user')}}>
-            <input class="input_login" type="text" id="correo_usuario2" name="correo_usuario2" placeholder="Introduce el correo del segundo usuario">
-            <input class="input_login" type="text" id="correo_usuario3" name="correo_usuario3" placeholder="Introduce el correo del tercer usuario">
+            <input class="input_crear_equipo" type="text" id="nombre_equipo" name="nombre_equipo" placeholder="Introduce el nombre del equipo...">
+            <input class="input_crear_equipo" type="text" id="codigo_equipo" name="codigo_equipo" placeholder="Introduce el codigo del equipo...">
+            <input class="input_crear_equipo" type="hidden" id="correo_usuario1" name="correo_usuario1" value={{Session::get('nombre_user')}}>
+            <input class="input_crear_equipo" type="text" id="correo_usuario2" name="correo_usuario2" placeholder="Introduce el correo del segundo jugador...">
+            <input class="input_crear_equipo" type="text" id="correo_usuario3" name="correo_usuario3" placeholder="Introduce el correo del tercer jugador...">
             @error('nombreequipo')
               <input type="hidden" id="error" name="tipo" value="errormio">
               <script>
@@ -79,9 +79,9 @@
               </script>
             @enderror
             <input type="hidden" id="error" name="tipo" value="noerror">
-            <button class="boton_login" type="submit" name="register" value="register">Crear equipo</button>    
+            <button class="boton_crear_equipo" type="submit" name="register" value="register">Crear equipo</button>    
         </form>
-        <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
+        <button class="boton_volver_equipo" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
     </div>
   </div>
 </body>
