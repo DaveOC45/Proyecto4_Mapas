@@ -30,3 +30,5 @@ Route::get('/mapa_filtros/{tipo}', [UbicacionController::class, 'mapa_filtro_tag
 
 Route::post('/anadir_favoritos', [UbicacionController::class, 'anadir_favoritos']);
 Route::post('/quitar_favoritos', [UbicacionController::class, 'quitar_favoritos']);
+
+Route::post('/insertar_tag', [UbicacionController::class, 'insertar_tag']);

@@ -99,5 +99,29 @@ class UbicacionController extends Controller
             //return $error -> getMessage();
         }
     }
+    public function insertar_tag(Request $request){
+        $datos = $request->except('_token');
+        $id_user=$datos['user'];
+        $id_ubicacion=$datos['ubicacion'];
+        $tag=$datos['tag'];
+
+        try {
+            DB::beginTransaction();
+
+                DB::table('tbl_tags')->insert([
+                    'id_usuario' => $id_user,
+                    'id_ubicacion' => $id_ubicacion,
+                    'nombre_tags' => $tag
+                ]);
+            //return $id_tipo;
+            DB::commit();
+            $resultado = array("Resultado"=>"OK");
+            echo json_encode($resultado);
+            
+        } catch (\Exception $error) {
+            DB::rollback();
+            return $error -> getMessage();
+        }
+    }
 
 }

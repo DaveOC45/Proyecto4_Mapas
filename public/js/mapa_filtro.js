@@ -68,21 +68,28 @@ function ponerFavoritos() {
 
 function insertarTag() {
 
-    tag = document.getElementById('textarea_tag')
+    var user = document.getElementById('id_user').value
+    var ubicacion = document.getElementById('id_ubicacion').value
+    var tag = document.getElementById('textarea_tag').value
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
-    formData.append('user', 1)
+    formData.append('user', user)
+    formData.append('tag', tag)
+    formData.append('ubicacion', ubicacion)
 
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    ajax.open("post", "mapa_filtros_favoritos", true);
+    ajax.open("post", "insertar_tag", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            //console.log(respuesta)
-            positionDirectionFavorita(respuesta)
-                //return respuesta;
+            informacion = document.getElementById('info_insercion')
+            if (respuesta['Resultado'] == 'NOK') {
+                informacion.innerHTML = "Error al añadir Tag, pruebalo de nuevo más adelante"
+            } else {
+                informacion.innerHTML = "Tag añadido correctamente"
+            }
         }
     }
     ajax.send(formData);
@@ -137,7 +144,7 @@ function iniciarPosition(position) {
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 15,
+        maxZoom: 16,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
@@ -182,7 +189,7 @@ function positionDirection(e) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
 
                         var user = document.getElementById('id_user').value
-
+                        tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
@@ -221,6 +228,14 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -238,6 +253,8 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
@@ -257,7 +274,7 @@ function positionDirection(e) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
 
                         var user = document.getElementById('id_user').value
-
+                        tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
@@ -295,6 +312,14 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -308,6 +333,14 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -326,7 +359,7 @@ function positionDirection(e) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
 
                         var user = document.getElementById('id_user').value
-
+                        tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
@@ -364,6 +397,14 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -378,6 +419,14 @@ function positionDirection(e) {
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
                                 '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -451,9 +500,9 @@ function positionDirectionFavorita(datos) {
             var markerIcon = L.icon({
                     //Fotos de la carpeta proyecto
                     //iconUrl: 'media/icon/' + respuesta[i].path_ic,
-                    iconSize: [20, 20],
-                    iconAnchor: [20, 20],
-                    popupAnchor: [10, 10],
+                    iconSize: [30, 30],
+                    //iconAnchor: [20, 20],
+                    //popupAnchor: [10, 10],
                     iconUrl: 'https://www.pngmart.com/files/6/Heart-Love-PNG-Picture.png'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
