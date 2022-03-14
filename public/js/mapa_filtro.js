@@ -108,8 +108,12 @@ function iniciarPosition(position) {
             [41.37445138054452, 2.175256576026225]
         ]).addTo(map);
     }
+    var florentino = L.icon({
+        iconUrl: 'https://sortitoutsi.net/uploads/megapacks/cutoutfaces/originals/5.02/810186.png',
+        iconSize: [60, 60]
+    });
 
-    var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false }).addTo(map);
+    var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 15,
@@ -152,15 +156,15 @@ function positionDirection(e) {
                 if (datos[0][i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
                         var coordenadas = response['results'][0]['latlng']
+
                         var markerIcon = L.icon({
-                                //Fotos de la carpeta proyecto
-                                //iconUrl: 'media/icon/' + respuesta[i].path_ic,
-                                iconSize: [20, 20],
-                                iconAnchor: [20, 20],
-                                popupAnchor: [10, 10],
-                                className: 'redIcon'
-                            })
-                            //nombre direccion descripcion opiinion opinion_user foto + add favorito
+                            //Fotos de la carpeta proyecto
+                            //iconUrl: 'media/icon/' + respuesta[i].path_ic,
+                            iconUrl: 'http://i.imgur.com/u5kEUPv.png',
+                            iconSize: [30, 30]
+
+                        });
+                        //nombre direccion descripcion opiinion opinion_user foto + add favorito
                         var user = document.getElementById('id_user').value
 
                         //VAMOS A INTENTAR RESOLVER SI ESTÁ AÑADIDO A FAVORITO
@@ -202,7 +206,7 @@ function positionDirection(e) {
                             );
                         }
 
-                        markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
+                        markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_1));
                     });
                 }
                 if (datos[0][i]['id_tipo'] == 2) {
@@ -212,6 +216,7 @@ function positionDirection(e) {
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
+                            iconUrl: 'https://gtamods.com/mediawiki/images/d/da/SA_radar_dateFood.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -254,7 +259,7 @@ function positionDirection(e) {
 
                             );
                         }
-                        markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
+                        markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
                         //markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
 
                     });
@@ -264,7 +269,7 @@ function positionDirection(e) {
                         var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
-                            //iconUrl: 'media/icon/' + respuesta[i].path_ic,
+                            iconUrl: 'https://gtamods.com/mediawiki/images/9/92/SA_radar_pizza.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -308,7 +313,7 @@ function positionDirection(e) {
 
                             );
                         }
-                        markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_3));
+                        markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_3));
                     });
                 }
 
@@ -380,8 +385,7 @@ function positionDirectionFavorita(datos) {
                     iconSize: [20, 20],
                     iconAnchor: [20, 20],
                     popupAnchor: [10, 10],
-                    className: 'redIcon',
-                    iconUrl: 'storage/pedrito.png'
+                    iconUrl: 'https://gtamods.com/mediawiki/images/c/c2/SA_radar_girlfriend.png'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
             var user = document.getElementById('id_user').value
@@ -397,7 +401,7 @@ function positionDirectionFavorita(datos) {
                 '</center>'
 
             );
-            markerPosition.push(L.marker(response.results[0].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
+            markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
     //console.log(markerGroup_favorito)
