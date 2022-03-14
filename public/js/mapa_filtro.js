@@ -218,13 +218,13 @@ function positionDirection(e) {
                 //FILTRAMOS UBICACION POR TIPO
                 if (datos[0][i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
-                        contador_tags = 0
+
                         var user = document.getElementById('id_user').value
                         tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
-                                    contador_tags += 1
+
                                     tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
 
                                 }
@@ -312,7 +312,9 @@ function positionDirection(e) {
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
-                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+
                                 }
                             }
                         }
@@ -397,7 +399,9 @@ function positionDirection(e) {
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
-                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+
                                 }
                             }
                         }
