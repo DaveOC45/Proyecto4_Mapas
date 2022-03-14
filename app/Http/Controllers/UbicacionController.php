@@ -19,8 +19,9 @@ class UbicacionController extends Controller
             DB::beginTransaction();
             $lista_ubicaciones = DB::table('tbl_ubicacion')->select('*')->get();
             $lista_favoritos = DB::table('tbl_favorito')->select('*')->get();
+            $lista_comentarios = DB::table('tbl_tags')->select('*')->get();
             DB::commit();
-            return array( $lista_ubicaciones, $lista_favoritos );
+            return array( $lista_ubicaciones, $lista_favoritos, $lista_comentarios );
         } catch (\Exception $error) {
             DB::rollback();
             return $error -> getMessage();

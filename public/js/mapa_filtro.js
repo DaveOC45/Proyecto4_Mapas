@@ -64,7 +64,28 @@ function ponerFavoritos() {
         }
     }
     ajax.send(formData);
+}
 
+function insertarTag() {
+
+    tag = document.getElementById('textarea_tag')
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('user', 1)
+
+    /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "mapa_filtros_favoritos", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta)
+            positionDirectionFavorita(respuesta)
+                //return respuesta;
+        }
+    }
+    ajax.send(formData);
 }
 
 /* Obtener posicion en coordeandas delsuaurio mediante navegador*/
@@ -109,7 +130,7 @@ function iniciarPosition(position) {
         ]).addTo(map);
     }
     var florentino = L.icon({
-        iconUrl: 'https://sortitoutsi.net/uploads/megapacks/cutoutfaces/originals/5.02/810186.png',
+        iconUrl: 'http://assets.stickpng.com/images/5c41d5a7e39d5d01c21da92a.png',
         iconSize: [60, 60]
     });
 
@@ -129,15 +150,17 @@ function positionDirection(e) {
     if (peticion_http.readyState == READY_STATE_COMPLETE) {
         if (peticion_http.status == 200) {
             var datos = JSON.parse(peticion_http.responseText);
-            //console.log(datos)
+            console.log(datos)
             var geocoder = L.esri.Geocoding.geocodeService();
 
-            //CRear un grupo por cada tipo
+            //Crear un grupo por cada tipo
 
             var markerGroup_1 = L.layerGroup()
             var markerGroup_2 = L.layerGroup()
             var markerGroup_3 = L.layerGroup()
 
+            //Inicializamos la posicion del grupo
+            markerPosition = [];
 
             /*
             var array_tipos = []
@@ -149,12 +172,25 @@ function positionDirection(e) {
             console.log(array_tipos_unicos);
             */
 
-            markerPosition = [];
-            var markerGroup = L.layerGroup()
             removeRouting = false;
             for (let i = 0; i < datos[0].length; i++) {
+
+                var tags = ""
+
+                //FILTRAMOS UBICACION POR TIPO
                 if (datos[0][i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+
+                        var user = document.getElementById('id_user').value
+
+                        for (let k = 0; k < datos[2].length; k++) {
+                            if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
+                                if (user == datos[2][k]['id_usuario']) {
+                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+                                }
+                            }
+                        }
+
                         var coordenadas = response['results'][0]['latlng']
 
                         var markerIcon = L.icon({
@@ -165,7 +201,6 @@ function positionDirection(e) {
 
                         });
                         //nombre direccion descripcion opiinion opinion_user foto + add favorito
-                        var user = document.getElementById('id_user').value
 
                         //VAMOS A INTENTAR RESOLVER SI ESTÁ AÑADIDO A FAVORITO
                         var favorito = 0
@@ -185,6 +220,7 @@ function positionDirection(e) {
                                 '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<p>' + tags + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -197,6 +233,14 @@ function positionDirection(e) {
                                 '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                //Ver tags del user
+                                '<p>' + tags + '</p>' +
+                                //Insertar comentarios de la ubi
+                                '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
+                                '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
+                                '<input type="submit" value="Enviar">' +
+                                '</form>' +
+                                //Acabar insertar comentarios de la ubi
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -211,71 +255,28 @@ function positionDirection(e) {
                 }
                 if (datos[0][i]['id_tipo'] == 2) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+
+                        var user = document.getElementById('id_user').value
+
+                        for (let k = 0; k < datos[2].length; k++) {
+                            if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
+                                if (user == datos[2][k]['id_usuario']) {
+                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+                                }
+                            }
+                        }
+
                         var coordenadas = response['results'][0]['latlng']
 
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
-                            iconUrl: 'https://gtamods.com/mediawiki/images/d/da/SA_radar_dateFood.png',
+                            iconUrl: 'https://w7.pngwing.com/pngs/685/254/png-transparent-bar-others-angle-silhouette-candy-bar.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
                         })
-                        var user = document.getElementById('id_user').value
-                        var favorito = 0
 
-                        for (let j = 0; j < datos[1].length; j++) {
-                            if (datos[1][j]['id_usuario'] == user) {
-                                if (datos[1][j]['id_ubicacion'] == datos[0][i]['id_ubicacion']) {
-                                    console.log("Favorito encontrado en la ubicacion " + datos[0][i]['nombre_ubicacion'])
-                                    favorito = 1
-                                } else {}
-                            } else {}
-                        }
-
-                        //COMPROBAMOS SI LA UBICACION ESTA EN FAVORITOS, PARA AÑADIR O NO EL BOTON DE FAVS
-                        if (favorito == 1) {
-                            var markerIconPopup = L.popup().setContent(
-                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
-                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
-                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
-                                '<p id="info_insercion"></p>' +
-                                '</center>'
-
-                            );
-                        } else {
-                            var markerIconPopup = L.popup().setContent(
-                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
-                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
-                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
-                                '<p id="info_insercion"></p>' +
-                                '</center>'
-
-                            );
-                        }
-                        markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
-                        //markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
-
-                    });
-                }
-                if (datos[0][i]['id_tipo'] == 3) {
-                    geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
-                        var coordenadas = response['results'][0]['latlng']
-                        var markerIcon = L.icon({
-                            //Fotos de la carpeta proyecto
-                            iconUrl: 'https://gtamods.com/mediawiki/images/9/92/SA_radar_pizza.png',
-                            iconSize: [20, 20],
-                            iconAnchor: [20, 20],
-                            popupAnchor: [10, 10]
-                        })
-                        var user = document.getElementById('id_user').value
-                            //VAMOS A INTENTAR RESOLVER SI ESTÁ AÑADIDO A FAVORITO
                         var favorito = 0
 
                         for (let j = 0; j < datos[1].length; j++) {
@@ -293,6 +294,7 @@ function positionDirection(e) {
                                 '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<p>' + tags + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -305,6 +307,77 @@ function positionDirection(e) {
                                 '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
                                 '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
                                 '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<p>' + tags + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        }
+                        markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_2));
+                        //markerPosition.push(L.marker(response.results[i].latlng).on("click", muestraPopup, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
+
+                    });
+                }
+                if (datos[0][i]['id_tipo'] == 3) {
+
+                    geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
+
+                        var user = document.getElementById('id_user').value
+
+                        for (let k = 0; k < datos[2].length; k++) {
+                            if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
+                                if (user == datos[2][k]['id_usuario']) {
+                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+                                }
+                            }
+                        }
+
+                        var coordenadas = response['results'][0]['latlng']
+                        var markerIcon = L.icon({
+                            //Fotos de la carpeta proyecto
+                            iconUrl: 'https://www.pngmart.com/files/1/Pizza-Slice.png',
+                            iconSize: [20, 20],
+                            iconAnchor: [20, 20],
+                            popupAnchor: [10, 10]
+                        })
+
+                        //VAMOS A INTENTAR RESOLVER SI ESTÁ AÑADIDO A FAVORITO
+                        var favorito = 0
+
+                        for (let j = 0; j < datos[1].length; j++) {
+                            if (datos[1][j]['id_usuario'] == user) {
+                                if (datos[1][j]['id_ubicacion'] == datos[0][i]['id_ubicacion']) {
+                                    //console.log("Favorito encontrado en la ubicacion " + datos[0][i]['nombre_ubicacion'])
+                                    favorito = 1
+                                } else {}
+                            } else {}
+                        }
+
+                        //COMPROBAMOS SI LA UBICACION ESTA EN FAVORITOS, PARA AÑADIR O NO EL BOTON DE FAVS
+                        if (favorito == 1) {
+
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<p>' + tags + '</p>' +
+                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<p id="info_insercion"></p>' +
+                                '</center>'
+
+                            );
+                        } else {
+
+                            var markerIconPopup = L.popup().setContent(
+                                '<center><h3>' + datos[0][i]['nombre_ubicacion'] + '</h3>' +
+                                '<p>' + datos[0][i]['direccion_ubicacion'] + '</p>' +
+                                '<p>' + datos[0][i]['descripcion_ubicacion'] + '</p>' +
+                                '<p>' + tags + '</p>' +
                                 '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
                                 '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
                                 '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
@@ -316,12 +389,8 @@ function positionDirection(e) {
                         markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_3));
                     });
                 }
-
-
             }
-            console.log(markerGroup)
 
-            //var markerGroup = L.layerGroup().addTo(map);
             var overlayMaps = {};
             //id_tipo = datos[0]['id_tipo']
             nombreCapa = ""
@@ -385,7 +454,7 @@ function positionDirectionFavorita(datos) {
                     iconSize: [20, 20],
                     iconAnchor: [20, 20],
                     popupAnchor: [10, 10],
-                    iconUrl: 'https://gtamods.com/mediawiki/images/c/c2/SA_radar_girlfriend.png'
+                    iconUrl: 'https://www.pngmart.com/files/6/Heart-Love-PNG-Picture.png'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
             var user = document.getElementById('id_user').value
