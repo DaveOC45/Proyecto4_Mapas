@@ -124,4 +124,27 @@ class UbicacionController extends Controller
         }
     }
 
+    public function eliminar_tag(Request $request){
+        $datos = $request->except('_token');
+        $id_user=$datos['user'];
+        $id_ubicacion=$datos['ubicacion'];
+        $tag=$datos['tag'];
+
+        try {
+            DB::beginTransaction();
+
+            DB::table('tbl_tags')->where('id_tags','=',$tag)->delete();
+            //return $id_tipo;
+            DB::commit();
+            $resultado = array("Resultado"=>"OK");
+            echo json_encode($resultado);
+            
+        } catch (\Exception $error) {
+            DB::rollback();
+            $resultado = array("Resultado"=>"NOK");
+            echo json_encode($resultado);
+            //return $error -> getMessage();
+        }
+    }
+
 }

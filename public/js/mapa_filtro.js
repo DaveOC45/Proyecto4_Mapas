@@ -94,6 +94,37 @@ function insertarTag() {
     }
     ajax.send(formData);
 }
+//FUNCION PARA ELIMINAR TAGS DE POPUPS DE USUARIO
+function eliminarTag(tag) {
+
+    var user = document.getElementById('id_user').value
+    var ubicacion = document.getElementById('id_ubicacion').value
+
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('user', user)
+    formData.append('tag', tag)
+    formData.append('ubicacion', ubicacion)
+
+    console.log(tag + " Es el tag a eliminar")
+
+    /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "eliminar_tag", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            console.log(respuesta)
+            informacion = document.getElementById('info_insercion')
+            if (respuesta['Resultado'] == 'NOK') {
+                informacion.innerHTML = "Error al eliminar Tag, pruebalo de nuevo más adelante"
+            } else {
+                informacion.innerHTML = "Tag eliminado correctamente"
+            }
+        }
+    }
+    ajax.send(formData);
+}
 
 /* Obtener posicion en coordeandas delsuaurio mediante navegador*/
 function getLocation() {
@@ -187,16 +218,19 @@ function positionDirection(e) {
                 //FILTRAMOS UBICACION POR TIPO
                 if (datos[0][i]['id_tipo'] == 1) {
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
-
+                        contador_tags = 0
                         var user = document.getElementById('id_user').value
                         tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
-                                    tags += datos[2][k]['nombre_tags'] + "<br>"
+                                    contador_tags += 1
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+
                                 }
                             }
                         }
+
 
                         var coordenadas = response['results'][0]['latlng']
 
