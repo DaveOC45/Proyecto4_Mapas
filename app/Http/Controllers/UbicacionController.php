@@ -76,7 +76,8 @@ class UbicacionController extends Controller
             
         } catch (\Exception $error) {
             DB::rollback();
-            return $error -> getMessage();
+            $resultado = array("Resultado"=>"NOK");
+            echo json_encode($error);
         }
     }
     public function quitar_favoritos(Request $request){
