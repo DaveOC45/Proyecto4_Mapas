@@ -17,46 +17,26 @@
 <body class="cPanel">
     <br><br><br><br><br>
     <div class="row flex-cv">
-        <div class="cuadro">
-            <h1>Control Admin Panel</h1>
-            <div>
-                <form action="{{url('unirseequipo')}}" method="GET">
-                    <div class="form-group">
-                        <span><i class="fas fa-sign-out-alt"></i></span>
-                        <button type="submit" value="logout" class="botoncPanel">UNIRME A UN EQUIPO</button><br><br>
-                    </div>
-                </form>
-            </div>
-            <div>
-                <form action="{{url('registroequipo')}}" method="GET">
-                    <div class="form-group">
-                        <span><i class="fas fa-sign-out-alt"></i></span>
-                        <button type="submit" value="logout" class="botoncPanel">REGISTROEQUIPO</button><br><br>
-                    </div>
-                </form>
-            </div>
-            <div>
-                <form action="{{url('logout')}}" method="GET">
-                    <div class="form-group">
-                        <span><i class="fas fa-sign-out-alt"></i></span>
-                        <button type="submit" value="logout" class="botoncPanel">LOGOUT</button><br><br>
-                    </div>
-                </form>
-            </div>
-            <div class="btn-group" role="group">
-                <form action="{{url('usuarios')}}" method="GET">
-                    <div class="form-group">
-                        <span><i class="fas fa-user"></i></span>
-                        <button type="submit" value="Enviar" class="botoncPanel">USUARIOS</button><br><br>
-                    </div>
-                </form>
-                <form action="{{url('principal')}}" method="GET">
-                    <div class="form-group">
-                        <span><i class="fas fa-utensils"></i></span>
-                        <button type="submit" value="Enviar" class="botoncPanel">UBICACIONES</button><br><br>
-                    </div>
-                </form>
-            </div>
+        <div class="cuadro_registro">
+            <h1>Panel de control del administrador</h1>
+            <form action="{{url('usuarios')}}" method="GET">
+                <div class="form-group">
+                    <span><i class="fas fa-user"></i></span>
+                    <button type="submit" value="Enviar" class="boton_control_panel">CRUD DE USUARIOS</button><br><br>
+                </div>
+            </form>
+            <form action="{{url('principal')}}" method="GET">
+                <div class="form-group">
+                    <span><i class="fas fa-utensils"></i></span>
+                    <button type="submit" value="Enviar" class="boton_jugar_equipo">CRUD DE UBICACIONES</button><br><br>
+                </div>
+            </form>
+            <form action="{{url('logout')}}" method="GET">
+                <div class="form-group">
+                    <span><i class="fas fa-sign-out-alt"></i></span>
+                    <button type="submit" value="logout" class="boton_registro">LOGOUT</button><br><br>
+                </div>
+            </form>
         </div>
     </div>
 </body>

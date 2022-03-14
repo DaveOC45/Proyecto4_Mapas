@@ -14,6 +14,10 @@ input[type='password'] {
     overflow: hidden;
     background-size: cover;
 }
+
+.all-view{
+    height: 100vh;
+}
 .row:after {
     content: "";
     display: table;
@@ -31,7 +35,6 @@ input[type='password'] {
 /*ESTILOS DEL LOGIN*/
 .cuadro_login {
     width: 50%;
-    margin-top: 6%;
     padding-bottom:1%;
     background: white;
     border: 5px solid black;
@@ -267,12 +270,174 @@ input[type='password'] {
     color: #fff !important;
 }
 /*FIN ESTILOS CREAR EQUIPO GIMCANA*/
+/*ESTILOS UNIRSE A UN EQUIPO GIMCANA*/
+.cuadro_unir_equipo {
+    width: 40%;
+    margin-top: 9%;
+    padding-bottom:1%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.input_unir_equipo {
+    width: 60%;
+    height: 40px;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    border-color: black;
+    background-color: white;
+    outline: none;
+}
+.boton_unir_equipo {
+    width: 60%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_unir_equipo:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+
+.boton_control_panel {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_control_panel:hover {
+    background: cadetblue;
+    color: #fff !important;
+} 
+/*FIN ESTILOS UNIRSE A UN EQUIPO GIMCANA*/
+/*ESTILOS PANEL ADMINISTRADOR*/
+.cuadro_admin{
+    width: 50%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding-bottom:2%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.boton_atras_admin{
+    width: 12%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    margin-left:75%;
+    margin-top: 1%;
+}
+.boton_atras_admin:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+.boton_logout_admin{
+    width: 12%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: red;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+.boton_logout_admin:hover {
+    background: red;
+    color: #fff !important;
+}
+.boton_modificar{
+    width: 100%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+.boton_modificar:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+.boton_eliminar{
+    width: 100%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: red;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+.boton_eliminar:hover {
+    background: red;
+    color: #fff !important;
+}
+.menuder{
+    width: 100%;
+    float: right;
+    margin-bottom: 2%;
+}
+.input_filtro{
+    width: 21%;
+    height: 40px;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    border-color: black;
+    background-color: white;
+    outline: none;
+}
+.contenido_admin{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.boton_crear_user{
+    width: 50%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+.boton_crear_user:hover{
+    background: cadetblue;
+    color: #fff !important;
+}
+/*FIN ESTILOS PANEL ADMINISTRADOR*/
 @media (max-width: 480px) {
 
     /*ESTILOS DE LOGIN*/
     .cuadro_login {
         width: 100%;
-        margin-top: 50%;
         background: white;
         border: 5px solid black;
         align-items: center;
@@ -442,4 +607,39 @@ input[type='password'] {
         outline: none;
     }
     /*FIN ESTILOS CREAR EQUIPO GIMCANA*/   
+    /*ESTILOS UNIRSE EQUIPO GIMCANA*/
+    .cuadro_unir_equipo {
+        width: 100%;
+        margin-top: 65%;
+        padding-bottom:1%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_unir_equipo {
+        width: 90%;
+        height: 40px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_unir_equipo {
+        width: 90%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN ESTILOS UNIRSE EQUIPO GIMCANA*/
 }

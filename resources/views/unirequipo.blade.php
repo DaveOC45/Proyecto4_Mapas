@@ -11,7 +11,7 @@
 </head>
 <body class="body_login">
   <div class="row flex-cv">
-    <div class="cuadro_login">
+    <div class="cuadro_unir_equipo">
         <h1>Unirse a un equipo</h1>
         <form action="{{url('unirequipoPOST')}}" method="POST" onsubmit="return validarUnirEquipo();">
           @csrf
@@ -40,10 +40,10 @@
           <?php
         }
       ?>
-          <input class="input_login" type="text" id="nombreequipo" name="nombreequipo" placeholder="Nombre de equipo">
-          <input class="input_login" type="text" id="codigo" name="codigo" placeholder="Codigo de equipo">
+          <input class="input_unir_equipo" type="text" id="nombreequipo" name="nombreequipo" placeholder="Nombre de equipo">
+          <input class="input_unir_equipo" type="text" id="codigo" name="codigo" placeholder="Codigo de equipo">
           <input type="hidden" id="error" name="tipo" value="noerror">
-          <button class="boton_registro" OnClick="location.href='./jugargimcana2'">Unirme al equipo</button>
+          <button class="boton_unir_equipo" OnClick="location.href='./jugargimcana2'">Unirme al equipo</button>
         </form>
         <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
     </div>

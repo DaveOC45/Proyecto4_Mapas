@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
 </head>
 <body class="login">
-  <div class="row flex-cv">
+  <div class="row flex-cv all-view">
     <div class="cuadro_login">
         <form action="{{url('login')}}" method="POST" onsubmit="return validarLogin();">
             @csrf

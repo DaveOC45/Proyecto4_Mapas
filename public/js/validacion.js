@@ -244,7 +244,7 @@ function validarJugador3() {
             title: "Error",
             icon: "error",
             html:
-                'El jugador 2 no existe.',
+                'El jugador 3 no existe.',
         });
         return false;
     }else {
@@ -270,7 +270,7 @@ function validarUnirEquipo() {
             title: "Error",
             icon: "error",
             html:
-                'El codigo es incorrecto.',
+                'El código es incorrecto.',
         });
         return false;
     }else if (nombre == '' || codigo == '') {

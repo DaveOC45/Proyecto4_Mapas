@@ -81,7 +81,7 @@
             <input type="hidden" id="error" name="tipo" value="noerror">
             <button class="boton_crear_equipo" type="submit" name="register" value="register">Crear equipo</button>    
         </form>
-        <button class="boton_volver_equipo" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
+        <button class="boton_registro" OnClick="location.href='./gimcanaequipos'">Volver atras</button>
     </div>
   </div>
 </body>
