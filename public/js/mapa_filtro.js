@@ -832,38 +832,40 @@ function positionDirection(e) {
             nombreCapa = ""
             for (let i = 0; i < tipos.length; i++) {
                 //console.log(tipos[i])
-                if (tipos[i]['nombre_tipo'] == 'Restaurante') {
+                if (tipos[i]['nombre_tipo'] == 'restaurante') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_1
                         //Añadimos por default al mapa
                     map.addLayer(markerGroup_1)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Museo') {
+                if (tipos[i]['nombre_tipo'] == 'museo') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_2
                     map.addLayer(markerGroup_2)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Monumento') {
+                if (tipos[i]['nombre_tipo'] == 'monumento') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_3
                     map.addLayer(markerGroup_3)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Teatro') {
+                if (tipos[i]['nombre_tipo'] == 'teatro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_4
                     map.addLayer(markerGroup_4)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Arte') {
+                if (tipos[i]['nombre_tipo'] == 'arte') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_5
                     map.addLayer(markerGroup_5)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Otro') {
+                if (tipos[i]['nombre_tipo'] == 'otro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_6
                     map.addLayer(markerGroup_6)
+                    console.log(markerGroup_6)
                 }
             }
+
             L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
             //console.log(markerGroup)
