@@ -48,9 +48,11 @@ function ponerFavoritos() {
     tag.className = 'btnclicked';
     tag.setAttribute("onClick", "");
 
+    var user = document.getElementById('id_user').value
+
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
-    formData.append('user', 1)
+    formData.append('user', user)
 
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
@@ -923,7 +925,7 @@ function positionDirectionFavorita(datos) {
             markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
-    //console.log(markerGroup_favorito)
+    console.log(markerGroup_favorito)
 
     //var markerGroup = L.layerGroup().addTo(map);
     var overlayMaps = {};

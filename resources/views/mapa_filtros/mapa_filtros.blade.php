@@ -52,10 +52,9 @@
 <body onload="getLocation(); obtenerTagsBBDD();">
 <?php
 $username_logged = session('id_user');
-echo $username_logged;
 ?>
 
-    <input type="number"  hidden id="id_user" value="<?php echo $username_logged; ?>">
+    <input type="number" hidden id="id_user" value="<?php echo $username_logged; ?>">
     <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button>
     <div id="tags"></div>
