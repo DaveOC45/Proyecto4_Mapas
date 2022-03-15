@@ -1081,3 +1081,5 @@ function crearRuta(latitud, longitud) {
         been_routed = true;
     }
 }
+setTimeout(() => { ponerLayers(); }, 8000);
+setTimeout(() => { ponerFavoritos(); }, 8000);
