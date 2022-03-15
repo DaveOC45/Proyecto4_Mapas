@@ -10,8 +10,8 @@
   <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
 
 </head>
-<body class="body_login">
-  <div class="row flex-cv">
+<body class="login">
+  <div class="row flex-cv all-view">
     <div class="cuadro_index_gimcana">
         <h1>¡Bienvenido/a al juego de la Gymkhana!</h1>
         <button class="boton_jugar_solo" OnClick="location.href='./gimcana'">Juego individual (1 persona)</button>

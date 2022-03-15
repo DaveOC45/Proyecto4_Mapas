@@ -11,7 +11,7 @@
     <title>Registro</title>
 </head>
 <body class="login">
-    <div class="row flex-cv">
+    <div class="row flex-cv all-view">
         <div class="cuadro_registro">
             <form action="{{url('registroPost')}}" method="POST" onsubmit="return validarRegistro()">
             @csrf

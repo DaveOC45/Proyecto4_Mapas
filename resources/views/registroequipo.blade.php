@@ -15,8 +15,8 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="icon" type="image/x-icon" href="{{asset('storage/uploads/logoblanco.png')}}">
 </head>
-<body class="body_login">
-  <div class="row flex-cv">
+<body class="login">
+  <div class="row flex-cv all-view">
     <div class="cuadro_crear_equipo">
         <h1>¡Crear equipo Gymkhana!</h1>
         <form action="{{url('registroPostequipo')}}" method="POST" onsubmit="return validarCrearEquipo();">
