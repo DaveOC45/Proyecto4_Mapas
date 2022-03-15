@@ -32,11 +32,13 @@ class AdministracionController extends Controller
         }
 
         $user=DB::table("tbl_rol")->join('tbl_usuario', 'tbl_rol.id_rol', '=', 'tbl_usuario.id_rol')->where('correo_usuario','=',$datos['correo_usuario'])->where('password_usuario','=',md5($datos['password_usuario']))->first();
+        
         if($user->nombre_rol=='administrador'){
            $request->session()->put('nombre_admin',$request->correo_usuario);
            return redirect('cPanelAdmin');
         }if($user->nombre_rol=='usuario'){
             $request->session()->put('nombre_user',$request->correo_usuario);
+            $request->session()->put('id_user',$user->id_usuario);
             return redirect('mapa');
         }
         return redirect('/');
