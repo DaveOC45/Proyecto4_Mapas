@@ -54,7 +54,7 @@
 
 </head>
 
-<body onload="getLocation();">
+<body>
     {{-- lo de pillar la sesión en hidden es para hacer lo de favoritos --}}
     {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
     <input type="hidden" id="error" name="tipo" value="errormio">

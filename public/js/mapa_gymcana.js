@@ -1,5 +1,36 @@
 // Cmabiar iconos de mapa, poner un poco mejor los botones, css general y poner iconos de fontsawesome
 /* Objetode Ajaz*/
+map = L.map('map').setView([41.38126114705645, 2.173033795865501], 25);
+var polygon = L.polygon([
+    [41.374980592155794, 2.168069419305712],
+    [41.37870230182673, 2.1630370312774074],
+    [41.385554535803344, 2.1641276580851647],
+    [41.385925684055444, 2.1647233874574145],
+    [41.38557028059483, 2.1697256305596704],
+    [41.38581837319181, 2.170128191724144],
+    [41.388490777066735, 2.172788943197472],
+    [41.3804088341541, 2.1835177788932114],
+    [41.37675392055456, 2.184976900593031],
+    [41.37432256476872, 2.18298133728499],
+    [41.37515986311363, 2.1815222157264222],
+    [41.37749458041587, 2.1831959139847794],
+    [41.37952330119203, 2.1823376071856218],
+    [41.37400052401823, 2.17798170011355],
+    [41.37155296263436, 2.1830027948886213],
+    [41.37039355931067, 2.182037199739569],
+    [41.37363017524818, 2.1753853220460986],
+    [41.374048830224076, 2.1753853220460986],
+    [41.37445138054452, 2.175256576026225]
+]).addTo(map);
+var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 16,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+}).addTo(map);
+
 
 
 function objetoAjax() {
@@ -20,14 +51,7 @@ function objetoAjax() {
 }
 
 /* Obtener posicion en coordeandas delsuaurio mediante navegador*/
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(iniciarPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-var map
+
 
 /* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
@@ -35,45 +59,18 @@ function iniciarPosition(position) {
     var container = L.DomUtil.get('map');
     if (container != null) {
         container._leaflet_id = null;
-        map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
 
-        //Añadimos un poligono con nuetsra zona de juego
-        var polygon = L.polygon([
-            [41.374980592155794, 2.168069419305712],
-            [41.37870230182673, 2.1630370312774074],
-            [41.385554535803344, 2.1641276580851647],
-            [41.385925684055444, 2.1647233874574145],
-            [41.38557028059483, 2.1697256305596704],
-            [41.38581837319181, 2.170128191724144],
-            [41.388490777066735, 2.172788943197472],
-            [41.3804088341541, 2.1835177788932114],
-            [41.37675392055456, 2.184976900593031],
-            [41.37432256476872, 2.18298133728499],
-            [41.37515986311363, 2.1815222157264222],
-            [41.37749458041587, 2.1831959139847794],
-            [41.37952330119203, 2.1823376071856218],
-            [41.37400052401823, 2.17798170011355],
-            [41.37155296263436, 2.1830027948886213],
-            [41.37039355931067, 2.182037199739569],
-            [41.37363017524818, 2.1753853220460986],
-            [41.374048830224076, 2.1753853220460986],
-            [41.37445138054452, 2.175256576026225]
-        ]).addTo(map);
+        //Añadimos un poligono con nuestra zona de juego
+
     }
     var florentino = L.icon({
         iconUrl: 'http://assets.stickpng.com/images/5c41d5a7e39d5d01c21da92a.png',
         iconSize: [60, 60]
     });
-
+    usu = [position.coords.latitude, position.coords.longitude]
+    console.log(usu)
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
-    var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 16,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
-    }).addTo(map);
+
 }
 
 var routing = '';
@@ -132,7 +129,12 @@ empezargimcana(1)
 
 function localizarpuntoscontrol(direccionesgimcana) {
     dentromarker = [];
+    bellvitge = []
     var geocoder = L.esri.Geocoding.geocodeService();
+    bellvitge.push(L.marker([41.3501563303171, 2.107247196659691]).addTo(map));
+    L.circle([41.3501563303171, 2.107247196659691], 1000).addTo(map);
+
+
     for (let i = 0; i < direccionesgimcana.length; i++) {
         console.log(direccionesgimcana[i])
         geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
@@ -140,4 +142,32 @@ function localizarpuntoscontrol(direccionesgimcana) {
             L.circle(response.results[0].latlng, 50).addTo(map);
         });
     }
+}
+
+function posicionactualusuario() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(iniciarPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+}
+llamarintervalo = setInterval(posicionactualusuario, 5000);
+
+function devolvercoordenadas() {
+    var coordenadas = navigator.geolocation.getCurrentPosition(comprobarposicion);
+    return coordenadas;
+}
+devolvercoordenadas()
+
+function comprobarposicion(posicionuser) {
+    var latitude = (posicionuser.coords.latitude)
+    var longitude = (posicionuser.coords.longitude)
+    var distancia = map.distance([latitude, longitude], [41.3501563303171, 2.107247196659691]);
+    if (distancia < 1000) {
+        alert("me gustan las tetas")
+    } else {
+        alert("TETAS")
+    }
+
 }
