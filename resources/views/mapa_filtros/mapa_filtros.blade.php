@@ -1,9 +1,15 @@
-
+@if (!Session::get('nombre_user'))
+    <?php
+        //Si la session no esta definida te redirige al login.
+        return redirect()->to('/')->send();
+    ?>
+@endif 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Enlace a API para hacer el CSS de los Mapas  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
@@ -43,24 +49,34 @@
     <script src="{!! asset('js/llamada_ajax.js') !!}"></script>
     
 
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
     <title>Agenda Churrerías</title>
 
 </head>
 
-<body onload="getLocation(); obtenerTagsBBDD();">
+<body class="body_mapa" onload="getLocation(); obtenerTagsBBDD();">
 <?php
-$username_logged = session('id_user');
+    $username_logged = session('id_user');
 ?>
-
+<nav role="navigation">
+    <div id="menuToggle">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu">
+        <h2>Mapping BCN ®</h2>
+        <img class="icono" src="storage/uploads/logonegro.png">
+        <a href="./gimcana"><li>¡Juega a nuestra Gymkhana!</li></a>
+        <a href="./logout"><li>Logout</li></a>
+      </ul>
+    </div>
+  </nav>
     <input type="number" hidden id="id_user" value="<?php echo $username_logged; ?>">
-    <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
-    <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button>
+
     <div id="tags"></div>
     <div id="traduccion"></div>
-
-    <div id="map" style="width: 414px;height:896px;"></div>
-
+    <div class="mapa" id="map"></div>
 </body>
 </html>

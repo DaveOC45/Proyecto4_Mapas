@@ -70,7 +70,7 @@ function leerJS() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             var recarga = '';
-            recarga += '<tr><td>ID</td><td>NOMBRE</td><td>APELLIDO</td><td>CORREO</td><td>PASSWORD</td><td>ROL</td><td>ELIMINAR</td><td>MODIFICAR</td></tr>';
+            recarga += '<tr><td><b>ID</b></td><td><b>NOMBRE</b></td><td><b>APELLIDO</b></td><td><b>CORREO</b></td><td><b>PASSWORD</b></td><td><b>ROL</b></td><td><b>MODIFICAR</b></td><td><b>ELIMINAR</b></td></tr>';
             /* Leerá la respuesta que es devuelta por el controlador: */
             for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';
@@ -80,8 +80,8 @@ function leerJS() {
                 recarga += '<td>' + respuesta[i].correo_usuario + '</td>'
                 recarga += '<td>' + respuesta[i].password_usuario + '</td>'
                 recarga += '<td>' + respuesta[i].nombre_rol + '</td>'
-                recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_usuario + ')">Eliminar</button></td>'
-                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_usuario + ',\'' + respuesta[i].nombre_usuario + '\',\'' + respuesta[i].apellido_usuario + '\',\'' + respuesta[i].correo_usuario + '\',\'' + respuesta[i].password_usuario + '\');return false;">Modificar</button></td>'
+                recarga += '<td><button class="boton_modificar" type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_usuario + ',\'' + respuesta[i].nombre_usuario + '\',\'' + respuesta[i].apellido_usuario + '\',\'' + respuesta[i].correo_usuario + '\',\'' + respuesta[i].password_usuario + '\');return false;">Modificar</button></td>'
+                recarga += '<td><button class="boton_eliminar" onclick="eliminarJS(' + respuesta[i].id_usuario + ')">Eliminar</button></td>'
                 recarga += '</tr>';
 
             }
@@ -121,10 +121,48 @@ function leertipo() {
 }
 /* Función implementada con AJAX que inserta un archivo */
 function insertarJS() {
-    /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
-    /* Usar el objeto FormData para guardar los parámetros que se enviarán:
-       formData.append('clave', valor);
-       valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
+    let nombre = document.getElementById('nombre_usuario').value;
+    let apellido = document.getElementById('apellido_usuario').value;
+    let correo = document.getElementById('correo_usuario').value;
+    let pass = document.getElementById('password_usuario').value;
+
+    
+    if (nombre == '' || apellido == '' || correo == '' || pass == '') {
+        swal.fire({
+            title: "Error",
+            text: "Tienes que rellenar todos los datos",
+            icon: "error",
+        });
+        return false;
+    }else if (pass.length > 20) {
+        swal.fire({
+            title: "Error",
+            text: "La contraseña no puede ser mas grande de 20 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (nombre.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El nombre no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (apellido.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El apellido no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        swal.fire({
+            title: "Error",
+            text: "Introduce un email correcto",
+            icon: "error",
+        });
+        return false;
+    }
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('nombre_usuario', document.getElementById('nombre_usuario').value);
@@ -160,10 +198,6 @@ function insertarJS() {
 
 //BORRAR
 function eliminarJS(id) {
-    /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
-    /* Usar el objeto FormData para guardar los parámetros que se enviarán:
-       formData.append('clave', valor);
-       valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('_method', 'DELETE');
@@ -188,10 +222,48 @@ function eliminarJS(id) {
 }
 //EDITAR
 function editarJS() {
-    /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
-    /* Usar el objeto FormData para guardar los parámetros que se enviarán:
-       formData.append('clave', valor);
-       valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
+    let nombre = document.getElementById('modnombreuser').value;
+    let apellido = document.getElementById('modapellido').value;
+    let correo = document.getElementById('modcorreo').value;
+    let pass = document.getElementById('modpassword').value;
+
+    
+    if (nombre == '' || apellido == '' || correo == '' || pass == '') {
+        swal.fire({
+            title: "Error",
+            text: "Tienes que rellenar todos los datos",
+            icon: "error",
+        });
+        return false;
+    }else if (pass.length < 8) {
+        swal.fire({
+            title: "Error",
+            text: "La contraseña no puede ser mas pequeña de 8 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (nombre.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El nombre no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (apellido.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El apellido no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        swal.fire({
+            title: "Error",
+            text: "Introduce un email correcto",
+            icon: "error",
+        });
+        return false;
+    }
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('_method', "PUT");

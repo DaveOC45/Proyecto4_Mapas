@@ -24,9 +24,7 @@ var layers_puestos_fav = 0
     /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
-    tag = document.getElementById('anadir_filtros')
-    tag.className = 'btnclicked';
-    tag.setAttribute("onClick", "");
+   
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -48,9 +46,7 @@ function ponerLayers() {
 /* Obtenemos todas las posiciones favoritas en BBDD y llamamos a que nos la ponga*/
 function ponerFavoritos() {
 
-    tag = document.getElementById('anadir_favoritos')
-    tag.className = 'btnclicked';
-    tag.setAttribute("onClick", "");
+
 
     var user = document.getElementById('id_user').value
 
@@ -150,7 +146,10 @@ function iniciarPosition(position) {
     var container = L.DomUtil.get('map');
     if (container != null) {
         container._leaflet_id = null;
-        map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 25);
+        map = L.map('map', { zoomControl: false }).setView([position.coords.latitude, position.coords.longitude], 25);
+
+        new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+
 
         //Añadimos un poligono con nuetsra zona de juego
         var polygon = L.polygon([
@@ -183,7 +182,7 @@ function iniciarPosition(position) {
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 16,
+        maxZoom: 20,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
@@ -839,33 +838,33 @@ function positionDirection(e) {
             nombreCapa = ""
             for (let i = 0; i < tipos.length; i++) {
                 //console.log(tipos[i])
-                if (tipos[i]['nombre_tipo'] == 'Restaurante') {
+                if (tipos[i]['nombre_tipo'] == 'restaurante') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_1
                         //Añadimos por default al mapa
                     map.addLayer(markerGroup_1)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Museo') {
+                if (tipos[i]['nombre_tipo'] == 'museo') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_2
                     map.addLayer(markerGroup_2)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Monumento') {
+                if (tipos[i]['nombre_tipo'] == 'monumento') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_3
                     map.addLayer(markerGroup_3)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Teatro') {
+                if (tipos[i]['nombre_tipo'] == 'teatro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_4
                     map.addLayer(markerGroup_4)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Arte') {
+                if (tipos[i]['nombre_tipo'] == 'arte') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_5
                     map.addLayer(markerGroup_5)
                 }
-                if (tipos[i]['nombre_tipo'] == 'Otro') {
+                if (tipos[i]['nombre_tipo'] == 'otro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_6
                     map.addLayer(markerGroup_6)
