@@ -1,4 +1,9 @@
-
+@if (!Session::get('nombre_user'))
+    <?php
+        //Si la session no esta definida te redirige al login.
+        return redirect()->to('/')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +57,8 @@
 <body onload="getLocation(); obtenerTagsBBDD();">
     
     <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden>
+    <button class="boton_login" OnClick="location.href='./indexgimcana'">Jugar a la Gymcana</button>
+    <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
     <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button>
     <div id="tags"></div>
