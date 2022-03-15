@@ -14,9 +14,8 @@
     <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <script src="js/iconos_g.js"></script>
 </head>
-<body class="cPanel">
-    <br><br><br><br><br>
-    <div class="row flex-cv">
+<body class="login">
+    <div class="row flex-cv all-view">
         <div class="cuadro_registro">
             <h1>Panel de control del administrador</h1>
             <form action="{{url('usuarios')}}" method="GET">
