@@ -48,9 +48,11 @@ function ponerFavoritos() {
     tag.className = 'btnclicked';
     tag.setAttribute("onClick", "");
 
+    var user = document.getElementById('id_user').value
+
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
-    formData.append('user', 1)
+    formData.append('user', user)
 
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
@@ -268,7 +270,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -290,7 +292,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -354,7 +356,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -375,7 +377,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -441,7 +443,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -463,7 +465,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -527,7 +529,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -549,7 +551,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -613,7 +615,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -635,7 +637,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -654,7 +656,6 @@ function positionDirection(e) {
                 if (datos[0][i]['id_tipo'] == 23) {
 
                     geocoder.geocode().text(datos[0][i].direccion_ubicacion).run(function(error, response) {
-                        console.log(response)
                         var user = document.getElementById('id_user').value
                         tags = ""
                         for (let k = 0; k < datos[2].length; k++) {
@@ -699,7 +700,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -721,7 +722,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value="' + user + '">' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -786,7 +787,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -808,7 +809,7 @@ function positionDirection(e) {
                                 //Insertar comentarios de la ubi
                                 '<form onsubmit="insertarTag(); return false;" action="" method="post">' +
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
-                                '<input type="number" id="id_user" value=' + user + ' hidden>' +
+                                '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
                                 '<input type="submit" value="Enviar">' +
                                 '</form>' +
@@ -832,40 +833,38 @@ function positionDirection(e) {
             nombreCapa = ""
             for (let i = 0; i < tipos.length; i++) {
                 //console.log(tipos[i])
-                if (tipos[i]['nombre_tipo'] == 'restaurante') {
+                if (tipos[i]['nombre_tipo'] == 'Restaurante') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_1
                         //Añadimos por default al mapa
                     map.addLayer(markerGroup_1)
                 }
-                if (tipos[i]['nombre_tipo'] == 'museo') {
+                if (tipos[i]['nombre_tipo'] == 'Museo') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_2
                     map.addLayer(markerGroup_2)
                 }
-                if (tipos[i]['nombre_tipo'] == 'monumento') {
+                if (tipos[i]['nombre_tipo'] == 'Monumento') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_3
                     map.addLayer(markerGroup_3)
                 }
-                if (tipos[i]['nombre_tipo'] == 'teatro') {
+                if (tipos[i]['nombre_tipo'] == 'Teatro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_4
                     map.addLayer(markerGroup_4)
                 }
-                if (tipos[i]['nombre_tipo'] == 'arte') {
+                if (tipos[i]['nombre_tipo'] == 'Arte') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_5
                     map.addLayer(markerGroup_5)
                 }
-                if (tipos[i]['nombre_tipo'] == 'otro') {
+                if (tipos[i]['nombre_tipo'] == 'Otro') {
                     nombreCapa = tipos[i]['nombre_tipo']
                     overlayMaps[nombreCapa] = markerGroup_6
                     map.addLayer(markerGroup_6)
-                    console.log(markerGroup_6)
                 }
             }
-
             L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
             //console.log(markerGroup)
@@ -926,7 +925,7 @@ function positionDirectionFavorita(datos) {
             markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
-    //console.log(markerGroup_favorito)
+    console.log(markerGroup_favorito)
 
     //var markerGroup = L.layerGroup().addTo(map);
     var overlayMaps = {};
