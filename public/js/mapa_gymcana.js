@@ -137,6 +137,7 @@ function localizarpuntoscontrol(direccionesgimcana) {
         console.log(direccionesgimcana[i])
         geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
             dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
+            L.circle(response.results[0].latlng, 50).addTo(map);
         });
     }
 }
