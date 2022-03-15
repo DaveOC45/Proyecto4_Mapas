@@ -1,5 +1,7 @@
 // Cmabiar iconos de mapa, poner un poco mejor los botones, css general y poner iconos de fontsawesome
 /* Objetode Ajaz*/
+
+
 function objetoAjax() {
     var xmlhttp = false;
     try {
@@ -107,70 +109,34 @@ function crearRuta(latitud, longitud) {
     }
 }
 
-/* Creador de Rutas hasta los markers seleccionados  
-function getPositionDirection(coords) {
-    console.log(coords)
 
-    //routingControl.spliceWaypoints(0, 2); // <-- removes your rout
-    /*
-    routingControl = L.Routing.control({
-        waypoints: [
-
-            L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
-            L.latLng(e.latlng.lat, e.latlng.lng)
-
-        ],
-        show: false,
-        addWaypoints: false, //Quitamos opciones de desviaciones
-        routeWhileDragging: false,
-        draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
-        fitSelectedRoutes: false
-    }).addTo(map);
-    
-}
-*/
-/*
-function mostrarUbicacion(tipo) {
-
-    tag = document.getElementById('tag_' + tipo)
-    tag.className = 'btnclicked';
-    //Tocar esto para dejar de añadir layers
-    //tag.setAttribute("onClick", "retirarUbicacion('" + tipo + "');");
-    //console.log(tag)
-
+function empezargimcana(id_gimcana) {
+    console.log(id_gimcana)
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
-
+    formData.append('id_gimcana', id_gimcana)
+        /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    ajax.open("get", "mapa_filtros/" + tipo, true);
+    ajax.open("post", "inicializargimcana", true);
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            return respuesta;
+            console.log(respuesta)
+            localizarpuntoscontrol(respuesta[2])
+
         }
     }
     ajax.send(formData);
-    cargaContenido("mapa_filtros/" + tipo, "get", positionDirection)
 }
+empezargimcana(1)
 
-function retirarUbicacion(tipo) {
-    tag = document.getElementById('tag_' + tipo)
-        //tag.className = 'btn';
-        //tag.setAttribute("onClick", "mostrarUbicacion('" + tipo + "');");
-        //console.log(tag)
-
-    var formData = new FormData();
-    formData.append('_token', document.getElementById('token').getAttribute("content"));
-
-    var ajax = objetoAjax();
-    ajax.open("get", "mapa_filtros/" + tipo, true);
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            var respuesta = JSON.parse(this.responseText);
-            return respuesta;
-        }
+function localizarpuntoscontrol(direccionesgimcana) {
+    dentromarker = [];
+    var geocoder = L.esri.Geocoding.geocodeService();
+    for (let i = 0; i < direccionesgimcana.length; i++) {
+        console.log(direccionesgimcana[i])
+        geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
+            dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
+        });
     }
-    ajax.send(formData);
-    cargaContenido("mapa_filtros/" + tipo, "get", positionDirectionRemove)
 }
-*/

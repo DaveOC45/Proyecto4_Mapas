@@ -22,7 +22,9 @@ Route::get('/mapa', [MapaController::class, 'mapa']);
 //Ruta para elegir en que MODO jugar a la gimcana (solo o por equipos)
 Route::get('/indexgimcana', [MapaController::class, 'indexgimcana']);
 //Ruta para jugar a la gimcana
-Route::get('/gimcana', [MapaController::class, 'gimcana']);
+Route::get('/gimcana', function () {
+    return view('gimcana');
+});
 //Ruta para ser anfitrion o unirse a un equipo
 Route::get('/gimcanaequipos', [MapaController::class, 'gimcanaequipos']);
 //Ruta para crear un equipo
@@ -113,3 +115,5 @@ Route::put('modificaruser',[AdministracionController::class, 'modificarControlle
 // ruta para eliminar usuario.
 Route::delete('eliminaruser/{id}', [AdministracionController::class, 'eliminarControlleruser']);
 
+//--------------------GIMCANACONTROLLER-------------------------
+Route::post('/inicializargimcana', [GimcanaController::class, 'cogergimcana']);

@@ -82,9 +82,9 @@ class MapaController extends Controller
     public function indexgimcana(){
         return view('indexgimcana');
     }
-    public function gimcana(){
-        return view('gimcana');
-    }
+    // public function gimcana(){
+    //     return view('gimcana');
+    // }
 
     public function gimcanaequipos(){
         return view('gimcanaequipos');

@@ -44,21 +44,23 @@
     {{-- <script src="{!! asset('js/validacion.js') !!}"></script> --}}
 
     {{-- <script src="{!! asset('js/tags_mapas.js') !!}"></script> --}}
-    <script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
+    
     <script src="{!! asset('js/llamada_ajax.js') !!}"></script>
     
 
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}">
     <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
-    <title>GYMCANA</title>
+    <title>GIMCANA</title>
 
 </head>
 
 <body onload="getLocation();">
     {{-- lo de pillar la sesión en hidden es para hacer lo de favoritos --}}
     {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
+    <input type="hidden" id="error" name="tipo" value="errormio">
     <button class="boton_login" OnClick="location.href='./gimcana'">EMPEZAR</button>
     <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
+    <button class="boton_login" OnClick="location.href='./mapa'">Volver al mapa</button>
     {{-- <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
     <div id="tags"></div>
@@ -67,4 +69,5 @@
     <div id="map" style="width: 414px;height:896px;"></div>
 
 </body>
+<script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
 </html>
