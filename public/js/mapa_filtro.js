@@ -20,6 +20,7 @@ function objetoAjax() {
     return xmlhttp;
 }
 var layers_puestos = 0
+var layers_puestos_fav = 0
     /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
@@ -875,7 +876,7 @@ function positionDirection(e) {
             //L.control.layers(null, overlayMaps).addTo(map);
 
             //markerGroup.clearLayers();
-            console.log(layers_puestos + " Valor layers")
+            //console.log(layers_puestos + " Valor layers")
 
             function quitar_todo() {
                 console.log("Quita todo desde dentro")
@@ -958,7 +959,7 @@ function positionDirectionFavorita(datos) {
             markerPosition.push(L.marker(response.results[0].latlng, { icon: markerIcon }).bindPopup(markerIconPopup).addTo(markerGroup_favorito));
         });
     }
-    console.log(markerGroup_favorito)
+    //console.log(markerGroup_favorito)
 
     //var markerGroup = L.layerGroup().addTo(map);
     var overlayMaps = {};
@@ -967,7 +968,31 @@ function positionDirectionFavorita(datos) {
     overlayMaps[nombreCapa] = markerGroup_favorito
     map.addLayer(markerGroup_favorito)
 
-    L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+    //var control_favoritos = L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+    function quitar_favoritos() {
+        console.log("Quita favoritos desde dentro")
+        control_favoritos.removeLayer(markerGroup_favorito)
+        control_favoritos.remove(map);
+
+        layers_puestos_fav = 0
+    }
+
+    function anadir_favoritos() {
+        console.log("Pon favoritos desde dentro")
+        control_favoritos = L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+        layers_puestos_fav = 1
+    }
+
+    if (layers_puestos_fav == 0) {
+        console.log("Pon todo")
+            //quitar_favoritos()
+        anadir_favoritos()
+    } else {
+        console.log("Quita todo")
+        quitar_favoritos()
+        ponerFavoritos()
+    }
 
 }
 
@@ -990,6 +1015,7 @@ function anadirFav(id_user, id_ubicacion) {
                 informacion.innerHTML = "Error al añadir ubicacion"
             } else {
                 informacion.innerHTML = "Ubicación añadida a favoritos"
+                ponerFavoritos();
             }
         }
     }
@@ -1015,6 +1041,7 @@ function quitarFav(id_user, id_ubicacion) {
                 informacion.innerHTML = "Error en la eliminicación"
             } else {
                 informacion.innerHTML = "Ubicación eliminada de favoritos"
+                ponerFavoritos();
             }
         }
     }
@@ -1054,71 +1081,3 @@ function crearRuta(latitud, longitud) {
         been_routed = true;
     }
 }
-
-/* Creador de Rutas hasta los markers seleccionados  
-function getPositionDirection(coords) {
-    console.log(coords)
-
-    //routingControl.spliceWaypoints(0, 2); // <-- removes your rout
-    /*
-    routingControl = L.Routing.control({
-        waypoints: [
-
-            L.latLng(myPosition.coords.latitude, myPosition.coords.longitude),
-            L.latLng(e.latlng.lat, e.latlng.lng)
-
-        ],
-        show: false,
-        addWaypoints: false, //Quitamos opciones de desviaciones
-        routeWhileDragging: false,
-        draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
-        fitSelectedRoutes: false
-    }).addTo(map);
-    
-}
-*/
-/*
-function mostrarUbicacion(tipo) {
-
-    tag = document.getElementById('tag_' + tipo)
-    tag.className = 'btnclicked';
-    //Tocar esto para dejar de añadir layers
-    //tag.setAttribute("onClick", "retirarUbicacion('" + tipo + "');");
-    //console.log(tag)
-
-    var formData = new FormData();
-    formData.append('_token', document.getElementById('token').getAttribute("content"));
-
-    var ajax = objetoAjax();
-    ajax.open("get", "mapa_filtros/" + tipo, true);
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            var respuesta = JSON.parse(this.responseText);
-            return respuesta;
-        }
-    }
-    ajax.send(formData);
-    cargaContenido("mapa_filtros/" + tipo, "get", positionDirection)
-}
-
-function retirarUbicacion(tipo) {
-    tag = document.getElementById('tag_' + tipo)
-        //tag.className = 'btn';
-        //tag.setAttribute("onClick", "mostrarUbicacion('" + tipo + "');");
-        //console.log(tag)
-
-    var formData = new FormData();
-    formData.append('_token', document.getElementById('token').getAttribute("content"));
-
-    var ajax = objetoAjax();
-    ajax.open("get", "mapa_filtros/" + tipo, true);
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            var respuesta = JSON.parse(this.responseText);
-            return respuesta;
-        }
-    }
-    ajax.send(formData);
-    cargaContenido("mapa_filtros/" + tipo, "get", positionDirectionRemove)
-}
-*/
