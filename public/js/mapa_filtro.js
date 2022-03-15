@@ -1,4 +1,7 @@
 // Cmabiar iconos de mapa, poner un poco mejor los botones, css general y poner iconos de fontsawesome
+
+//const { over } = require("lodash");
+
 /* Objetode Ajaz*/
 function objetoAjax() {
     var xmlhttp = false;
@@ -16,8 +19,8 @@ function objetoAjax() {
     }
     return xmlhttp;
 }
-
-/* Obtenemos todas las posiciones en BBDD */
+var layers_puestos = 0
+    /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
     tag = document.getElementById('anadir_filtros')
@@ -91,6 +94,7 @@ function insertarTag() {
                 informacion.innerHTML = "Error al añadir Tag, pruebalo de nuevo más adelante"
             } else {
                 informacion.innerHTML = "Tag añadido correctamente"
+                ponerLayers();
             }
         }
     }
@@ -122,6 +126,7 @@ function eliminarTag(tag) {
                 informacion.innerHTML = "Error al eliminar Tag, pruebalo de nuevo más adelante"
             } else {
                 informacion.innerHTML = "Tag eliminado correctamente"
+                ponerLayers();
             }
         }
     }
@@ -865,13 +870,41 @@ function positionDirection(e) {
                     map.addLayer(markerGroup_6)
                 }
             }
-            L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
-
             //console.log(markerGroup)
             //var overlayMaps = { "Cities": markerGroup };
             //L.control.layers(null, overlayMaps).addTo(map);
 
             //markerGroup.clearLayers();
+            console.log(layers_puestos + " Valor layers")
+
+            function quitar_todo() {
+                console.log("Quita todo desde dentro")
+                control_capas.removeLayer(markerGroup_1)
+                control_capas.removeLayer(markerGroup_2)
+                control_capas.removeLayer(markerGroup_3)
+                control_capas.removeLayer(markerGroup_4)
+                control_capas.removeLayer(markerGroup_5)
+                control_capas.removeLayer(markerGroup_6)
+
+                control_capas.remove(map);
+
+                layers_puestos = 0
+            }
+
+            function anadir_todo() {
+                console.log("Pon todo desde dentro")
+                control_capas = L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+                layers_puestos = 1
+            }
+
+            if (layers_puestos == 0) {
+                console.log("Pon todo")
+                anadir_todo()
+            } else {
+                console.log("Quita todo")
+                quitar_todo()
+                anadir_todo()
+            }
         }
     }
 }
@@ -990,6 +1023,7 @@ function quitarFav(id_user, id_ubicacion) {
 
 var routing = '';
 var been_routed = false;
+
 
 function crearRuta(latitud, longitud) {
     var boton_ruta = document.getElementById('golito')
