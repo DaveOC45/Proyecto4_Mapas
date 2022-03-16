@@ -74,9 +74,11 @@
     </div>
   </nav>
     <input type="number" hidden id="id_user" value="<?php echo $username_logged; ?>">
-
     <div id="tags"></div>
     <div id="traduccion"></div>
-    <div class="mapa" id="map"></div>
+    <div class="mapa" id="map">
+      <button class="boton_filtro" id="ocultarmostrar" onclick="ocultar();">Ocultar</button>
+    </div>
+
 </body>
 </html>

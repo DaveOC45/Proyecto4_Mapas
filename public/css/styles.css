@@ -163,10 +163,104 @@ nav{
 textarea {
     resize: none;
 }
+.boton_filtro {
+    width: 10%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10000;
+    margin-top: 20%;
+    margin-right: 1%;
+    outline: none;
+    float:right;
+}
 
+.boton_filtro:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+.boton_enviar_mapa{
+    width: 80%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10000;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 10%;
+    outline: none;
+    float:right;
+}
+.boton_enviar_mapa:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+
+.boton_añadir_favorito{
+    width: 80%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: yellow;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10000;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 10%;
+    outline: none;
+    float:right;
+}
+.boton_añadir_favorito:hover {
+    background: yellow;
+    color: #fff !important;
+}
+.boton_crear_ruta{
+    width: 80%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: red;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10000;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 10%;
+    outline: none;
+    float:right;
+}
+.boton_crear_ruta:hover {
+    background: red;
+    color: #fff !important;
+}
+.leaflet-popup-content{
+    height: 600px;
+}
+.img_popup{
+    width: 250px;
+    height: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 /*ESTILOS DEL MAPA*/
 .body_mapa{
     overflow: hidden;
+    margin: 0;
 }
 .mapa{
     width: 100%;
@@ -798,4 +892,25 @@ textarea {
         outline: none;
     }
     /*FIN ESTILOS UNIRSE EQUIPO GIMCANA*/
+    /*ESTILOS MAPA*/
+    .boton_filtro {
+        width: 30%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        z-index: 10000;
+        margin-top: 1%;
+        margin-right: 3%;
+        outline: none;
+        float:right;
+    }
+    .leaflet-top .leaflet-control{
+        margin-top: 60px;
+    }
+    /*FIN ESTILOS MAPA*/
 }

@@ -277,12 +277,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -299,12 +299,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -363,12 +363,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -384,12 +384,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -450,12 +450,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -472,12 +472,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -536,12 +536,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -558,12 +558,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -622,12 +622,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -644,12 +644,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -707,12 +707,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -729,12 +729,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value="' + user + '">' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -794,12 +794,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -816,12 +816,12 @@ function positionDirection(e) {
                                 '<textarea name="textarea_tag" id="textarea_tag" cols="20" rows="1"></textarea><br>' +
                                 '<input type="number" hidden id="id_user" value=' + user + '>' +
                                 '<input type="number" id="id_ubicacion" value=' + datos[0][i]['id_ubicacion'] + ' hidden>' +
-                                '<input type="submit" value="Enviar">' +
+                                '<input type="submit" value="Enviar" class="boton_enviar_mapa">' +
                                 '</form>' +
                                 //Acabar insertar comentarios de la ubi
-                                '<img width=100px height=100px src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
-                                '<button onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                                '<img class="img_popup" src="storage/' + datos[0][i]['foto_ubicacion'] + '"></img><br>' +
+                                '<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[0][i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                                 '<p id="info_insercion"></p>' +
                                 '</center>'
 
@@ -947,10 +947,10 @@ function positionDirectionFavorita(datos) {
                 '<center><h3>' + datos[i]['nombre_ubicacion'] + '</h3>' +
                 '<p>' + datos[i]['direccion_ubicacion'] + '</p>' +
                 '<p>' + datos[i]['descripcion_ubicacion'] + '</p>' +
-                '<img width=100px height=100px src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
-                '<button onclick="quitarFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
-                //'<button onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
-                '<button id="golito" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta?' + '</button>' +
+                '<img class="img_popup" src="storage/' + datos[i]['foto_ubicacion'] + '"></img><br>' +
+                '<button class="boton_quitar_favorito" onclick="quitarFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Quitar de favoritos' + '</button>' +
+                //'<button class="boton_añadir_favorito" onclick="anadirFav(' + user + ',' + datos[i]['id_ubicacion'] + ')">' + 'Añadir a favoritos' + '</button>' +
+                '<button id="golito" class="boton_crear_ruta" onclick="crearRuta(' + coordenadas['lat'] + ',' + coordenadas['lng'] + ')">' + 'Crear ruta' + '</button>' +
                 '<p id="info_insercion"></p>' +
                 '</center>'
 
@@ -1082,3 +1082,17 @@ function crearRuta(latitud, longitud) {
 }
 setTimeout(() => { ponerLayers(); }, 8000);
 setTimeout(() => { ponerFavoritos(); }, 8000);
+
+function ocultar() {
+    var lc = document.getElementsByClassName('leaflet-control-layers');
+
+    if (lc[0].style.visibility == 'hidden') {
+        lc[0].style.visibility = 'visible';
+        lc[1].style.visibility = 'visible';
+        document.getElementById('ocultarmostrar').innerHTML = "Ocultar"
+    } else {
+        lc[0].style.visibility = 'hidden';
+        lc[1].style.visibility = 'hidden';
+        document.getElementById('ocultarmostrar').innerHTML = "Mostrar"
+    }
+}
