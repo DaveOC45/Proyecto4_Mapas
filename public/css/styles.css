@@ -248,6 +248,28 @@ textarea {
     background: red;
     color: #fff !important;
 }
+
+.boton_quitar_favorito{
+    width: 80%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: yellow;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10000;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 10%;
+    outline: none;
+    float:right;
+}
+.boton_quitar_favorito:hover {
+    background: yellow;
+    color: #fff !important;
+}
 .leaflet-popup-content{
     height: 600px;
 }

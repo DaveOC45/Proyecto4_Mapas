@@ -247,7 +247,7 @@ function positionDirection(e) {
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
-                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/52/52102.png',
+                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/242/242452.png',
                             iconSize: [30, 30]
 
                         });
@@ -334,7 +334,7 @@ function positionDirection(e) {
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
                             //iconUrl: 'media/icon/' + respuesta[i].path_ic,
-                            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/BSicon_MUSEUM.svg/1200px-BSicon_MUSEUM.svg.png',
+                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236981.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -419,7 +419,7 @@ function positionDirection(e) {
                         var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
-                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/5152/5152415.png',
+                            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Statue_icon.svg/1200px-Statue_icon.svg.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -505,7 +505,7 @@ function positionDirection(e) {
                         var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
-                            iconUrl: 'https://w7.pngwing.com/pngs/267/938/png-transparent-computer-icons-theatre-theater-logo-monochrome-black.png',
+                            iconUrl: 'https://icons-for-free.com/iconfiles/png/512/theatre-131979040865277936.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -591,7 +591,7 @@ function positionDirection(e) {
                         var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
-                            iconUrl: 'https://toppng.com/uploads/preview/painting-icon-art-gallery-icon-11553392499462866ojse.png',
+                            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Circle-icons-art.svg/1200px-Circle-icons-art.svg.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -676,7 +676,7 @@ function positionDirection(e) {
                         var coordenadas = response['results'][0]['latlng']
                         var markerIcon = L.icon({
                             //Fotos de la carpeta proyecto
-                            iconUrl: 'http://cdn.onlinewebfonts.com/svg/img_191941.png',
+                            iconUrl: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/other-1994947-1682690.png',
                             iconSize: [20, 20],
                             iconAnchor: [20, 20],
                             popupAnchor: [10, 10]
@@ -939,7 +939,7 @@ function positionDirectionFavorita(datos) {
                     iconSize: [30, 30],
                     //iconAnchor: [20, 20],
                     //popupAnchor: [10, 10],
-                    iconUrl: 'https://www.pngmart.com/files/6/Heart-Love-PNG-Picture.png'
+                    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Circle-icons-star.svg/1200px-Circle-icons-star.svg.png'
                 })
                 //nombre direccion descripcion opiinion opinion_user foto + add favorito
             var user = document.getElementById('id_user').value
