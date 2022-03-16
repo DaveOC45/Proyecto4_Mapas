@@ -59,6 +59,7 @@
 <?php
     $username_logged = session('id_user');
 ?>
+<button id="ocultarmostrar" onclick="ocultar();">Ocultar</button>
 <nav role="navigation">
     <div id="menuToggle">
       <input type="checkbox" />

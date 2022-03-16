@@ -24,7 +24,7 @@ var layers_puestos_fav = 0
     /* Obtenemos todas las posiciones en BBDD */
 function ponerLayers() {
 
-   
+
 
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
@@ -1080,5 +1080,22 @@ function crearRuta(latitud, longitud) {
         been_routed = true;
     }
 }
+
+function ocultar() {
+    var lc = document.getElementsByClassName('leaflet-control-layers');
+
+    if (lc[0].style.visibility == 'hidden') {
+        lc[0].style.visibility = 'visible';
+        lc[1].style.visibility = 'visible';
+        document.getElementById('ocultarmostrar').innerHTML = "Ocultar"
+    } else {
+        lc[0].style.visibility = 'hidden';
+        lc[1].style.visibility = 'hidden';
+        document.getElementById('ocultarmostrar').innerHTML = "Mostrar"
+    }
+
+
+}
+
 setTimeout(() => { ponerLayers(); }, 8000);
 setTimeout(() => { ponerFavoritos(); }, 8000);
