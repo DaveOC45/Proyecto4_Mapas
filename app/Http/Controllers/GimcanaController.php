@@ -31,4 +31,19 @@ class GimcanaController extends Controller
             return $error -> getMessage();
         }
     }
+    public function recogerpista()
+    {
+        try {
+            DB::beginTransaction();
+            //en esta variable recogemos la gimcana y el punto de control
+            $respuestacorrecta= DB::table('tbl_pregunta')->select('respuestacorrecta_pregunta')->get();
+            
+            DB::commit();
+            return $respuestacorrecta;
+            //return array( $recogerpregunta, $recogergimcana, $recogerubicacion);
+        } catch (\Exception $error) {
+            DB::rollback();
+            return $error -> getMessage();
+        }
+    }
 }

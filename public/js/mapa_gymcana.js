@@ -108,7 +108,7 @@ function crearRuta(latitud, longitud) {
 
 
 function empezargimcana(id_gimcana) {
-    console.log(id_gimcana)
+    console.log(id_gimcana + " ID giMCANA")
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('id_gimcana', id_gimcana)
@@ -118,35 +118,36 @@ function empezargimcana(id_gimcana) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
-            localizarpuntoscontrol(respuesta[2])
+            //console.log(respuesta)
+
+            var coordenadas_ptos_Control = localizarpuntoscontrol(respuesta[2])
+                // console.log(localizarpuntoscontrol(respuesta[2]))
+                // console.log(coordenadas_ptos_Control[0])
+            for (let i = 0; i < coordenadas_ptos_Control.length; i++) {
+                //console.log(coordenadas_ptos_Control[0])
+
+            }
+
 
         }
     }
     ajax.send(formData);
 }
+//empezamos gimcana
 empezargimcana(1)
 
 function localizarpuntoscontrol(direccionesgimcana) {
     //hacer tres nuevas variables con arrays
-    dentromarker = [];
-    punto1 = []
-    punto2 = []
-    punto3 = []
-    bellvitge = []
-    var geocoder = L.esri.Geocoding.geocodeService();
-    bellvitge.push(L.marker([41.3501563303171, 2.107247196659691]).addTo(map));
-    L.circle([41.3501563303171, 2.107247196659691], 800).addTo(map);
-    //catedral de bcn
-    punto1.push(L.marker([41.38400061259276, 2.176203318691683]).addTo(map));
-    //L.circle([41.38400061259276, 2.176203318691683], 70).addTo(map);
-    //el petó
-    punto2.push(L.marker([41.38536918301177, 2.1748599321377755]).addTo(map));
-    //L.circle([41.38536918301177, 2.1748599321377755], 70).addTo(map);
-    //palacio güell
-    //punto3.push(L.marker([41.37909439017869, 2.174325628748564]).addTo(map));
-    L.circle([41.37909439017869, 2.174325628748564], 70).addTo(map);
+    var ptos_control = [];
 
+    var geocoder = L.esri.Geocoding.geocodeService();
+    for (let i = 0; i < direccionesgimcana.length; i++) {
+        geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
+            //console.log(response.results[0].latlng);
+            ptos_control.push(response.results[0].latlng)
+        });
+    }
+    return ptos_control;
 
     // for (let i = 0; i < direccionesgimcana.length; i++) {
     //     console.log(direccionesgimcana[i])
@@ -174,18 +175,48 @@ function devolvercoordenadas() {
 devolvercoordenadas()
 
 
-function comprobarposicion(posicionuser, direccionesgimcana) {
+function comprobarposicion(posicionuser) {
+
     var latitude = (posicionuser.coords.latitude)
     var longitude = (posicionuser.coords.longitude)
     var distancia = map.distance([latitude, longitude], [41.3501563303171, 2.107247196659691]);
-    geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
-        dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
-        L.circle(response.results[0].latlng, 50).addTo(map);
-    });
+
+    var geocoder = L.esri.Geocoding.geocodeService();
+
+    //geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
+    //dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
+    //L.circle(response.results[0].latlng, 50).addTo(map);
+    //});
     if (distancia < 70) {
-        alert("me gustan las tetas")
+        //alert("me gustan las tetas")
     } else {
         alert("no hay TETAS")
     }
 
 }
+
+function pillarpista(id_pregunta) {
+    console.log(id_pregunta + " ID pregunta")
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('id_pregunta', id_pregunta)
+        /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "pillamosrespuesta", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta[0])
+            // console.log(localizarpuntoscontrol(respuesta[2]))
+            // console.log(coordenadas_ptos_Control[0])
+            for (let i = 0; i < respuesta.length; i++) {
+                console.log(respuesta[0])
+
+            }
+
+
+        }
+    }
+    ajax.send(formData);
+}
+pillarpista(2)
