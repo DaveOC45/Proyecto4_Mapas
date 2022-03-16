@@ -68,6 +68,8 @@
 
     <div id="map" style="width: 414px;height:896px;"></div>
 
+    <input  type="number" id="id_pregunta" name="tipo" value=0>
+
 </body>
 <script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
 </html>

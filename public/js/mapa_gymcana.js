@@ -52,8 +52,8 @@ function objetoAjax() {
 
 /* Obtener posicion en coordeandas delsuaurio mediante navegador*/
 
-
-/* Mostrar en el mapa la posición del usuario */
+id_pregunta = document.getElementById('id_pregunta').value
+    /* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
     var container = L.DomUtil.get('map');
@@ -68,47 +68,15 @@ function iniciarPosition(position) {
         iconSize: [60, 60]
     });
     usu = [position.coords.latitude, position.coords.longitude]
-    console.log(usu)
+    empezargimcana(1, usu, id_pregunta)
     var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
 
 }
 
-var routing = '';
-var been_routed = false;
-
-function crearRuta(latitud, longitud) {
-    var boton_ruta = document.getElementById('golito')
-    console.log(boton_ruta)
-    console.log(boton_ruta)
-
-    users_lat_coords = myPosition.coords.latitude;
-    users_lng_coords = myPosition.coords.longitude;
-    x = latitud;
-    y = longitud;
-
-    if (x !== '') {
-        if (been_routed === true) {
-            routing.spliceWaypoints(0, 1);
-        }
-        routing = L.Routing.control({
-            waypoints: [L.latLng(users_lat_coords, users_lng_coords), L.latLng(x, y)],
-            lineOptions: { addWaypoints: false },
-            show: false,
-            addWaypoints: false, //Quitamos opciones de desviaciones
-            routeWhileDragging: false,
-            draggableWaypoints: false, //Esto es tonteria, pero es quita los drags de rutas alternativas
-            fitSelectedRoutes: false,
-            createMarker: function() { return null; }
-
-        });
-        routing.addTo(map);
-        been_routed = true;
-    }
-}
 
 
-function empezargimcana(id_gimcana) {
-    console.log(id_gimcana)
+function empezargimcana(id_gimcana, coords_user, id_pregunta) {
+    console.log(id_gimcana + " ID giMCANA")
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('id_gimcana', id_gimcana)
@@ -118,35 +86,49 @@ function empezargimcana(id_gimcana) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta)
-            localizarpuntoscontrol(respuesta[2])
+            //console.log(respuesta)
+            var direcciones_ptos_Control = localizarpuntoscontrol(respuesta[2])
+
+            var geocoder = L.esri.Geocoding.geocodeService();
+            console.log(direcciones_ptos_Control)
+            console.log(id_pregunta)
+
+            for (let i = 0; i < direcciones_ptos_Control.length; i++) {
+
+                geocoder.geocode().text(direcciones_ptos_Control[id_pregunta]).run(function(error, response) {
+
+                    console.log(response)
+                    console.log(coords_user)
+
+                    var distancia = map.distance(coords_user, response.results[0].latlng);
+                    console.log(distancia)
+                    if (distancia < 70) {
+
+                        console.log("estoy entro")
+                    } else {
+                        console.log("estoy fuera")
+                    }
+                });
+
+
+            }
+
 
         }
     }
     ajax.send(formData);
 }
-empezargimcana(1)
+//empezamos gimcana
 
 function localizarpuntoscontrol(direccionesgimcana) {
     //hacer tres nuevas variables con arrays
-    dentromarker = [];
-    punto1 = []
-    punto2 = []
-    punto3 = []
-    bellvitge = []
-    var geocoder = L.esri.Geocoding.geocodeService();
-    bellvitge.push(L.marker([41.3501563303171, 2.107247196659691]).addTo(map));
-    L.circle([41.3501563303171, 2.107247196659691], 800).addTo(map);
-    //catedral de bcn
-    punto1.push(L.marker([41.38400061259276, 2.176203318691683]).addTo(map));
-    //L.circle([41.38400061259276, 2.176203318691683], 70).addTo(map);
-    //el petó
-    punto2.push(L.marker([41.38536918301177, 2.1748599321377755]).addTo(map));
-    //L.circle([41.38536918301177, 2.1748599321377755], 70).addTo(map);
-    //palacio güell
-    //punto3.push(L.marker([41.37909439017869, 2.174325628748564]).addTo(map));
-    L.circle([41.37909439017869, 2.174325628748564], 70).addTo(map);
+    var ptos_control = [];
 
+    ptos_control.push(direccionesgimcana[0].direccion_ubicacion)
+    ptos_control.push(direccionesgimcana[1].direccion_ubicacion)
+    ptos_control.push(direccionesgimcana[2].direccion_ubicacion)
+
+    return ptos_control;
 
     // for (let i = 0; i < direccionesgimcana.length; i++) {
     //     console.log(direccionesgimcana[i])
@@ -167,23 +149,29 @@ function posicionactualusuario() {
 }
 llamarintervalo = setInterval(posicionactualusuario, 5000);
 
-function devolvercoordenadas() {
+function devolvercoordenadas(coord_punto) {
     var coordenadas = navigator.geolocation.getCurrentPosition(comprobarposicion);
     return coordenadas;
 }
-devolvercoordenadas()
 
 
-function comprobarposicion(posicionuser, direccionesgimcana) {
+function comprobarposicion(posicionuser) {
+
     var latitude = (posicionuser.coords.latitude)
     var longitude = (posicionuser.coords.longitude)
     var distancia = map.distance([latitude, longitude], [41.3501563303171, 2.107247196659691]);
-    geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
-        dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
-        L.circle(response.results[0].latlng, 50).addTo(map);
-    });
+
+    var coordenadas = [posicionuser.coords.latitude, posicionuser.coords.longitude]
+
+
+    var geocoder = L.esri.Geocoding.geocodeService();
+
+    //geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
+    //dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
+    //L.circle(response.results[0].latlng, 50).addTo(map);
+    //});
     if (distancia < 70) {
-        alert("me gustan las tetas")
+        //alert("me gustan las tetas")
     } else {
         alert("no hay TETAS")
     }
