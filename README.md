@@ -1,64 +1,66 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# PROYECTO 4 - MAPAS
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Este proyecto trata sobre hacer una gimcana donde los usuarios puedan ir a ubicaciones de Barcelona y pasar por puntos de control. Además tienes distintos CRUD**
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Pre-requisitos 📋
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### EDITOR DE CÓDIGO-> VISUAL STUDIO CODE
+### INSTALAR XAMPP: https://www.apachefriends.org/es/index.html
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Comenzando🚀 - Instalación🔧
 
-## Learning Laravel
+Si quieres obtener nuestro proyecto sigue estos pasos:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Copiar el enlace de code en verde para seguidamente hacer un git clone dentro de htdocs en Visual Studio Code.
+2. Una vez clonado dentro de Proyecto4_Mapas ejecutamos en el terminal *composer install*
+3. Luego el env.example lo renombramos a .env 
+4. Seguidamente ejecutamos en el terminal *php artisan key:generate*
+5. Dentro del .env donde pone **DB_DATABASE** ponemos el nombre de la base de datos.
+6. Insertar la base de datos al phpmyadmin con las credenciales correctas en tu caso.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Acceso login
 
-## Laravel Sponsors
+```
+               ADMINS
+     CORREO       |  CONTRASEÑA
+-----------------------
+gerard@gomez.com   |     1234  
+david@alvarez.com   |     1234 
+david@ortega.com   |     1234 
+```
+```
+         usuarios de prueba
+     CORREO       |  CONTRASEÑA
+-----------------------
+prueba1@prueba1.com   |     1234  
+prueba2@prueba2.com   |     1234 
+prueba3@prueba3.com   |     1234 
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Construido con 🛠️
 
-### Premium Partners
+    PHP 
+    LARAVEL
+    AJAX
+    JAVASCRIPT
+    MYSQL
+    CSS
+    LEAFLET
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Autores ✒️
 
-## Contributing
+    Gerard Gómez Monterroso   -   Estudiante DAW2
+    David Ortega Colomo   -   Estudiante DAW2
+    David Álvarez Rodríguez   -   Estudiante DAW2
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Agradecimientos 🍺
 
-## Code of Conduct
+    Gracias a los profesores por ayudarnos a desarrollar la tarea cuando estábamos colapsados.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Contacto 📧     
+  ```  
+                                                                                            Gerard Gómez Monterroso   -   100007217.joan23@fje.edu
+    Si te ha quedado alguna duda sobre el proyecto no dudes en contactarnos por correo ->   David Ortega Colomo   -   100006394.joan23@fje.edu
+                                                                                            David Álvarez Rodríguez   -   6694.joan23@fje.edu
+  ```  
