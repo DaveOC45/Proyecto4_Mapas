@@ -31,6 +31,12 @@ var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
     accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
 }).addTo(map);
 
+var florentino = L.icon({
+    iconUrl: 'http://assets.stickpng.com/images/5c41d5a7e39d5d01c21da92a.png',
+    iconSize: [40, 40]
+});
+
+var marker = L.marker({ draggable: false, autoPan: false, icon: florentino }).setLatLng([41.38126114705645, 2.173033795865501]).addTo(map);
 
 
 function objetoAjax() {
@@ -56,27 +62,24 @@ id_pregunta = document.getElementById('id_pregunta').value
     /* Mostrar en el mapa la posición del usuario */
 function iniciarPosition(position) {
     myPosition = position;
-    var container = L.DomUtil.get('map');
-    if (container != null) {
-        container._leaflet_id = null;
 
-        //Añadimos un poligono con nuestra zona de juego
 
-    }
-    var florentino = L.icon({
-        iconUrl: 'http://assets.stickpng.com/images/5c41d5a7e39d5d01c21da92a.png',
-        iconSize: [60, 60]
-    });
-    usu = [position.coords.latitude, position.coords.longitude]
-    empezargimcana(1, usu, id_pregunta)
-    var marker = L.marker([position.coords.latitude, position.coords.longitude], { draggable: false, autoPan: false, icon: florentino }).addTo(map);
+    coordenadas_usuario = [position.coords.latitude, position.coords.longitude]
 
+    //Llamar a la comprobacion
+    var id_gimcana = 1
+    empezargimcana(id_gimcana, coordenadas_usuario, id_pregunta)
+
+    //var marker = L.marker({ draggable: false, autoPan: false, icon: florentino }).setLatLng([position.coords.latitude, position.coords.longitude]).addTo(map);
+    marker.setLatLng([position.coords.latitude, position.coords.longitude]);
 }
 
+function empezargimcana(id_gimcana, coords_user, punto_control) {
+    //console.log(id_gimcana + " ID giMCANA")
 
+    resultado_actual = document.getElementById('resultado_actual')
+    boton_pasar_nivel = document.getElementById('pasar_punto_control')
 
-function empezargimcana(id_gimcana, coords_user, id_pregunta) {
-    console.log(id_gimcana + " ID giMCANA")
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('id_gimcana', id_gimcana)
@@ -91,29 +94,34 @@ function empezargimcana(id_gimcana, coords_user, id_pregunta) {
 
             var geocoder = L.esri.Geocoding.geocodeService();
             console.log(direcciones_ptos_Control)
-            console.log(id_pregunta)
+            console.log(punto_control)
+
+            if (punto_control == 3) {
+                alert("Ya has acabo la gimcana, prueba la siguiente")
+                window.location.replace("http://localhost:8000/indexgimcana");
+            }
 
             for (let i = 0; i < direcciones_ptos_Control.length; i++) {
 
-                geocoder.geocode().text(direcciones_ptos_Control[id_pregunta]).run(function(error, response) {
+                geocoder.geocode().text(direcciones_ptos_Control[punto_control]).run(function(error, response) {
 
-                    console.log(response)
-                    console.log(coords_user)
+                    console.log(response.results[0].latlng)
+                        //console.log(coords_user)
 
                     var distancia = map.distance(coords_user, response.results[0].latlng);
-                    console.log(distancia)
+                    //console.log(distancia + " metros hasta el objetivo")
                     if (distancia < 70) {
-
                         console.log("estoy entro")
+                        resultado_actual.innerHTML = "Estas dentro del punto de control Nº " + (punto_control + 1)
+                        boton_pasar_nivel.removeAttribute("hidden");
+                        boton_pasar_nivel.onclick = function() { id_pregunta++ };
                     } else {
                         console.log("estoy fuera")
+                        resultado_actual.innerHTML = "Estas fuera del punto de control Nº " + (punto_control + 1)
+                        boton_pasar_nivel.setAttribute("hidden", true);
                     }
                 });
-
-
             }
-
-
         }
     }
     ajax.send(formData);
@@ -129,14 +137,6 @@ function localizarpuntoscontrol(direccionesgimcana) {
     ptos_control.push(direccionesgimcana[2].direccion_ubicacion)
 
     return ptos_control;
-
-    // for (let i = 0; i < direccionesgimcana.length; i++) {
-    //     console.log(direccionesgimcana[i])
-    //     geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
-    //         dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
-    //         L.circle(response.results[0].latlng, 50).addTo(map);
-    //     });
-    // }
 }
 
 function posicionactualusuario() {
@@ -148,32 +148,3 @@ function posicionactualusuario() {
 
 }
 llamarintervalo = setInterval(posicionactualusuario, 5000);
-
-function devolvercoordenadas(coord_punto) {
-    var coordenadas = navigator.geolocation.getCurrentPosition(comprobarposicion);
-    return coordenadas;
-}
-
-
-function comprobarposicion(posicionuser) {
-
-    var latitude = (posicionuser.coords.latitude)
-    var longitude = (posicionuser.coords.longitude)
-    var distancia = map.distance([latitude, longitude], [41.3501563303171, 2.107247196659691]);
-
-    var coordenadas = [posicionuser.coords.latitude, posicionuser.coords.longitude]
-
-
-    var geocoder = L.esri.Geocoding.geocodeService();
-
-    //geocoder.geocode().text(direccionesgimcana[i].direccion_ubicacion).run(function(error, response) {
-    //dentromarker.push(L.marker(response.results[0].latlng).addTo(map));
-    //L.circle(response.results[0].latlng, 50).addTo(map);
-    //});
-    if (distancia < 70) {
-        //alert("me gustan las tetas")
-    } else {
-        alert("no hay TETAS")
-    }
-
-}
