@@ -3,12 +3,13 @@
         //Si la session no esta definida te redirige al login.
         return redirect()->to('/')->send();
     ?>
-@endif
+@endif 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Enlace a API para hacer el CSS de los Mapas  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
@@ -41,39 +42,43 @@
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     
     <!-- JS PROPIOS -->
-    {{-- <script src="{!! asset('js/validacion.js') !!}"></script> --}}
+    <script src="{!! asset('js/validacion.js') !!}"></script>
 
-    {{-- <script src="{!! asset('js/tags_mapas.js') !!}"></script> --}}
-    
+    <script src="{!! asset('js/tags_mapas.js') !!}"></script>
+    <script src="{!! asset('js/mapa_filtro.js') !!}"></script>
     <script src="{!! asset('js/llamada_ajax.js') !!}"></script>
     
 
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
-    <title>GIMCANA</title>
+    <title>Agenda Churrerías</title>
 
 </head>
 
-<body>
-    {{-- lo de pillar la sesión en hidden es para hacer lo de favoritos --}}
-    {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
-    <input hidden type="number" id="id_pregunta" name="tipo" value=0>
-    <input type="hidden" id="error" name="tipo" value="errormio">
-    <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
-    <button class="boton_login" OnClick="location.href='./mapa'">Volver al mapa</button>
-    <p id="pista"></p>
-    <button onclick=mostrarsolucion(id_pregunta)>Mostrar solución</button>
-    <p id="solucion"></p>
-    {{-- <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
-    <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
+<body class="body_mapa" onload="getLocation(); obtenerTagsBBDD();">
+<?php
+    $username_logged = session('id_user');
+?>
+<nav role="navigation">
+    <div id="menuToggle">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu">
+        <h2>Mapping BCN ®</h2>
+        <img class="icono" src="storage/uploads/logonegro.png">
+        <a href="./indexgimcana"><li>¡Juega a nuestra Gymkhana!</li></a>
+        <a href="./logout"><li>Logout</li></a>
+      </ul>
+    </div>
+  </nav>
+    <input type="number" hidden id="id_user" value="<?php echo $username_logged; ?>">
     <div id="tags"></div>
     <div id="traduccion"></div>
-    <div id="map" style="width: 414px;height:896px;"></div>
-
-    
-    <p id="resultado_actual">Aqui verás si estás fuera del punto de control</p>
-    <button hidden id="pasar_punto_control">Pasar de punto de control</button>
+    <div class="mapa" id="map">
+      <button class="boton_filtro" id="ocultarmostrar" onclick="ocultar();">Ocultar</button>
+    </div>
 
 </body>
-<script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
 </html>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Gimcana;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\storage;
+use Illuminate\Support\Facades\DB;
+
 
 class GimcanaController extends Controller
 {
@@ -12,74 +15,35 @@ class GimcanaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function cogergimcana()
     {
-        //
+        try {
+            DB::beginTransaction();
+            //en esta variable recogemos la gimcana y el punto de control
+            $recogergimcana=DB::table("tbl_puntocontrol")->join('tbl_gimcana', 'tbl_puntocontrol.id_gimcana', '=', 'tbl_gimcana.id_gimcana')->select('*')->get();
+            $recogerpregunta= DB::table('tbl_pregunta')->select('*')->get();
+            $recogerubicacion=DB::table("tbl_puntocontrol")->join('tbl_ubicacion', 'tbl_puntocontrol.id_ubicacion', '=', 'tbl_ubicacion.id_ubicacion')->select('nombre_ubicacion', 'descripcion_ubicacion', 'direccion_ubicacion', 'foto_ubicacion')->get();
+            
+            DB::commit();
+            return array( $recogerpregunta, $recogergimcana, $recogerubicacion);
+        } catch (\Exception $error) {
+            DB::rollback();
+            return $error -> getMessage();
+        }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function recogerpista()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Gimcana  $gimcana
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gimcana $gimcana)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Gimcana  $gimcana
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gimcana $gimcana)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gimcana  $gimcana
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Gimcana $gimcana)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Gimcana  $gimcana
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Gimcana $gimcana)
-    {
-        //
+        try {
+            DB::beginTransaction();
+            //en esta variable recogemos la gimcana y el punto de control
+            $respuestacorrecta= DB::table('tbl_pregunta')->select('respuestacorrecta_pregunta', 'question_pregunta')->get();
+            
+            DB::commit();
+            return $respuestacorrecta;
+            //return array( $recogerpregunta, $recogergimcana, $recogerubicacion);
+        } catch (\Exception $error) {
+            DB::rollback();
+            return $error -> getMessage();
+        }
     }
 }
