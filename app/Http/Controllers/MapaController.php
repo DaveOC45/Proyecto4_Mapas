@@ -59,16 +59,18 @@ class MapaController extends Controller
         $datos = $request->except('_token');
         /*validación registro de usuarios*/
         $request->validate([
-            'correo_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:100',
+            'nombre_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:40',
+            'apellido_usuario'=>'required|unique:tbl_usuario,correo_usuario|string|max:40',
+            'correo_usuario'=>'required|unique:tbl_usuario,correo_usuario|email',
             'password_usuario'=>'required|string|min:8|max:100',
-            'password_usuario_validar'=>'required|same:password'
+            'password_usuario_validar'=>'required|same:password_usuario'
         ]);
         try{
             DB::beginTransaction();
             /*insertar datos en la base de datos*/
-            DB::table('tbl_usuario')->insertGetId(["correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>md5($datos['password_usuario']),"id_rol"=>$datos['id_rol']]);
+            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"apellido_usuario"=>$datos['apellido_usuario'],"correo_usuario"=>$datos['correo_usuario'],"password_usuario"=>md5($datos['password_usuario']),"id_rol"=>$datos['id_rol']]);
             DB::commit();
-            return redirect('login');
+            return redirect('/');
         }catch(\Exception $e){
             DB::rollBack();
             return $e->getMessage();
@@ -124,7 +126,6 @@ class MapaController extends Controller
     
     public function unirequipoPOST(Request $request){
         $datos= $request->except('_token','_method','register');
-        /*validación de login*/
         $request->validate([
             'nombreequipo'=>'required|string|max:100',
             'codigo'=>'required'

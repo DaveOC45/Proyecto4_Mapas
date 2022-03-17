@@ -70,7 +70,7 @@ function leerJS() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             var recarga = '';
-            recarga += '<tr><td>ID</td><td>NOMBRE</td><td>DESCRIPCION</td><td>DIRECCION</td><td>FOTO</td><td>TIPO</td><td>ELIMINAR</td><td>MODIFICAR</td></tr>';
+            recarga += '<tr><td><b>ID</b></td><td><b>NOMBRE</b></td><td><b>DESCRIPCION</b></td><td><b>DIRECCION</b></td><td><b>FOTO</b></td><td><b>TIPO</b></td><td><b>MODIFICAR</b></td><td><b>ELIMINAR</b></td></tr>';
             /* Leerá la respuesta que es devuelta por el controlador: */
             for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';
@@ -80,8 +80,8 @@ function leerJS() {
                 recarga += '<td>' + respuesta[i].direccion_ubicacion + '</td>'
                 recarga += '<td><img src="storage/' + respuesta[i].foto_ubicacion + '" style="width:15px;"></td>'
                 recarga += '<td>' + respuesta[i].nombre_tipo + '</td>'
-                recarga += '<td><button onclick="eliminarJS(' + respuesta[i].id_ubicacion + ')">Eliminar</button></td>'
-                recarga += '<td><button type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_ubicacion + ',\'' + respuesta[i].nombre_ubicacion + '\',\'' + respuesta[i].descripcion_ubicacion + '\',\'' + respuesta[i].direccion_ubicacion + '\',\'' + respuesta[i].foto_ubicacion + '\');return false;">Modificar</button></td>'
+                recarga += '<td><button class="boton_modificar" type="submit" value="Modificar" onclick="abrirModal(' + respuesta[i].id_ubicacion + ',\'' + respuesta[i].nombre_ubicacion + '\',\'' + respuesta[i].descripcion_ubicacion + '\',\'' + respuesta[i].direccion_ubicacion + '\',\'' + respuesta[i].foto_ubicacion + '\');return false;">Modificar</button></td>'
+                recarga += '<td><button class="boton_eliminar" onclick="eliminarJS(' + respuesta[i].id_ubicacion + ')">Eliminar</button></td>'
                 recarga += '</tr>';
 
             }
@@ -121,10 +121,48 @@ function leertipo() {
 }
 /* Función implementada con AJAX que inserta un archivo */
 function insertarJS() {
-    /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
-    /* Usar el objeto FormData para guardar los parámetros que se enviarán:
-       formData.append('clave', valor);
-       valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
+    let nombre = document.getElementById('nombre_ubicacion').value;
+    let descripcion = document.getElementById('descripcion_ubicacion').value;
+    let direccion = document.getElementById('direccion_ubicacion').value;
+    let foto = document.getElementById('foto_ubicacion').value;
+
+    
+    if (nombre == '' || descripcion == '' || direccion == '') {
+        swal.fire({
+            title: "Error",
+            text: "Tienes que rellenar todos los datos",
+            icon: "error",
+        });
+        return false;
+    }else if (foto=="") {
+        swal.fire({
+            title: "Error",
+            text: "Debes meter una foto",
+            icon: "error",
+        });
+        return false;
+    }else if (nombre.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El nombre no puede ser mas grande de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (descripcion.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "La descripcion no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (direccion.length > 500) {
+        swal.fire({
+            title: "Error",
+            text: "El apellido no puede tener mas de 500 caracteres",
+            icon: "error",
+        });
+        return false;
+    }
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('nombre_ubicacion', document.getElementById('nombre_ubicacion').value);
@@ -189,10 +227,41 @@ function eliminarJS(id) {
 }
 //EDITAR
 function editarJS() {
-    /* Si hace falta obtenemos el elemento HTML donde introduciremos la recarga (datos o mensajes) */
-    /* Usar el objeto FormData para guardar los parámetros que se enviarán:
-       formData.append('clave', valor);
-       valor = elemento/s que se pasarán como parámetros: token, method, inputs... */
+    let nombre = document.getElementById('modnombre').value;
+    let descripcion = document.getElementById('moddescripcion').value;
+    let direccion = document.getElementById('moddireccion').value;
+    let foto = document.getElementById('modfoto').value;
+
+    
+    if (nombre == '' || descripcion == '' || direccion == '') {
+        swal.fire({
+            title: "Error",
+            text: "Tienes que rellenar todos los datos",
+            icon: "error",
+        });
+        return false;
+    }else if (nombre.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "El nombre no puede ser mas grande de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (descripcion.length > 50) {
+        swal.fire({
+            title: "Error",
+            text: "La descripcion no puede tener mas de 50 caracteres",
+            icon: "error",
+        });
+        return false;
+    }else if (direccion.length > 500) {
+        swal.fire({
+            title: "Error",
+            text: "El apellido no puede tener mas de 500 caracteres",
+            icon: "error",
+        });
+        return false;
+    }
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('_method', "PUT");
