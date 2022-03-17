@@ -88,9 +88,9 @@ function insertarTag() {
             var respuesta = JSON.parse(this.responseText);
             informacion = document.getElementById('info_insercion')
             if (respuesta['Resultado'] == 'NOK') {
-                informacion.innerHTML = "Error al añadir Tag, pruebalo de nuevo más adelante"
+                informacion.innerHTML = "Error"
             } else {
-                informacion.innerHTML = "Tag añadido correctamente"
+                informacion.innerHTML = "Tag añadido"
                 ponerLayers();
             }
         }
@@ -235,7 +235,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -323,7 +323,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -410,7 +410,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -496,7 +496,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -582,7 +582,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -667,7 +667,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
@@ -752,7 +752,7 @@ function positionDirection(e) {
                             if (datos[0][i]['id_ubicacion'] == datos[2][k]['id_ubicacion']) {
                                 if (user == datos[2][k]['id_usuario']) {
 
-                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>X</button><br>"
+                                    tags += "<p id=" + datos[2][k]['id_tags'] + ">" + datos[2][k]['nombre_tags'] + "<button class='boton_eliminar_mapa' onclick='eliminarTag(" + datos[2][k]['id_tags'] + "); return false;'>x</button><br>"
 
                                 }
                             }
