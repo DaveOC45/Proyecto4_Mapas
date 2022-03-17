@@ -36,7 +36,7 @@ class GimcanaController extends Controller
         try {
             DB::beginTransaction();
             //en esta variable recogemos la gimcana y el punto de control
-            $respuestacorrecta= DB::table('tbl_pregunta')->select('respuestacorrecta_pregunta')->get();
+            $respuestacorrecta= DB::table('tbl_pregunta')->select('respuestacorrecta_pregunta', 'question_pregunta')->get();
             
             DB::commit();
             return $respuestacorrecta;

@@ -62,12 +62,13 @@
     <button class="boton_login" OnClick="location.href='./gimcana'">EMPEZAR</button>
     <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
     <button class="boton_login" OnClick="location.href='./mapa'">Volver al mapa</button>
+    <p id="pista"></p>
+    <button onclick=mostrarsolucion(id_pregunta)>Mostrar solución</button>
+    <p id="solucion"></p>
     {{-- <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
     <div id="tags"></div>
     <div id="traduccion"></div>
-    <input type="hidden" id="id_pregunta" name="tipo" value=1>
-
     <div id="map" style="width: 414px;height:896px;"></div>
 
     

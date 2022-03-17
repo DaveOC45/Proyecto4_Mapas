@@ -115,10 +115,15 @@ function empezargimcana(id_gimcana, coords_user, punto_control) {
                     var distancia = map.distance(coords_user, response.results[0].latlng);
                     //console.log(distancia + " metros hasta el objetivo")
                     if (distancia < 70) {
-                        console.log("estoy entro")
+                        console.log("estoy dentro")
                         resultado_actual.innerHTML = "Estas dentro del punto de control Nº " + (punto_control + 1)
                         boton_pasar_nivel.removeAttribute("hidden");
-                        boton_pasar_nivel.onclick = function() { id_pregunta++ };
+                        boton_pasar_nivel.onclick = function() {
+                            id_pregunta++;
+                            pillarpista(id_pregunta)
+                            document.getElementById('solucion').innerHTML = ("")
+                        };
+
                     } else {
                         console.log("estoy fuera")
                         resultado_actual.innerHTML = "Estas fuera del punto de control Nº " + (punto_control + 1)
@@ -157,7 +162,9 @@ function posicionactualusuario() {
 
 
 function pillarpista(id_pregunta) {
-    console.log(id_pregunta + " ID pregunta")
+    var pista = document.getElementById("pista")
+        // console.log(pista)
+        // console.log(id_pregunta + " ID pregunta")
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('id_pregunta', id_pregunta)
@@ -170,16 +177,42 @@ function pillarpista(id_pregunta) {
             //console.log(respuesta[0])
             // console.log(localizarpuntoscontrol(respuesta[2]))
             // console.log(coordenadas_ptos_Control[0])
-            for (let i = 0; i < respuesta.length; i++) {
-                console.log(respuesta[0])
+            pista.innerHTML = respuesta[id_pregunta].question_pregunta
+                //console.log(respuesta[id_pregunta].question_pregunta)
 
-            }
 
 
         }
     }
     ajax.send(formData);
 }
-pillarpista(2)
+pillarpista(id_pregunta)
+
+function mostrarsolucion(id_pregunta) {
+    var solucion = document.getElementById("solucion")
+        // console.log(pista)
+        // console.log(id_pregunta + " ID pregunta")
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('id_pregunta', id_pregunta)
+        /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "pillamosrespuesta", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta[0])
+            // console.log(localizarpuntoscontrol(respuesta[2]))
+            // console.log(coordenadas_ptos_Control[0])
+            solucion.innerHTML = respuesta[id_pregunta].respuestacorrecta_pregunta
+                //console.log(respuesta[id_pregunta].question_pregunta)
+
+
+
+        }
+    }
+    ajax.send(formData);
+}
 
 llamarintervalo = setInterval(posicionactualusuario, 5000);
+llamarpista = setInterval(pillarpista(id_pregunta), 1000);
