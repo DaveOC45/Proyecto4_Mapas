@@ -300,6 +300,56 @@ textarea {
     background: red;
     color: #fff !important;
 }
+
+.contenido_pistas{
+    margin-bottom: 2%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding-top:8%;
+    padding-bottom: 2%;
+
+}
+.boton_solucion {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_solucion:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+.boton_punto_control {
+    width: 40%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: red;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_punto_control:hover {
+    background: red;
+    color: #fff !important;
+}
 /*ESTILOS DEL MAPA*/
 .body_mapa{
     overflow: hidden;
@@ -956,4 +1006,45 @@ textarea {
         margin-top: 60px;
     }
     /*FIN ESTILOS MAPA*/
+    /*ESTILOS GIMCANA*/
+    .boton_solucion {
+        width: 90%;
+        height: 50px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    .boton_punto_control {
+        width: 90%;
+        height: 50px;
+        border-radius: 7px;
+        border-color: red;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    .contenido_pistas{
+        margin-bottom: 2%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        padding-top:16%;
+        padding-bottom: 2%;
+    
+    }
+    /*FIN ESTILOS GIMCANA*/
 }
