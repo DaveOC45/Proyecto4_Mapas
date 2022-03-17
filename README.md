@@ -18,6 +18,7 @@ Si quieres obtener nuestro proyecto sigue estos pasos:
 4. Seguidamente ejecutamos en el terminal *php artisan key:generate*
 5. Dentro del .env donde pone **DB_DATABASE** ponemos el nombre de la base de datos.
 6. Insertar la base de datos al phpmyadmin con las credenciales correctas en tu caso.
+(LA BASE DE DATOS ESTÁ EN EL DIRECTORIO DATABASE)
 
 ### Acceso login
 
