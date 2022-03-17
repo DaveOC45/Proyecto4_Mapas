@@ -57,6 +57,7 @@
 <body>
     {{-- lo de pillar la sesión en hidden es para hacer lo de favoritos --}}
     {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
+    <input hidden type="number" id="id_pregunta" name="tipo" value=0>
     <input type="hidden" id="error" name="tipo" value="errormio">
     <button class="boton_login" OnClick="location.href='./gimcana'">EMPEZAR</button>
     <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
@@ -68,6 +69,10 @@
     <input type="hidden" id="id_pregunta" name="tipo" value=1>
 
     <div id="map" style="width: 414px;height:896px;"></div>
+
+    
+    <p id="resultado_actual">Aqui verás si estás fuera del punto de control</p>
+    <button hidden id="pasar_punto_control">Pasar de punto de control</button>
 
 </body>
 <script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
