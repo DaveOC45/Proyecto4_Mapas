@@ -68,7 +68,7 @@
       <ul id="menu">
         <h2>Mapping BCN ®</h2>
         <img class="icono" src="storage/uploads/logonegro.png">
-        <a href="./gimcana"><li>¡Juega a nuestra Gymkhana!</li></a>
+        <a href="./indexgimcana"><li>¡Juega a nuestra Gymkhana!</li></a>
         <a href="./logout"><li>Logout</li></a>
       </ul>
     </div>

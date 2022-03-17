@@ -59,7 +59,6 @@
     {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
     <input hidden type="number" id="id_pregunta" name="tipo" value=0>
     <input type="hidden" id="error" name="tipo" value="errormio">
-    <button class="boton_login" OnClick="location.href='./gimcana'">EMPEZAR</button>
     <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
     <button class="boton_login" OnClick="location.href='./mapa'">Volver al mapa</button>
     <p id="pista"></p>
