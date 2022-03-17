@@ -48,7 +48,7 @@
     <script src="{!! asset('js/llamada_ajax.js') !!}"></script>
     
 
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <meta name="csrf-token" content="{{ csrf_token() }}" id="token">
     <title>GIMCANA</title>
 
@@ -59,20 +59,36 @@
     {{-- <input type="number" id="id_user" value="{{Session::get('id_user')}}" hidden> --}}
     <input hidden type="number" id="id_pregunta" name="tipo" value=0>
     <input type="hidden" id="error" name="tipo" value="errormio">
-    <button class="boton_login" OnClick="location.href='./logout'">Logout</button>
-    <button class="boton_login" OnClick="location.href='./mapa'">Volver al mapa</button>
-    <p id="pista"></p>
-    <button onclick=mostrarsolucion(id_pregunta)>Mostrar solución</button>
-    <p id="solucion"></p>
-    {{-- <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
-    <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
-    <div id="tags"></div>
-    <div id="traduccion"></div>
-    <div id="map" style="width: 414px;height:896px;"></div>
+    <nav role="navigation">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <h2>Mapping BCN ®</h2>
+            <img class="icono" src="storage/uploads/logonegro.png">
+            <a href="./mapa"><li>Volver al mapa</li></a>
+            <a href="./logout"><li>Logout</li></a>
+          </ul>
+        </div>
+      </nav>
+    <center>
+    <div class="contenido_pistas">
+        <h1 id="pista"></h1>
+        <button class="boton_solucion" onclick=mostrarsolucion(id_pregunta)>Mostrar solución</button>
+        <h1 id="solucion"></h1>
+        {{-- <button class="btn" id="anadir_filtros"  onclick="ponerLayers();">Añadir filtros por capas/grupo</button>
+        <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
+        <div id="tags"></div>
+        <div id="traduccion"></div>
+        <h2 id="resultado_actual">Aqui verás si estás fuera del punto de control</h2>
+        <button class="boton_punto_control" hidden id="pasar_punto_control">Pasar de punto de control</button>
+    </div>
+    <div class="mapa" id="map"></div>
 
     
-    <p id="resultado_actual">Aqui verás si estás fuera del punto de control</p>
-    <button hidden id="pasar_punto_control">Pasar de punto de control</button>
+    
 
 </body>
 <script src="{!! asset('js/mapa_gymcana.js') !!}"></script>
