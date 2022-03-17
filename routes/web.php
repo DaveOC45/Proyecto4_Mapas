@@ -117,3 +117,4 @@ Route::delete('eliminaruser/{id}', [AdministracionController::class, 'eliminarCo
 
 //--------------------GIMCANACONTROLLER-------------------------
 Route::post('/inicializargimcana', [GimcanaController::class, 'cogergimcana']);
+Route::post('/pillamosrespuesta', [GimcanaController::class, 'recogerpista']);

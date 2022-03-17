@@ -80,6 +80,9 @@ function empezargimcana(id_gimcana, coords_user, punto_control) {
     resultado_actual = document.getElementById('resultado_actual')
     boton_pasar_nivel = document.getElementById('pasar_punto_control')
 
+
+    console.log(id_gimcana + " ID giMCANA")
+
     var formData = new FormData();
     formData.append('_token', document.getElementById('token').getAttribute("content"));
     formData.append('id_gimcana', id_gimcana)
@@ -90,6 +93,7 @@ function empezargimcana(id_gimcana, coords_user, punto_control) {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var respuesta = JSON.parse(this.responseText);
             //console.log(respuesta)
+
             var direcciones_ptos_Control = localizarpuntoscontrol(respuesta[2])
 
             var geocoder = L.esri.Geocoding.geocodeService();
@@ -122,15 +126,18 @@ function empezargimcana(id_gimcana, coords_user, punto_control) {
                     }
                 });
             }
+
         }
     }
     ajax.send(formData);
 }
 //empezamos gimcana
 
+
 function localizarpuntoscontrol(direccionesgimcana) {
     //hacer tres nuevas variables con arrays
     var ptos_control = [];
+
 
     ptos_control.push(direccionesgimcana[0].direccion_ubicacion)
     ptos_control.push(direccionesgimcana[1].direccion_ubicacion)
@@ -147,4 +154,32 @@ function posicionactualusuario() {
     }
 
 }
+
+
+function pillarpista(id_pregunta) {
+    console.log(id_pregunta + " ID pregunta")
+    var formData = new FormData();
+    formData.append('_token', document.getElementById('token').getAttribute("content"));
+    formData.append('id_pregunta', id_pregunta)
+        /* Inicializar un objeto AJAX */
+    var ajax = objetoAjax();
+    ajax.open("post", "pillamosrespuesta", true);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            //console.log(respuesta[0])
+            // console.log(localizarpuntoscontrol(respuesta[2]))
+            // console.log(coordenadas_ptos_Control[0])
+            for (let i = 0; i < respuesta.length; i++) {
+                console.log(respuesta[0])
+
+            }
+
+
+        }
+    }
+    ajax.send(formData);
+}
+pillarpista(2)
+
 llamarintervalo = setInterval(posicionactualusuario, 5000);

@@ -66,6 +66,7 @@
     <button class="btn" id="anadir_favoritos" onclick="ponerFavoritos();">Añadir filtro favoritos</button> --}}
     <div id="tags"></div>
     <div id="traduccion"></div>
+    <input type="hidden" id="id_pregunta" name="tipo" value=1>
 
     <div id="map" style="width: 414px;height:896px;"></div>
 
